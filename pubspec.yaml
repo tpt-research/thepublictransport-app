@@ -23,6 +23,8 @@ dependencies:
   google_maps_flutter: ^0.2.0
   desiredrive_api_flutter:
     path: ./desiredrive_api_flutter
+  trustdatabase_flutter_api:
+    path: ./trustdatabase_flutter_api
 
 dev_dependencies:
   flutter_test:
