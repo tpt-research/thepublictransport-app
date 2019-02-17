@@ -21,6 +21,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   fancy_bottom_navigation: ^0.3.2
   google_maps_flutter: ^0.2.0
+  desiredrive_api_flutter:
+    path: ./desiredrive_api_flutter
 
 dev_dependencies:
   flutter_test:
