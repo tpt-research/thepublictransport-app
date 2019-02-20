@@ -3,6 +3,7 @@ import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:thepublictransport_app/pages/search.dart';
 import 'package:thepublictransport_app/pages/nearby.dart';
 import 'package:thepublictransport_app/pages/settings.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,6 +11,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.white.withAlpha(30)
+    ));
     return MaterialApp(
       title: 'The Public Transport',
       theme: ThemeData(
