@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:desiredrive_api_flutter/service/deutschebahn_triprequest.dart';
 
 class NearbyWidget extends StatefulWidget {
   @override

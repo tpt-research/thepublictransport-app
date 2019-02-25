@@ -7,6 +7,7 @@ class SearchWidget extends StatefulWidget {
 }
 
 class SearchWidgetState extends State<SearchWidget> {
+
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.white,
@@ -176,7 +177,8 @@ class SearchWidgetState extends State<SearchWidget> {
                           child: new FloatingActionButton(
                             elevation: 0,
                             backgroundColor: Colors.black,
-                            onPressed: () {},
+                            onPressed: () {
+                            },
                             child: Icon(const IconData(0xe52e, fontFamily: 'MaterialIcons')),
                           ),
                         )

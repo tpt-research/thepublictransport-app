@@ -25,6 +25,7 @@ dependencies:
     path: ./desiredrive_api_flutter
   trustdatabase_flutter_api:
     path: ./trustdatabase_flutter_api
+  http: ^0.12.0+1
 
 dev_dependencies:
   flutter_test:
