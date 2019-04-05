@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:desiredrive_api_flutter/service/geocode.dart';
+import 'package:thepublictransport_app/framework/permission/permission.dart';
+import 'package:thepublictransport_app/framework/permission/permissionconstants.dart';
+
 
 class MapsWidget extends StatefulWidget {
   @override
@@ -11,6 +14,7 @@ class MapsWidget extends StatefulWidget {
 
 class MapsWidgetState extends State<MapsWidget> {
   DesireDriveGeocode geocode = new DesireDriveGeocode();
+  PermissionFramework permission = new PermissionFramework();
 
   GoogleMapController mapController;
 
@@ -33,21 +37,36 @@ class MapsWidgetState extends State<MapsWidget> {
 
   void _onMapCreated(GoogleMapController controller) {
     setState(() { mapController = controller; });
-    _mapUpdate(geocode);
+    
+    permission.checkPermission(PermissionConstants.LocationPermission).then((res) {
+      if (permission.resolvePermission(res)) {
+        StreamSubscription periodicSub;
 
-    StreamSubscription periodicSub;
+        try {
+          periodicSub = new Stream.periodic(const Duration(milliseconds: 500))
+              .listen((_) => _mapUpdate(geocode));
 
-    periodicSub = new Stream.periodic(const Duration(milliseconds: 500))
-        .listen((_) => _mapUpdate(geocode));
+          if (periodicSub == null)
+            throw NullThrownError();
+        } catch (exception) {
+          periodicSub.cancel();
+          print(exception);
+        }
+      }
+    });
   }
 
   Future<void> _mapUpdate(DesireDriveGeocode geocode) async {
     geocode.location().then((res) {
-      CameraPosition position = CameraPosition(
-          target: LatLng(res['latitude'], res['longitude']),
-          zoom: 17.0
-      );
-      mapController.moveCamera(CameraUpdate.newCameraPosition(position));
+      try {
+        CameraPosition position = CameraPosition(
+            target: LatLng(res['latitude'], res['longitude']),
+            zoom: 17.0
+        );
+        mapController.animateCamera(CameraUpdate.newCameraPosition(position));
+      } catch (exception) {
+        print(exception);
+      }
     });
   }
 }

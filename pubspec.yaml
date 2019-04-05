@@ -26,6 +26,7 @@ dependencies:
   trustdatabase_flutter_api:
     path: ./trustdatabase_flutter_api
   http: ^0.12.0+1
+  permission_handler: 3.0.0
 
 dev_dependencies:
   flutter_test:
