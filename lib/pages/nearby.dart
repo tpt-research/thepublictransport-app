@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:desiredrive_api_flutter/service/deutschebahn_triprequest.dart';
+import 'package:thepublictransport_app/ui/components/tripdetail.dart';
 
 class NearbyWidget extends StatefulWidget {
   @override
@@ -20,65 +20,7 @@ class NearbyWidgetState extends State<NearbyWidget> {
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemBuilder: (context, position) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        new Container(
-                          margin: EdgeInsets.fromLTRB(25, 0, 10, 20),
-                          child: new SizedBox(
-                            width: 50,
-                            child: new Text(values[position]['line'],
-                            style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w500
-                            )),
-                          )
-                        ),
-                        new Container(
-                          margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                          child: new Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              new Text(values[position]['linedirection'],
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500
-                                  )),
-                              new Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  new Icon(const IconData(0xe570, fontFamily: 'MaterialIcons')),
-                                  new Container(
-                                    margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                    child: Center(
-                                      child: new Text(values[position]['stop'] + " • " + values[position]['arrival']),
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
-                          )
-                        ),
-                        new Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            new Container(
-                              margin: EdgeInsets.fromLTRB(60, 0, 0, 0),
-                              child: new Center(
-                                child: new Text(values[position]['timeleft'],
-                                    style: TextStyle(
-                                        fontSize: 40,
-                                        fontWeight: FontWeight.w300
-                                    )),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    );
+                    return TripDetails(result: values[position]);
                   },
                   itemCount: values.length,
                 )

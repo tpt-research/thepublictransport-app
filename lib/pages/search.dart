@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:thepublictransport_app/ui/components/searchbar.dart';
+import 'package:thepublictransport_app/ui/components/mapswidget.dart';
+import 'package:thepublictransport_app/ui/base/tptscaffold.dart';
 
 class SearchWidget extends StatefulWidget {
   @override
@@ -9,8 +11,7 @@ class SearchWidget extends StatefulWidget {
 class SearchWidgetState extends State<SearchWidget> {
 
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.white,
+    return new TPTScaffold(
       body: new Container(
         child: new Stack(
           children: <Widget>[
@@ -40,58 +41,12 @@ class SearchWidgetState extends State<SearchWidget> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        new Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            new Card(
-                              shape: StadiumBorder(side: BorderSide(width: 2.0)),
-                              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                              child: SizedBox(
-                                  height: 50,
-                                  child: new Container(
-                                      padding: EdgeInsets.only(left: 17),
-                                      child : new Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          new Text(
-                                              'Start',
-                                              style: new TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: 17
-                                              )
-                                          )
-                                        ],
-                                      )
-                                  )
-                              ),
-                            ),
-                            new Card(
-                              shape: StadiumBorder(side: BorderSide(width: 2.0)),
-                              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                              child: SizedBox(
-                                  height: 50,
-                                  child: new Container(
-                                      padding: EdgeInsets.only(left: 17),
-                                      child : new Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          new Text(
-                                              'Ziel',
-                                              style: new TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: 17
-                                              )
-                                          ),
-                                        ],
-                                      )
-                                  )
-                              ),
-                            ),
-                          ],
-                        )
+                        new Searchbar(
+                          text: "Start",
+                        ),
+                        new Searchbar(
+                          text: "Ziel",
+                        ),
                       ],
                     ),
                     new Row(
@@ -194,35 +149,5 @@ class SearchWidgetState extends State<SearchWidget> {
         alignment: Alignment.center,
       ),
     );
-  }
-}
-
-class MapsWidget extends StatefulWidget {
-  @override
-  State createState() => MapsWidgetState();
-}
-
-class MapsWidgetState extends State<MapsWidget> {
-
-  GoogleMapController mapController;
-  static final CameraPosition _kInitialPosition = const CameraPosition(
-    target: LatLng(50.1287204, 8.6295871),
-    zoom:17.0,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return new GoogleMap(
-        myLocationEnabled: true,
-        initialCameraPosition: _kInitialPosition,
-        onMapCreated: _onMapCreated,
-        rotateGesturesEnabled: false,
-        scrollGesturesEnabled: false,
-        tiltGesturesEnabled: false,
-    );
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    setState(() { mapController = controller; });
   }
 }
