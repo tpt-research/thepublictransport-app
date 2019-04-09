@@ -18,7 +18,7 @@
         android:label="thepublictransport_app"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="0"/>
+            android:value="AIzaSyASyNoQPGOvYh1PlvrnLgcm7a5Z0jklzOs"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
