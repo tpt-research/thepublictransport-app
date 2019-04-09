@@ -11,12 +11,20 @@ class NearbyWidgetState extends State<NearbyWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          margin: EdgeInsets.fromLTRB(0, 15, 0, 0),
+          margin: EdgeInsets.fromLTRB(15, 50, 0, 0),
           child: new Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              new Text("Haltestellen",
+                style: new TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 25,
+                    fontFamily: 'Raleway-Bold'
+                ),
+              ),
               new Container(
+                padding: EdgeInsets.only(top: 5),
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemBuilder: (context, position) {
