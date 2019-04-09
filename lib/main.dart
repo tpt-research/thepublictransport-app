@@ -9,6 +9,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'The Public Transport',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+          fontFamily: 'Raleway'
       ),
       home: SplashScreen(),
     );

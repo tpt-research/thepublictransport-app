@@ -21,19 +21,19 @@ class _TripDetailsState extends State<TripDetails> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           new Container(
-              margin: EdgeInsets.fromLTRB(25, 0, 10, 20),
+              margin: EdgeInsets.fromLTRB(20, 0, 10, 20),
               child: new SizedBox(
                 width: 50,
                 child: new Text(value['line'],
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 35,
                         fontWeight: FontWeight.w500
                     )
                 ),
               )
           ),
           new Container(
-              margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: new Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

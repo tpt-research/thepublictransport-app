@@ -43,7 +43,7 @@ class MapsWidgetState extends State<MapsWidget> {
         StreamSubscription periodicSub;
 
         try {
-          periodicSub = new Stream.periodic(const Duration(milliseconds: 500))
+          periodicSub = new Stream.periodic(const Duration(milliseconds: 5000))
               .listen((_) => _mapUpdate(geocode));
 
           if (periodicSub == null)
@@ -63,7 +63,7 @@ class MapsWidgetState extends State<MapsWidget> {
             target: LatLng(res['latitude'], res['longitude']),
             zoom: 17.0
         );
-        mapController.animateCamera(CameraUpdate.newCameraPosition(position));
+        mapController.moveCamera(CameraUpdate.newCameraPosition(position));
       } catch (exception) {
         print(exception);
       }

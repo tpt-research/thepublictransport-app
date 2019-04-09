@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/ui/components/searchbar.dart';
 import 'package:thepublictransport_app/ui/components/mapswidget.dart';
 import 'package:thepublictransport_app/ui/base/tptscaffold.dart';
+import 'package:thepublictransport_app/pages/loadscreen.dart';
 
 class SearchWidget extends StatefulWidget {
   @override
@@ -133,6 +134,7 @@ class SearchWidgetState extends State<SearchWidget> {
                             elevation: 0,
                             backgroundColor: Colors.black,
                             onPressed: () {
+                              onSubmit(context);
                             },
                             child: Icon(const IconData(0xe52e, fontFamily: 'MaterialIcons')),
                           ),
@@ -148,6 +150,14 @@ class SearchWidgetState extends State<SearchWidget> {
         padding: const EdgeInsets.all(0.0),
         alignment: Alignment.center,
       ),
+    );
+  }
+
+  onSubmit(BuildContext context) {
+    Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => LoadScreenWidget()
+        )
     );
   }
 }
