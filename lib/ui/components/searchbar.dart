@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_widgets/gradient_widgets.dart';
 
 class Searchbar extends StatefulWidget {
   Searchbar({this.text, this.onClick, this.onSubmit});
@@ -22,8 +23,14 @@ class _SearchbarState extends State<Searchbar> {
 
   Widget build(BuildContext context) {
     return new Card(
-      shape: StadiumBorder(side: BorderSide(width: 2.0)),
+      shape: new StadiumBorder(
+        side: new BorderSide(
+          width: 2.0,
+          color: Colors.black
+        )
+      ),
       margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+      color: Colors.white,
       child: SizedBox(
           height: 50,
           child: new Container(
@@ -35,8 +42,9 @@ class _SearchbarState extends State<Searchbar> {
                   new Text(
                       this.text,
                       style: new TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 17
+                        fontFamily: 'Roboto',
+                        fontSize: 17,
+                        color: Colors.grey[600]
                       )
                   )
                 ],

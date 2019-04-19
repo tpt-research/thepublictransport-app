@@ -19,7 +19,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  fancy_bottom_navigation: ^0.3.2
   google_maps_flutter: ^0.2.0
   desiredrive_api_flutter:
     path: ./desiredrive_api_flutter
@@ -27,6 +26,9 @@ dependencies:
     path: ./trustdatabase_flutter_api
   http: ^0.12.0+1
   permission_handler: 3.0.0
+  flutter_svg: 0.12.4
+  gradient_widgets: 0.4.1
+  outline_material_icons: 0.1.0
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +50,10 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
+  assets:
+  - animations/
+  - fonts/
+  - vectors/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

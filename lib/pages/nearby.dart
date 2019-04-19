@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/ui/components/tripdetail.dart';
+import 'package:thepublictransport_app/ui/base/tptscaffold.dart';
 
 class NearbyWidget extends StatefulWidget {
   @override
@@ -9,22 +10,14 @@ class NearbyWidget extends StatefulWidget {
 class NearbyWidgetState extends State<NearbyWidget> {
   var values = getNearby();
   Widget build(BuildContext context) {
-    return Scaffold(
+    return TPTScaffold(
+      title: "In der Nähe",
       body: Container(
-          margin: EdgeInsets.fromLTRB(15, 50, 0, 0),
           child: new Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              new Text("Haltestellen",
-                style: new TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 25,
-                    fontFamily: 'Raleway-Bold'
-                ),
-              ),
               new Container(
-                padding: EdgeInsets.only(top: 5),
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemBuilder: (context, position) {
@@ -46,7 +39,7 @@ class NearbyWidgetState extends State<NearbyWidget> {
       'line': 'U5',
       'linedirection': 'Preungesheim',
       'stop': 'Haltestelle 2',
-      'type': 'metro',
+      'type': 'U-Bahn',
       'arrival': '9:00',
       'timeleft': '0'
     };
@@ -55,16 +48,16 @@ class NearbyWidgetState extends State<NearbyWidget> {
       'line': 'U4',
       'linedirection': 'Enkheim',
       'stop': 'Haltestelle 2',
-      'type': 'metro',
+      'type': 'U-Bahn',
       'arrival': '9:06',
-      'timeleft': '6'
+      'timeleft': '5'
     };
 
     var map3 = {
       'line': '34',
       'linedirection': 'Bornheim Mitte',
       'stop': 'Haltestelle 4',
-      'type': 'bus',
+      'type': 'Bus',
       'arrival': '9:10',
       'timeleft': '10'
     };

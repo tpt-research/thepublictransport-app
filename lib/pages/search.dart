@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/ui/components/searchbar.dart';
-import 'package:thepublictransport_app/ui/components/mapswidget.dart';
-import 'package:thepublictransport_app/ui/base/tptscaffold.dart';
+import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
 import 'package:thepublictransport_app/pages/loadscreen.dart';
+import 'package:thepublictransport_app/ui/components/mapswidget.dart';
+import 'package:gradient_widgets/gradient_widgets.dart';
 
 class SearchWidget extends StatefulWidget {
   @override
@@ -12,143 +13,77 @@ class SearchWidget extends StatefulWidget {
 class SearchWidgetState extends State<SearchWidget> {
 
   Widget build(BuildContext context) {
-    return new TPTScaffold(
+    return new Scaffold(
       body: new Container(
-        child: new Stack(
+        padding: EdgeInsets.fromLTRB(
+            MediaQuery.of(context).padding.left,
+            0,
+            MediaQuery.of(context).padding.right,
+            MediaQuery.of(context).padding.bottom
+        ),
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new Positioned(
-              child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    new Container(
-                        height: 200,
-                        width: MediaQuery.of(context).size.width,
-                        child: MapsWidget()
-                    ),
-                  ]
-              ),
-            ),
-            new Container(
-              child: new Card(
-                margin: EdgeInsets.fromLTRB(10, 150, 10, 100),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0)
+            Stack(
+              children: <Widget>[
+                new SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.30,
+                  child: new MapsWidget()
                 ),
-                child: new Column(
-                  children: <Widget>[
-                    new Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        new Searchbar(
-                          text: "Start",
+                new Center(
+                  child: new Container(
+                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.20),
+                    child: new SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      height: MediaQuery.of(context).size.height * 0.54,
+                      child: new Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            side: BorderSide(
+                                width: 0,
+                                color: Colors.black
+                            )
                         ),
-                        new Searchbar(
-                          text: "Ziel",
+                        color: Colors.white,
+                        child: new Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new Searchbar(
+                              text: "Start",
+                            ),
+                            new Searchbar(
+                              text: "Ziel",
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                    new Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        new Card(
-                          shape: StadiumBorder(),
-                          elevation: 0,
-                          color: Colors.grey[100],
-                          margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                          child: new Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              new Card(
-                                elevation: 0,
-                                shape: StadiumBorder(),
-                                color: Colors.grey[300],
-                                child: Icon(const IconData(0xe192, fontFamily: 'MaterialIcons')),
-                              ),
-                              new Text('12:24' + '   ',
-                              style: new TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 17
-                                )
-                              ),
-                            ],
-                          ),
-                        ),
-                        new Card(
-                          shape: StadiumBorder(),
-                          elevation: 0,
-                          color: Colors.grey[100],
-                          margin: EdgeInsets.fromLTRB(10, 20, 0, 0),
-                          child: new Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              new Card(
-                                elevation: 0,
-                                shape: StadiumBorder(),
-                                color: Colors.grey[300],
-                                child: Icon(const IconData(0xe935, fontFamily: 'MaterialIcons')),
-                              ),
-                              new Text('06.01.2000' + '   ',
-                                  style: new TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 17
-                                  )
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    new Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        new Container(
-                          margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                          child: new OutlineButton(
-                            highlightElevation: 0,
-                            borderSide: new BorderSide(style: BorderStyle.solid, width: 2, color: Colors.black),
-                            onPressed: () {},
-                            child: Text(
-                              'Optionen',
-                              style: new TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 17)),
-                          ),
-                        )
-                      ],
-                    ),
-                    new Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        new Container(
-                          margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                          child: new FloatingActionButton(
-                            elevation: 0,
-                            backgroundColor: Colors.black,
-                            onPressed: () {
-                              onSubmit(context);
-                            },
-                            child: Icon(const IconData(0xe52e, fontFamily: 'MaterialIcons')),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
+                  ),
                 ),
-              )
+                new Container(
+                  alignment: Alignment.bottomRight,
+                  padding: EdgeInsets.fromLTRB(
+                      0,
+                      MediaQuery.of(context).size.height * 0.69,
+                      MediaQuery.of(context).size.width * 0.14,
+                      0
+                  ),
+                  child: new CircularGradientButton(
+                      gradient: ColorConstants.tptfabgradient,
+                      child: new Icon(
+                          Icons.search
+                      ),
+                      callback: (){}
+                  ),
+                )
+              ]
             )
           ],
         ),
-        padding: const EdgeInsets.all(0.0),
-        alignment: Alignment.center,
       ),
     );
   }
