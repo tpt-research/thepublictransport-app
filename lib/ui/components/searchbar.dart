@@ -2,24 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
 class Searchbar extends StatefulWidget {
-  Searchbar({this.text, this.onClick, this.onSubmit});
+  Searchbar({@required this.text});
 
   final String text;
-  final Function onClick;
-  final Function onSubmit;
 
 
   @override
-  _SearchbarState createState() => _SearchbarState(this.text, this.onClick, this.onSubmit);
+  _SearchbarState createState() => _SearchbarState(this.text);
 }
 
 class _SearchbarState extends State<Searchbar> {
-  _SearchbarState(this.text, this.onClick, this.onSubmit);
+  _SearchbarState(this.text);
 
   final String text;
-  final Function onClick;
-  final Function onSubmit;
-
 
   Widget build(BuildContext context) {
     return new Card(

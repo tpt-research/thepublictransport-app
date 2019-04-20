@@ -5,6 +5,7 @@ import 'package:thepublictransport_app/pages/nearby.dart';
 import 'package:thepublictransport_app/pages/settings.dart';
 import 'package:flutter/services.dart';
 import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 
 void main() => runApp(MyApp());
 
@@ -57,59 +58,47 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: changePageByPosition(),
-      /*bottomNavigationBar: FancyBottomNavigation(
-        circleColor: ColorConstants.fancybottomcolor,
-        activeIconColor: Colors.white,
-        inactiveIconColor: Colors.grey[400],
-        barBackgroundColor: Colors.white,
-        textColor: Colors.black,
-        tabs: [
-          TabData(iconData: Icons.search, title: "Suche"),
-          TabData(iconData: Icons.location_on, title: "In der Nähe"),
-          TabData(iconData: Icons.settings, title: "Einstellungen")
-        ],
-        onTabChangedListener: (position) {
-          setState(() {
-            changed = position;
-          });
-        },
-      ), // This trailing comma makes auto-formatting nicer for build methods.*/
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BubbleBottomBar(
+        iconSize: 32,
+        opacity: .2,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         currentIndex: changed,
         onTap: (int index) {
           setState(() {
             changed = index;
-            changed = index;
           });
         },
         items: [
-          BottomNavigationBarItem(
-            activeIcon: Icon(OMIcons.search, color: Colors.black),
-            icon: new Icon(OMIcons.search, color: Colors.grey[400]),
+          BubbleBottomBarItem(
+            backgroundColor: Colors.purple,
+            activeIcon: Icon(OMIcons.search, color: Colors.purple[600]),
+            icon: new Icon(OMIcons.search, color: Colors.purple[200]),
             title: new Text(
               'Suche',
               style: new TextStyle(
-                  color: Colors.black
+                  color: Colors.purple[600]
               ),
             ),
           ),
-          BottomNavigationBarItem(
-            activeIcon: Icon(OMIcons.locationOn, color: Colors.black),
-            icon: Icon(OMIcons.locationOn, color: Colors.grey[400]),
+          BubbleBottomBarItem(
+            backgroundColor: Colors.blue,
+            activeIcon: Icon(OMIcons.locationOn, color: Colors.blue[600]),
+            icon: Icon(OMIcons.locationOn, color: Colors.blue[200]),
             title: new Text(
               'In der Nähe',
               style: new TextStyle(
-                  color: Colors.black
+                  color: Colors.blue[600]
               ),
             ),
           ),
-          BottomNavigationBarItem(
-            activeIcon: Icon(OMIcons.settings, color: Colors.black),
-            icon: Icon(OMIcons.settings, color: Colors.grey[400]),
+          BubbleBottomBarItem(
+            backgroundColor: Colors.pink,
+            activeIcon: Icon(OMIcons.settings, color: Colors.pink[600]),
+            icon: Icon(OMIcons.settings, color: Colors.pink[200]),
             title: Text(
               'Einstellungen',
               style: new TextStyle(
-                color: Colors.black
+                color: Colors.pink[600]
               ),
             ),
           ),

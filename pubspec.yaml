@@ -29,6 +29,7 @@ dependencies:
   flutter_svg: 0.12.4
   gradient_widgets: 0.4.1
   outline_material_icons: 0.1.0
+  bubble_bottom_bar: 1.2.0
 
 dev_dependencies:
   flutter_test:

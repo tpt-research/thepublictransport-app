@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:desiredrive_api_flutter/service/geocode/geocode.dart';
 
 
 class MapsWidget extends StatefulWidget {
@@ -9,9 +10,8 @@ class MapsWidget extends StatefulWidget {
 }
 
 class MapsWidgetState extends State<MapsWidget> {
-  DesireDriveGeocode geocode = new DesireDriveGeocode();
 
-  GoogleMapController mapController;
+  Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _kInitialPosition = const CameraPosition(
     target: LatLng(50.1287204, 8.6295871),
@@ -31,6 +31,6 @@ class MapsWidgetState extends State<MapsWidget> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    setState(() { mapController = controller; });
+    setState(() { _controller.complete(controller); });
   }
 }
