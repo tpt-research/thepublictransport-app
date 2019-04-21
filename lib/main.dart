@@ -61,7 +61,7 @@ class SplashScreenState extends State<SplashScreen> {
       bottomNavigationBar: BubbleBottomBar(
         iconSize: 32,
         opacity: .2,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
         currentIndex: changed,
         onTap: (int index) {
           setState(() {
