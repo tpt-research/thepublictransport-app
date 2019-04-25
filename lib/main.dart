@@ -4,7 +4,6 @@ import 'package:thepublictransport_app/pages/search.dart';
 import 'package:thepublictransport_app/pages/nearby.dart';
 import 'package:thepublictransport_app/pages/settings.dart';
 import 'package:flutter/services.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 
 void main() => runApp(MyApp());
@@ -16,11 +15,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
         statusBarIconBrightness: Brightness.dark,
-        statusBarColor: Colors.white.withAlpha(30)
-    ));
+        statusBarColor: Colors.white.withAlpha(30),
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarIconBrightness: Brightness.dark
+      )
+    );
     return MaterialApp(
       title: 'The Public Transport',
-      theme: ThemeData(),
+      theme: ThemeData(
+        primaryColor: Colors.black,
+        accentColor: Colors.black
+      ),
       home: SplashScreen(),
     );
   }
@@ -61,6 +66,7 @@ class SplashScreenState extends State<SplashScreen> {
       bottomNavigationBar: BubbleBottomBar(
         iconSize: 32,
         opacity: .2,
+        hasInk: true,
         borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
         currentIndex: changed,
         onTap: (int index) {
