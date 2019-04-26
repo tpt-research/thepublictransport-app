@@ -3,6 +3,7 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:thepublictransport_app/ui/animations/showup.dart';
 
 class WelcomeCity extends StatefulWidget {
   WelcomeCity({@required this.city});
@@ -45,16 +46,19 @@ class _WelcomeCityState extends State<WelcomeCity> {
                   'vectors/Silhouette_' + city + '.svg',
                   color: Colors.grey[300],
                 ),
-                new Center(
-                  child: new Container(
-                    alignment: Alignment.center,
-                    child: new GradientText(
-                      resolveGreetings(city),
-                      gradient: ColorConstants.tptgradient,
-                      textAlign: TextAlign.center,
-                      style: new TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.w700
+                new ShowUp(
+                  delay: 200,
+                  child: new Center(
+                    child: new Container(
+                      alignment: Alignment.center,
+                      child: new GradientText(
+                        resolveGreetings(city),
+                        gradient: ColorConstants.tptgradient,
+                        textAlign: TextAlign.center,
+                        style: new TextStyle(
+                            fontSize: 36,
+                            fontWeight: FontWeight.w700
+                        ),
                       ),
                     ),
                   ),

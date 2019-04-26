@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:thepublictransport_app/ui/animations/showup.dart';
 
 class TPTScaffold extends StatefulWidget {
   TPTScaffold({this.body, this.title});
@@ -32,27 +33,33 @@ class _TPTScaffoldState extends State<TPTScaffold> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Container(
-              padding: EdgeInsets.only(left: 15),
-              child: new Text(
-                  "The Public Transport".toUpperCase(),
-                  style: new TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 13,
-                      color: Colors.grey
-                  )
+            new ShowUp(
+              delay: 100,
+              child: new Container(
+                padding: EdgeInsets.only(left: 15),
+                child: new Text(
+                    "The Public Transport".toUpperCase(),
+                    style: new TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        color: Colors.grey
+                    )
+                ),
               ),
             ),
-            new Container(
-              padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
-              child: new GradientText(
-                title,
-                style: new TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 35,
-                    color: Colors.grey
+            new ShowUp(
+              delay: 300,
+              child: new Container(
+                padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
+                child: new GradientText(
+                  title,
+                  style: new TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 35,
+                      color: Colors.grey
+                  ),
+                  gradient: ColorConstants.tptgradient
                 ),
-                gradient: ColorConstants.tptgradient
               ),
             ),
             body

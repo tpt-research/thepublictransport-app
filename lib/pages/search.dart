@@ -96,126 +96,141 @@ class SearchWidgetState extends State<SearchWidget> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        new Searchbar(
-                                          text: "Start",
-                                          onTap: () {
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) => SearchInput(title: "Start", mode: 1)
-                                                )
-                                            );
-                                          },
+                                        new ShowUp(
+                                          delay: 200,
+                                          child: new Searchbar(
+                                            text: "Start",
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) => SearchInput(title: "Start", mode: 1)
+                                                  )
+                                              );
+                                            },
+                                          ),
                                         ),
-                                        new Searchbar(
-                                          text: "Ziel",
-                                          onTap: () {
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) => SearchInput(title: "Ziel", mode: 2)
-                                                )
-                                            );
-                                          },
+                                        new ShowUp(
+                                          delay: 200,
+                                          child: new Searchbar(
+                                            text: "Ziel",
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) => SearchInput(title: "Ziel", mode: 2)
+                                                  )
+                                              );
+                                            },
+                                          ),
                                         ),
-                                        new Container(
-                                          padding: EdgeInsets.only(top: 10),
+                                        new ShowUp(
+                                          delay: 400,
+                                          child: new Container(
+                                            padding: EdgeInsets.only(top: 10),
+                                            child: new Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Container(
+                                                  padding: EdgeInsets.fromLTRB(20, 10, 9, 0),
+                                                  child: new GradientButton(
+                                                      increaseWidthBy: 30,
+                                                      gradient: ColorConstants.tptfabgradient,
+                                                      child: new Container(
+                                                        padding: EdgeInsets.only(left: 10),
+                                                        child: new Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: <Widget>[
+                                                            new Icon(
+                                                              Icons.calendar_today,
+                                                              size: 20
+                                                            ),
+                                                            new Container(
+                                                              padding: EdgeInsets.only(left: 7),
+                                                              child: new Text(
+                                                                  '06.01.2000'
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      callback: () {
+
+                                                      }
+                                                  ),
+                                                ),
+                                                new Container(
+                                                  padding: EdgeInsets.fromLTRB(0, 10, 12, 0),
+                                                  child: new GradientButton(
+                                                      gradient: ColorConstants.tptfabgradient,
+                                                      child: new Container(
+                                                        padding: EdgeInsets.only(left: 10),
+                                                        child: new Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: <Widget>[
+                                                            new Icon(Icons.access_time),
+                                                            new Container(
+                                                              padding: EdgeInsets.only(left: 7),
+                                                              child: new Text(
+                                                                  '5:45'
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      callback: () {
+
+                                                      }
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        new ShowUp(
+                                          delay: 500,
+                                          child: new Container(
+                                            padding: EdgeInsets.fromLTRB(23, 20, 0, 0),
+                                            child: new OutlineButton(
+                                              highlightElevation: 0,
+                                              borderSide: new BorderSide(style: BorderStyle.solid, width: 2, color: Colors.black),
+                                              highlightedBorderColor: Colors.black,
+                                              child: Text(
+                                                  'Optionen',
+                                                  style: new TextStyle(
+                                                      fontFamily: 'Roboto',
+                                                      fontStyle: FontStyle.normal,
+                                                      fontSize: 17
+                                                  )
+                                              ),
+                                              onPressed: () {
+
+                                              }
+                                            ),
+                                          ),
+                                        ),
+                                        new ShowUp(
+                                          delay: 600,
                                           child: new Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            crossAxisAlignment: CrossAxisAlignment.end,
                                             children: <Widget>[
                                               new Container(
-                                                padding: EdgeInsets.fromLTRB(20, 10, 9, 0),
-                                                child: new GradientButton(
-                                                    increaseWidthBy: 30,
+                                                alignment: Alignment.bottomRight,
+                                                padding: EdgeInsets.fromLTRB(0, 5, 27, 10),
+                                                child: new CircularGradientButton(
                                                     gradient: ColorConstants.tptfabgradient,
-                                                    child: new Container(
-                                                      padding: EdgeInsets.only(left: 10),
-                                                      child: new Row(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: <Widget>[
-                                                          new Icon(
-                                                            Icons.calendar_today,
-                                                            size: 20
-                                                          ),
-                                                          new Container(
-                                                            padding: EdgeInsets.only(left: 7),
-                                                            child: new Text(
-                                                                '06.01.2000'
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
+                                                    child: new Icon(
+                                                        Icons.search
                                                     ),
-                                                    callback: () {
-
-                                                    }
-                                                ),
-                                              ),
-                                              new Container(
-                                                padding: EdgeInsets.fromLTRB(0, 10, 12, 0),
-                                                child: new GradientButton(
-                                                    gradient: ColorConstants.tptfabgradient,
-                                                    child: new Container(
-                                                      padding: EdgeInsets.only(left: 10),
-                                                      child: new Row(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: <Widget>[
-                                                          new Icon(Icons.access_time),
-                                                          new Container(
-                                                            padding: EdgeInsets.only(left: 7),
-                                                            child: new Text(
-                                                                '5:45'
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    callback: () {
-
+                                                    callback: (){
+                                                      onSubmit();
                                                     }
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        new Container(
-                                          padding: EdgeInsets.fromLTRB(23, 20, 0, 0),
-                                          child: new OutlineButton(
-                                            highlightElevation: 0,
-                                            borderSide: new BorderSide(style: BorderStyle.solid, width: 2, color: Colors.black),
-                                            highlightedBorderColor: Colors.black,
-                                            child: Text(
-                                                'Optionen',
-                                                style: new TextStyle(
-                                                    fontFamily: 'Roboto',
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 17
-                                                )
-                                            ),
-                                            onPressed: () {
-
-                                            }
-                                          ),
-                                        ),
-                                        new Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: <Widget>[
-                                            new Container(
-                                              alignment: Alignment.bottomRight,
-                                              padding: EdgeInsets.fromLTRB(0, 5, 27, 10),
-                                              child: new CircularGradientButton(
-                                                  gradient: ColorConstants.tptfabgradient,
-                                                  child: new Icon(
-                                                      Icons.search
-                                                  ),
-                                                  callback: (){
-                                                    onSubmit();
-                                                  }
-                                              ),
-                                            ),
-                                          ],
                                         )
                                       ],
                                     ),
@@ -244,7 +259,7 @@ class SearchWidgetState extends State<SearchWidget> {
   }
 
   Future<MapsWidget> MapsWidgetDelayed() {
-    return Future.delayed(const Duration(milliseconds: 1000), () {
+    return Future.delayed(const Duration(milliseconds: 2000), () {
       return MapsWidget();
     });
   }

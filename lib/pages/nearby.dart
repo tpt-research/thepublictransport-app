@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/ui/components/tripdetail.dart';
 import 'package:thepublictransport_app/ui/base/tptscaffold.dart';
-import 'package:desiredrive_api_flutter/service/deutschebahn/db_departure_request.dart';
-import 'package:desiredrive_api_flutter/service/deutschebahn/db_stations_request.dart';
+import 'package:desiredrive_api_flutter/service/deutschebahn/db_nearby_request.dart';
+import 'package:thepublictransport_app/ui/animations/showup.dart';
 
 class NearbyWidget extends StatefulWidget {
   @override
@@ -48,11 +48,14 @@ class NearbyWidgetState extends State<NearbyWidget> {
                               return new SizedBox(
                                 height: MediaQuery.of(context).size.height - 156,
                                 width: MediaQuery.of(context).size.width,
-                                child: new Center(
-                                    child: new Text(
-                                        "Wir haben gerade Probleme mit den externen Servern der Deutschen Bahn. Wir bitten um Entschuldigung. \n Error: ${snapshot.error}",
-                                        textAlign: TextAlign.center,
-                                    )
+                                child: ShowUp(
+                                  delay: 1,
+                                  child: new Center(
+                                      child: new Text(
+                                          "Wir haben gerade Probleme mit den externen Servern der Deutschen Bahn. Wir bitten um Entschuldigung. \n Error: ${snapshot.error}",
+                                          textAlign: TextAlign.center,
+                                      )
+                                  ),
                                 )
                               );
                             }
@@ -75,23 +78,20 @@ class NearbyWidgetState extends State<NearbyWidget> {
   }
 
   Future<SizedBox> getTrips(BuildContext context) {
-    var stations = new DeutscheBahnStationsRequest(http_id: "TPT");
-    var departure = new DeutscheBahnDepartureRequest(http_id: "TPT");
+    var nearby = new DeutscheBahnNearbyRequest();
 
-    return stations.getMostRelevantStation('Mainz').then((res) {
-      return departure.getDepartures(res.id.toString()).then((dep) {
-        return new SizedBox(
-          height: MediaQuery.of(context).size.height- 156,
-          width: MediaQuery.of(context).size.width,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (context, position) {
-              return TripDetails(result: dep[position]);
-            },
-            itemCount: dep.length,
-          ),
-        );
-      });
+    return nearby.getNearby().then((dep) {
+      return new SizedBox(
+        height: MediaQuery.of(context).size.height- 156,
+        width: MediaQuery.of(context).size.width,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemBuilder: (context, position) {
+            return TripDetails(result: dep[position]);
+          },
+          itemCount: dep.length,
+        ),
+      );
     });
   }
 }
