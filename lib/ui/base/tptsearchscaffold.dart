@@ -45,7 +45,7 @@ class _TPTScaffoldState extends State<TPTScaffold> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new ShowUp(
-              delay: 50,
+              delay: 100,
               child: new Container(
                 padding: EdgeInsets.only(left: 15),
                 child: new Text(

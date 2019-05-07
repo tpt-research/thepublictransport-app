@@ -42,17 +42,14 @@ class _WelcomeCityState extends State<WelcomeCity> {
             },
             child: new Stack(
               children: <Widget>[
-                SvgPicture.asset(
-                  'vectors/Silhouette_' + city + '.svg',
-                  color: Colors.grey[300],
-                ),
+                getSvg(city),
                 new ShowUp(
                   delay: 200,
                   child: new Center(
                     child: new Container(
                       alignment: Alignment.center,
                       child: new GradientText(
-                        resolveGreetings(city),
+                        "Willkommen in " + city,
                         gradient: ColorConstants.tptgradient,
                         textAlign: TextAlign.center,
                         style: new TextStyle(
@@ -70,28 +67,19 @@ class _WelcomeCityState extends State<WelcomeCity> {
       ),
     );
   }
-  
-  String resolveGreetings(String city) {
-    switch (city) {
-      case "Berlin":
-        return "Wilkommen in Berlin";
-        
-      case "Frankfurt":
-        return "Wilkommen in Frankfurt am Main";
-    }
+
+  Widget getSvg(String city) {
+    if (city == "Berlin" || city == "Frankfurt")
+      return SvgPicture.asset(
+        'vectors/Silhouette_' + city + '.svg',
+        color: Colors.grey[300],
+      );
+    else
+      return Container();
   }
 
   openCity(String city) async {
-    var url = "";
-    switch (city) {
-      case "Berlin":
-        url = "https://www.google.com/maps?q=Berlin";
-        break;
-
-      case "Frankfurt":
-        url = "https://www.google.com/maps?q=Frankfurt%20am%20Main";
-        break;
-    }
+    var url = "https://www.google.com/maps?q=" + city;
 
     if (await canLaunch(url)) {
       await launch(url);

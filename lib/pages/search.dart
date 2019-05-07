@@ -5,10 +5,11 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/ui/components/searchbar.dart';
 import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
-import 'package:thepublictransport_app/pages/loadscreen.dart';
 import 'package:thepublictransport_app/ui/components/mapswidget.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/components/welcomecity.dart';
+import 'package:desiredrive_api_flutter/service/geocode/geocode.dart';
+import 'package:desiredrive_api_flutter/service/nominatim/nominatim_request.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 
 import 'package:thepublictransport_app/pages/searchinput.dart';
@@ -238,11 +239,21 @@ class SearchWidgetState extends State<SearchWidget> {
                                 ),
                               ),
                             ),
-                            ShowUp(
-                                child: new WelcomeCity(
-                                  city: "Berlin",
-                                ),
-                                delay: 300,
+                            new FutureBuilder<ShowUp>(
+                              future: welcomeCityRenderer(),
+                              builder: (BuildContext context, AsyncSnapshot<ShowUp> snapshot) {
+                                switch (snapshot.connectionState) {
+                                  case ConnectionState.active:
+                                  case ConnectionState.waiting:
+                                  case ConnectionState.none:
+                                    return new Container();
+                                  case ConnectionState.done:
+                                    if (snapshot.hasError)
+                                      return new Text('Error: ${snapshot.error}');
+                                    return snapshot.data;
+                                }
+                                return null; // unreachable
+                              },
                             )
                           ],
                         ),
@@ -256,6 +267,20 @@ class SearchWidgetState extends State<SearchWidget> {
         ),
       ),
     );
+  }
+
+  Future<ShowUp> welcomeCityRenderer() async {
+    var nominatim = new NominatimRequest();
+    var geocode = new DesireDriveGeocode();
+
+    return nominatim.getPlace(await geocode.latitude(), await geocode.longitude()).then((nominatim) {
+      return ShowUp(
+        child: new WelcomeCity(
+          city: nominatim.city,
+        ),
+        delay: 300,
+      );
+    });
   }
 
   Future<MapsWidget> MapsWidgetDelayed() {
