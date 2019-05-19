@@ -7,8 +7,8 @@ import 'package:desiredrive_api_flutter/service/desirecore/desire_nearby_lib.dar
 import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:frideos_light/frideos_light.dart';
 
 class NearbyWidget extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class NearbyWidgetState extends State<NearbyWidget> {
         height: MediaQuery.of(context).size.height - 200,
         width: MediaQuery.of(context).size.width,
         child: new FutureBuilder<ListView>(
-          future: getTrips(context),
+          future: getMasterView(context),
           builder: (BuildContext context,
               AsyncSnapshot<ListView> snapshot) {
             switch (snapshot.connectionState) {
@@ -70,55 +70,103 @@ class NearbyWidgetState extends State<NearbyWidget> {
     );
   }
 
-  Future<ListView> getTrips(BuildContext context) async {
+  Future<ListView> getMasterView(BuildContext context) async {
     var nearby = new DesireNearbyLib();
-    var dep = await nearby.getNearby(0);
-    var altdep = await nearby.getNearby(1);
-    var newdep = await nearby.getNearby(2);
-    print(dep);
-    return new ListView(
+    var query = await nearby.getQuery(3);
+
+    return ListView(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
       children: <Widget>[
-        ShowUp(
-          child: getContainer(dep),
-          delay: 50,
+        new FutureBuilder<ListView>(
+          future: getTrips(context, 0, query, nearby),
+          builder: (BuildContext context,
+              AsyncSnapshot<ListView> snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.active:
+              case ConnectionState.waiting:
+              case ConnectionState.none:
+                return new Container(
+                  alignment: Alignment.topCenter,
+                  padding: EdgeInsets.only(top: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.10),
+                  child: new SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: new CircularProgressIndicator()
+                  ),
+                );
+              case ConnectionState.done:
+                if (snapshot.hasError) {
+                  return Container();
+                }
+
+                return snapshot.data;
+            }
+            return null; // unreachable
+          },
         ),
-        ShowUp(
-            child: getList(dep),
-            delay: 100,
+        new FutureBuilder<ListView>(
+          future: getTrips(context, 1, query, nearby),
+          builder: (BuildContext context,
+              AsyncSnapshot<ListView> snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.active:
+              case ConnectionState.waiting:
+              case ConnectionState.none:
+                return new Container();
+              case ConnectionState.done:
+                if (snapshot.hasError) {
+                  return Container();
+                }
+
+                return snapshot.data;
+            }
+            return null; // unreachable
+          },
         ),
-        ShowUp(
-            child: getContainer(altdep),
-            delay: 150,
+        new FutureBuilder<ListView>(
+          future: getTrips(context, 2, query, nearby),
+          builder: (BuildContext context,
+              AsyncSnapshot<ListView> snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.active:
+              case ConnectionState.waiting:
+              case ConnectionState.none:
+                return new Container();
+              case ConnectionState.done:
+                if (snapshot.hasError) {
+                  return Container();
+                }
+
+                return snapshot.data;
+            }
+            return null; // unreachable
+          },
         ),
-        ShowUp(
-            child: getList(altdep),
-            delay: 200,
-        ),
-        ShowUp(
-            child: getContainer(newdep),
-            delay: 250,
-        ),
-        ShowUp(
-            child: getList(newdep),
-            delay: 300,
-        )
       ],
     );
   }
-  
-  Future<Column> getExtraTrips(BuildContext context, List<DesireNearbyModel> model) async {
-    return Column(
+
+  Future<ListView> getTrips(BuildContext context, int index, List query, DesireNearbyLib nearby) async {
+    var dep = await nearby.getNearby(index, query);
+    return new ListView(
       children: <Widget>[
-        getContainer(model),
-        getList(model)
+        getContainer(dep),
+        getList(dep)
       ],
+      physics: NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
     );
   }
   
   Container getContainer(List<DesireNearbyModel> model) {
-    if (model[0].name != "ERROR")
+    if (model != [])
       return Container(
-        padding: EdgeInsets.fromLTRB(15, 30, 0, 10),
+        padding: EdgeInsets.fromLTRB(15, 5, 0, 10),
         child: Row(
           children: <Widget>[
             Container(
@@ -143,13 +191,18 @@ class NearbyWidgetState extends State<NearbyWidget> {
   }
   
   Widget getList(List<DesireNearbyModel> model) {
-    if (model[0].name != "ERROR")
-      return ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: (context, position) {
-          return TripDetails(result: model[position]);
-        },
-        physics: NeverScrollableScrollPhysics(),
+    if (model != [])
+      return Container(
+        padding: EdgeInsets.only(bottom: 20),
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemBuilder: (context, position) {
+            return TripDetails(result: model[position]);
+          },
+          itemCount: model.length,
+          physics: NeverScrollableScrollPhysics(),
+        ),
       );
     else
       return Container();

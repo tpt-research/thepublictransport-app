@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
+import 'package:thepublictransport_app/pages/tripshow.dart';
 
 class TripDetails extends StatefulWidget {
   TripDetails({this.result});
@@ -39,26 +40,31 @@ class _TripDetailsState extends State<TripDetails> {
 
   Widget build(BuildContext context) {
     return new Visibility(
-      visible: chooseVisibility(createTimeleft(value.time)),
-      child: new ListTile(
-        title: new Text(value.origin),
-        subtitle: new Text((value.time.hour.toString() + ":" + value.realtime.minute.toString())  + " • " + chooseAdditionalLineString(value.origin) + value.name),
-        leading: Container(
-          child: new SizedBox(
-              width: 50,
-              height: 50,
-              child: chooseIcon(value.product)
+      visible: chooseVisibility(createTimeleft(value.realtime)),
+      child: new InkWell(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripShowPage(model: value)));
+        },
+        child: new ListTile(
+          title: new Text(value.direction),
+          subtitle: new Text((value.realtime.hour.toString().padLeft(2, '0') + ":" + value.realtime.minute.toString().padLeft(2, '0'))  + " • " + chooseAdditionalLineString(value.product) + value.name + chooseDelay(value.time, value.realtime)),
+          leading: Container(
+            child: new SizedBox(
+                width: 50,
+                height: 50,
+                child: chooseIcon(value.product)
+            ),
           ),
-        ),
-        trailing: new ShowUp(
-          delay: 50,
-          child: new Text(
-              createTimeleft(value.time).toString(),
-              style: TextStyle(
-                  fontSize: 35,
-                  color: importanceColor(createTimeleft(value.time)),
-                  fontWeight: FontWeight.w300
-              )
+          trailing: new ShowUp(
+            delay: 50,
+            child: new Text(
+                createTimeleft(value.realtime).toString(),
+                style: TextStyle(
+                    fontSize: 35,
+                    color: importanceColor(createTimeleft(value.realtime)),
+                    fontWeight: FontWeight.w300
+                )
+            ),
           ),
         ),
       ),
@@ -124,5 +130,14 @@ class _TripDetailsState extends State<TripDetails> {
     var left = time.difference(DateTime.now());
 
     return left.inMinutes;
+  }
+
+  String chooseDelay(DateTime time, DateTime realtime) {
+    var compare = realtime.difference(time);
+
+    if (compare.inMinutes >= 5)
+      return " • Verspätet";
+    else
+      return "";
   }
 }

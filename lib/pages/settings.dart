@@ -12,7 +12,7 @@ class SettingsWidgetState extends State<SettingsWidget> {
       title: "Einstellungen",
       body: Container(
           child: Center(
-            child: Text('Test3'),
+            child: Text('Bald gibt es hier was zu sehen!'),
           )
       ),
     );

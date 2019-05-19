@@ -42,7 +42,8 @@ class SplashScreenState extends State<SplashScreen> {
   
   StatefulWidget changePageByPosition() {
     switch (changed) {
-      case 0:
+      //Coming Soon
+      /*case 0:
         return SearchWidget();
         break;
         
@@ -55,7 +56,17 @@ class SplashScreenState extends State<SplashScreen> {
         break;
 
       default:
-        return SearchWidget();
+        return SearchWidget();*/
+      case 0:
+        return NearbyWidget();
+        break;
+
+      case 1:
+        return SettingsWidget();
+        break;
+
+      default:
+        return NearbyWidget();
     }
   }
 
@@ -75,7 +86,8 @@ class SplashScreenState extends State<SplashScreen> {
           });
         },
         items: [
-          BubbleBottomBarItem(
+          //Coming Soon
+          /*BubbleBottomBarItem(
             backgroundColor: Colors.purple,
             activeIcon: Icon(OMIcons.search, color: Colors.purple[600]),
             icon: new Icon(OMIcons.search, color: Colors.purple[200]),
@@ -85,7 +97,7 @@ class SplashScreenState extends State<SplashScreen> {
                   color: Colors.purple[600]
               ),
             ),
-          ),
+          ),*/
           BubbleBottomBarItem(
             backgroundColor: Colors.blue,
             activeIcon: Icon(OMIcons.locationOn, color: Colors.blue[600]),

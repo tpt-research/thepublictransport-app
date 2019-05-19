@@ -31,4 +31,7 @@ class ColorConstants {
   );
 
   static Color fancybottomcolor = Colors.purple[300];
+
+  static Color whiteBackground = Colors.white;
+  static Color blackBackground = Colors.black;
 }
