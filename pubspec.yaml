@@ -1,6 +1,6 @@
 name: thepublictransport_app
 description: Die ÖPV App für Deutschland
-version: 0.0.1
+version: 0.0.2+2
 author: Tristan Marsell, The Public Transport
 
 environment:
