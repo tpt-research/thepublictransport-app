@@ -4,18 +4,18 @@ import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 import 'package:thepublictransport_app/pages/nearby_search.dart';
 
-class TPTNearbyScaffold extends StatefulWidget {
-  TPTNearbyScaffold({this.body, this.title});
+class TPTScaffold extends StatefulWidget {
+  TPTScaffold({this.body, this.title});
 
   final Widget body;
   final String title;
 
   @override
-  _TPTNearbyScaffoldState createState() => _TPTNearbyScaffoldState(this.body, this.title);
+  _TPTScaffoldState createState() => _TPTScaffoldState(this.body, this.title);
 }
 
-class _TPTNearbyScaffoldState extends State<TPTNearbyScaffold> {
-  _TPTNearbyScaffoldState(this.body, this.title);
+class _TPTScaffoldState extends State<TPTScaffold> {
+  _TPTScaffoldState(this.body, this.title);
 
   final Widget body;
   final String title;
@@ -61,13 +61,13 @@ class _TPTNearbyScaffoldState extends State<TPTNearbyScaffold> {
                       child: new Container(
                         padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
                         child: new GradientText(
-                          title,
-                          style: new TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 35,
-                              color: Colors.grey
-                          ),
-                          gradient: ColorConstants.tptgradient
+                            title,
+                            style: new TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 35,
+                                color: Colors.grey
+                            ),
+                            gradient: ColorConstants.tptgradient
                         ),
                       ),
                     ),
@@ -77,8 +77,8 @@ class _TPTNearbyScaffoldState extends State<TPTNearbyScaffold> {
                   padding: EdgeInsets.only(right: 15),
                   child: new IconButton(
                       icon: Icon(
-                          Icons.search,
-                          size: 30,
+                        Icons.search,
+                        size: 30,
                       ),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => NearbySearchPage()));

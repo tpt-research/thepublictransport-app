@@ -29,11 +29,7 @@ class _WelcomeCityState extends State<WelcomeCity> {
         child: new Card(
           elevation: 2,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              side: BorderSide(
-                  width: 0,
-                  color: Colors.black
-              )
+            borderRadius: BorderRadius.circular(25.0),
           ),
           color: Colors.white,
           child: new InkWell(

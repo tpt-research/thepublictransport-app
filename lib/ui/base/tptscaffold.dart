@@ -21,7 +21,7 @@ class _TPTScaffoldState extends State<TPTScaffold> {
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[100],
       body: new Container(
         padding: EdgeInsets.fromLTRB(
             MediaQuery.of(context).padding.left,

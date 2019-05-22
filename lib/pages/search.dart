@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/ui/components/searchbar.dart';
@@ -11,8 +9,10 @@ import 'package:thepublictransport_app/ui/components/welcomecity.dart';
 import 'package:desiredrive_api_flutter/service/geocode/geocode.dart';
 import 'package:desiredrive_api_flutter/service/nominatim/nominatim_request.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thepublictransport_app/pages/searchinput.dart';
+import 'package:desiredrive_api_flutter/models/rmv/rmv_query.dart';
+import 'package:thepublictransport_app/ui/components/optionswitch.dart';
 
 class SearchWidget extends StatefulWidget {
   @override
@@ -20,6 +20,13 @@ class SearchWidget extends StatefulWidget {
 }
 
 class SearchWidgetState extends State<SearchWidget> {
+
+  SharedPreferences pref;
+  RMVQueryModel from;
+  RMVQueryModel to;
+  String datestring;
+  String timestring;
+
 
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -84,11 +91,7 @@ class SearchWidgetState extends State<SearchWidget> {
                                 child: new Card(
                                   elevation: 2,
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      side: BorderSide(
-                                          width: 0,
-                                          color: Colors.black
-                                      )
+                                    borderRadius: BorderRadius.circular(25.0),
                                   ),
                                   color: Colors.white,
                                   child: new Container(
@@ -100,26 +103,18 @@ class SearchWidgetState extends State<SearchWidget> {
                                         new ShowUp(
                                           delay: 200,
                                           child: new Searchbar(
-                                            text: "Start",
+                                            text: decideSearchbarString("Start", 1),
                                             onTap: () {
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) => SearchInput(title: "Start", mode: 1)
-                                                  )
-                                              );
+                                              _navigateAndDisplaySelection(context, "Start", 1);
                                             },
                                           ),
                                         ),
                                         new ShowUp(
                                           delay: 200,
                                           child: new Searchbar(
-                                            text: "Ziel",
+                                            text: decideSearchbarString("Ziel", 2),
                                             onTap: () {
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) => SearchInput(title: "Ziel", mode: 2)
-                                                  )
-                                              );
+                                              _navigateAndDisplaySelection(context, "Ziel", 2);
                                             },
                                           ),
                                         ),
@@ -149,14 +144,14 @@ class SearchWidgetState extends State<SearchWidget> {
                                                             new Container(
                                                               padding: EdgeInsets.only(left: 7),
                                                               child: new Text(
-                                                                  '06.01.2000'
+                                                                  decideDateString()
                                                               ),
                                                             )
                                                           ],
                                                         ),
                                                       ),
                                                       callback: () {
-
+                                                        _selectDate();
                                                       }
                                                   ),
                                                 ),
@@ -174,14 +169,14 @@ class SearchWidgetState extends State<SearchWidget> {
                                                             new Container(
                                                               padding: EdgeInsets.only(left: 7),
                                                               child: new Text(
-                                                                  '5:45'
+                                                                  decideTimeString()
                                                               ),
                                                             )
                                                           ],
                                                         ),
                                                       ),
                                                       callback: () {
-
+                                                        _selectTime();
                                                       }
                                                   ),
                                                 ),
@@ -206,7 +201,7 @@ class SearchWidgetState extends State<SearchWidget> {
                                                   )
                                               ),
                                               onPressed: () {
-
+                                                showOptions();
                                               }
                                             ),
                                           ),
@@ -226,7 +221,7 @@ class SearchWidgetState extends State<SearchWidget> {
                                                         Icons.search
                                                     ),
                                                     callback: (){
-                                                      onSubmit();
+
                                                     }
                                                 ),
                                               ),
@@ -269,6 +264,94 @@ class SearchWidgetState extends State<SearchWidget> {
     );
   }
 
+  Future _selectDate() async {
+    DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(2019),
+        lastDate: new DateTime(2020)
+    );
+
+    if(picked != null)
+      setState(() {
+        datestring = picked.day.toString().padLeft(2, '0') + "." + picked.month.toString().padLeft(2, '0') + "." + picked.year.toString();
+      });
+  }
+
+  Future _selectTime() async {
+    TimeOfDay selectedTime24Hour = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: 10, minute: 47),
+      builder: (BuildContext context, Widget child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child,
+        );
+      },
+    );
+
+    if(selectedTime24Hour != null)
+      setState(() {
+        timestring = selectedTime24Hour.hour.toString().padLeft(2, '0') + ":" + selectedTime24Hour.minute.toString().padLeft(2, '0');
+      });
+
+  }
+
+  String decideSearchbarString(String previous, int mode) {
+    String result;
+    try {
+      switch (mode) {
+        case 1:
+          result = from.name;
+          break;
+        case 2:
+          result = to.name;
+      }
+    } catch (e) {
+      result = previous;
+    }
+
+    print(result);
+    return result;
+  }
+
+  String decideDateString() {
+    var now = DateTime.now();
+    if (datestring != null)
+      return datestring;
+    else
+      return now.day.toString().padLeft(2, '0') + "." + now.month.toString().padLeft(2, '0') + "." + now.year.toString();
+  }
+
+  String decideTimeString() {
+    var now = TimeOfDay.now();
+    if (timestring != null)
+      return timestring;
+    else
+      return now.hour.toString().padLeft(2, '0') + ":" + now.minute.toString().padLeft(2, '0');
+  }
+
+  _navigateAndDisplaySelection(BuildContext context, String title, int mode) async {
+    // Navigator.push returns a Future that will complete after we call
+    // Navigator.pop on the Selection Screen!
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SearchInput(title: title, mode: mode)),
+    );
+
+    if (result != null) {
+      setState(() {
+        switch (mode) {
+          case 1:
+            from = result;
+            break;
+          case 2:
+            to = result;
+        }
+      });
+    }
+  }
+
   Future<ShowUp> welcomeCityRenderer() async {
     var nominatim = new NominatimRequest();
     var geocode = new DesireDriveGeocode();
@@ -289,14 +372,42 @@ class SearchWidgetState extends State<SearchWidget> {
     });
   }
 
-  onSubmit() {
-    http.get('https://2.db.transport.rest/stations?query=Mainz').then((query) {
-      var decode = json.decode(query.body);
-      print(decode[0]['id']);
-      http.get('https://2.db.transport.rest/stations/' + decode[0]['id'].toString() + '/departures').then((departures) {
-        var decode = json.decode(departures.body);
-        print(decode.length);
-      });
-    });
+  showOptions() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          final ThemeData themeData = Theme.of(context);
+          return Theme(
+            data: themeData.copyWith(canvasColor: Colors.white),
+            child: DecoratedBox(
+              decoration: BoxDecoration(color: Colors.transparent),
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(22.0),
+                    topRight: Radius.circular(22.0)),
+                child: new Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    new OptionSwitch(
+                        title: "Nur Nahverkehr",
+                        icon: Icons.directions_bus,
+                        id: "just_busses"
+                    ),
+                    new OptionSwitch(
+                        title: "Zuverlässigere Erreichbarkeit",
+                        icon: Icons.access_time,
+                        id: "good_trips"
+                    ),
+                    new OptionSwitch(
+                        title: "Nur Direktverbindungen",
+                        icon: Icons.fast_forward,
+                        id: "direct_trips"
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

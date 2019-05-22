@@ -25,11 +25,11 @@ class _TPTScaffoldState extends State<TPTScaffold> {
       floatingActionButton: new ShowUp(
         delay: 500,
         child: new CircularGradientButton(
-          gradient: ColorConstants.tptfabgradient,
-          child: Icon(Icons.arrow_back),
-          callback: () {
-            Navigator.of(context).pop();
-          },
+            gradient: ColorConstants.tptfabgradient,
+            child: Icon(Icons.arrow_back),
+            callback: () {
+              Navigator.of(context).pop();
+            },
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -44,27 +44,33 @@ class _TPTScaffoldState extends State<TPTScaffold> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Container(
-              padding: EdgeInsets.only(left: 15),
-              child: new Text(
-                  "The Public Transport".toUpperCase(),
-                  style: new TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 13,
-                      color: Colors.grey
-                  )
+            new ShowUp(
+              delay: 100,
+              child: new Container(
+                padding: EdgeInsets.only(left: 15),
+                child: new Text(
+                    "The Public Transport".toUpperCase(),
+                    style: new TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        color: Colors.grey
+                    )
+                ),
               ),
             ),
-            new Container(
-              padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
-              child: new GradientText(
-                  title,
-                  style: new TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
-                      color: Colors.grey
-                  ),
-                  gradient: ColorConstants.tptgradient
+            new ShowUp(
+              delay: 300,
+              child: new Container(
+                padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
+                child: new GradientText(
+                    title,
+                    style: new TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 35,
+                        color: Colors.grey
+                    ),
+                    gradient: ColorConstants.tptgradient
+                ),
               ),
             ),
             body

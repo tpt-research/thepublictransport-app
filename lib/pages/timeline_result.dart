@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:thepublictransport_app/ui/base/tptfabscaffold.dart';
-import 'package:desiredrive_api_flutter/models/rmv/rmv_query.dart';
+import 'package:thepublictransport_app/ui/base/tpttimelineresultscaffold.dart';
 import 'package:thepublictransport_app/ui/components/tripdetail.dart';
 import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:desiredrive_api_flutter/service/desirecore/desire_nearby_lib.dart';
 
-class NearbySearchResultPage extends StatefulWidget {
-  NearbySearchResultPage(this.rmv);
-  final RMVQueryModel rmv;
+class TimelineResultPage extends StatefulWidget {
+  TimelineResultPage(this.id, this.name);
+  final String id;
+  final String name;
 
   @override
-  _NearbySearchResultPage createState() => _NearbySearchResultPage(this.rmv);
+  _TimelineResultPage createState() => _TimelineResultPage(this.id, this.name);
 }
 
-class _NearbySearchResultPage extends State<NearbySearchResultPage> {
-  _NearbySearchResultPage(this.rmv);
-  final RMVQueryModel rmv;
+class _TimelineResultPage extends State<TimelineResultPage> {
+  _TimelineResultPage(this.id, this.name);
+  final String id;
+  final String name;
 
   Widget build(BuildContext context) {
     return new TPTScaffold(
-      title: rmv.name,
+      title: name,
       body: new SizedBox(
         height: MediaQuery.of(context).size.height - 300,
         width: MediaQuery.of(context).size.width,
         child: new Container(
           padding: EdgeInsets.fromLTRB(0, 10, 15, 0),
           child: new FutureBuilder<ListView>(
-            future: getTrips(context, rmv),
+            future: getTrips(context, id),
             builder: (BuildContext context,
                 AsyncSnapshot<ListView> snapshot) {
               switch (snapshot.connectionState) {
@@ -49,9 +50,9 @@ class _NearbySearchResultPage extends State<NearbySearchResultPage> {
     );
   }
 
-  Future<ListView> getTrips(BuildContext context, RMVQueryModel query) async {
+  Future<ListView> getTrips(BuildContext context, String id) async {
     DesireNearbyLib nearby = new DesireNearbyLib();
-    var dep = await nearby.getSingleNearby(query);
+    var dep = await nearby.getSingleNearbyWithID(id);
     return new ListView(
       children: <Widget>[
         getList(dep)

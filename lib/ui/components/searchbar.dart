@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
-class Searchbar extends StatefulWidget {
-  Searchbar({@required this.text, @required this.onTap});
-
-  final String text;
-  final Function onTap;
-
-
-  @override
-  _SearchbarState createState() => _SearchbarState(this.text, this.onTap);
-}
-
-class _SearchbarState extends State<Searchbar> {
-  _SearchbarState(this.text, this.onTap);
+class Searchbar extends StatelessWidget {
+  Searchbar({this.text, this.onTap});
 
   final String text;
   final Function onTap;

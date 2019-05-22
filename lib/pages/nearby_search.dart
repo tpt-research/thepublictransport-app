@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thepublictransport_app/ui/base/tptsearchscaffold.dart';
+import 'package:thepublictransport_app/ui/base/tptfabscaffold.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:desiredrive_api_flutter/service/rmv/rmv_query_request.dart';
 import 'package:thepublictransport_app/pages/nearby_search_result.dart';
@@ -30,7 +30,8 @@ class _NearbySearchPage extends State<NearbySearchPage> {
                           color: Colors.grey,
                           style: BorderStyle.solid
                       )
-                  )
+                  ),
+                  labelText: "Suche"
               )
           ),
           suggestionsCallback: (pattern) async {

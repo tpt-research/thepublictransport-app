@@ -4,6 +4,7 @@ import 'package:thepublictransport_app/ui/base/tpttripshowscaffold.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:thepublictransport_app/pages/timeline.dart';
 
 class TripShowPage extends StatefulWidget {
   final DesireNearbyModel model;
@@ -20,7 +21,7 @@ class _TripShowPageState extends State<TripShowPage> {
   _TripShowPageState(this.model);
 
   Widget build(BuildContext context) {
-    return TPTTripShowScaffold(
+    return TPTScaffold(
       title: model.stop + " -> " + model.direction,
       body: Container(
         child: ListView(
@@ -55,6 +56,39 @@ class _TripShowPageState extends State<TripShowPage> {
                     openCity(model.stop);
                   }
               ),
+            ),
+            Padding(padding: EdgeInsets.only(top:15)),
+            ListTile(
+              title: new Text(
+                  "Zwischenhaltestellen".toUpperCase(),
+                  style: new TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 13,
+                      color: Colors.grey
+                  )
+              ),
+              subtitle: new GradientText(
+                "Zwischenhaltestellen anzeigen",
+                style: new TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 25,
+                    color: Colors.grey
+                ),
+                gradient: ColorConstants.tptgradient,
+              ),
+              trailing: IconButton(
+                  icon: new Icon(
+                    Icons.timeline,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => TimelinePage(model.journeyID)));
+                  }
+              ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => TimelinePage(model.journeyID)));
+              },
             ),
             Padding(padding: EdgeInsets.only(top:15)),
             ListTile(

@@ -8,8 +8,6 @@ import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
-import 'package:frideos_light/frideos_light.dart';
-
 class NearbyWidget extends StatefulWidget {
   @override
   NearbyWidgetState createState() => NearbyWidgetState();
@@ -17,10 +15,10 @@ class NearbyWidget extends StatefulWidget {
 
 class NearbyWidgetState extends State<NearbyWidget> {
   Widget build(BuildContext context) {
-    return TPTNearbyScaffold(
+    return TPTScaffold(
       title: "In der Nähe",
       body: new SizedBox(
-        height: MediaQuery.of(context).size.height - 200,
+        height: MediaQuery.of(context).size.height - 220,
         width: MediaQuery.of(context).size.width,
         child: new FutureBuilder<ListView>(
           future: getMasterView(context),
@@ -78,10 +76,10 @@ class NearbyWidgetState extends State<NearbyWidget> {
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       children: <Widget>[
-        new FutureBuilder<ListView>(
+        new FutureBuilder<Card>(
           future: getTrips(context, 0, query, nearby),
           builder: (BuildContext context,
-              AsyncSnapshot<ListView> snapshot) {
+              AsyncSnapshot<Card> snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.active:
               case ConnectionState.waiting:
@@ -108,10 +106,11 @@ class NearbyWidgetState extends State<NearbyWidget> {
             return null; // unreachable
           },
         ),
-        new FutureBuilder<ListView>(
+        Padding(padding: EdgeInsets.only(top: 7)),
+        new FutureBuilder<Card>(
           future: getTrips(context, 1, query, nearby),
           builder: (BuildContext context,
-              AsyncSnapshot<ListView> snapshot) {
+              AsyncSnapshot<Card> snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.active:
               case ConnectionState.waiting:
@@ -127,10 +126,11 @@ class NearbyWidgetState extends State<NearbyWidget> {
             return null; // unreachable
           },
         ),
-        new FutureBuilder<ListView>(
+        Padding(padding: EdgeInsets.only(top: 7)),
+        new FutureBuilder<Card>(
           future: getTrips(context, 2, query, nearby),
           builder: (BuildContext context,
-              AsyncSnapshot<ListView> snapshot) {
+              AsyncSnapshot<Card> snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.active:
               case ConnectionState.waiting:
@@ -150,16 +150,24 @@ class NearbyWidgetState extends State<NearbyWidget> {
     );
   }
 
-  Future<ListView> getTrips(BuildContext context, int index, List query, DesireNearbyLib nearby) async {
+  Future<Card> getTrips(BuildContext context, int index, List query, DesireNearbyLib nearby) async {
     var dep = await nearby.getNearby(index, query);
-    return new ListView(
-      children: <Widget>[
-        getContainer(dep),
-        getList(dep)
-      ],
-      physics: NeverScrollableScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
+    return new Card(
+      color: Colors.white,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(25.0),
+      ),
+      child: new ListView(
+        children: <Widget>[
+          Padding(padding: EdgeInsets.only(top: 10)),
+          getContainer(dep),
+          getList(dep)
+        ],
+        physics: NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+      ),
     );
   }
   
