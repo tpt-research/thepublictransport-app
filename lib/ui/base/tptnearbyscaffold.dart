@@ -22,7 +22,7 @@ class _TPTScaffoldState extends State<TPTScaffold> {
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConstants.backgroundColor,
       body: new Container(
         padding: EdgeInsets.fromLTRB(
             MediaQuery.of(context).padding.left,
@@ -51,7 +51,7 @@ class _TPTScaffoldState extends State<TPTScaffold> {
                             style: new TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 13,
-                                color: Colors.grey
+                                color: ColorConstants.titleColor
                             )
                         ),
                       ),
@@ -79,6 +79,7 @@ class _TPTScaffoldState extends State<TPTScaffold> {
                       icon: Icon(
                         Icons.search,
                         size: 30,
+                        color: ColorConstants.iconColor,
                       ),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => NearbySearchPage()));

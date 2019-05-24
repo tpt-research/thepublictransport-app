@@ -21,7 +21,7 @@ class _TPTScaffoldState extends State<TPTScaffold> {
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConstants.backgroundColor,
       floatingActionButton: new ShowUp(
         delay: 500,
         child: new CircularGradientButton(
@@ -51,7 +51,7 @@ class _TPTScaffoldState extends State<TPTScaffold> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: Colors.grey
+                      color: ColorConstants.titleColor
                   )
               ),
             ),

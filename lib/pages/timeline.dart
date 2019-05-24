@@ -32,9 +32,12 @@ class _TimelinePage extends State<TimelinePage> {
       var object = TimelineModel(
           Container(
             child: Card(
+              color: ColorConstants.cardColor,
               margin: EdgeInsets.symmetric(vertical: 16.0),
-              shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  side: ColorConstants.decideBorderSide()
+              ),
               clipBehavior: Clip.antiAlias,
               child: InkWell(
                 onTap: () {
@@ -53,7 +56,7 @@ class _TimelinePage extends State<TimelinePage> {
                             style: new TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 13,
-                                color: Colors.grey
+                                color: ColorConstants.titleColor
                             )
                         ),
                         subtitle: new GradientText(
@@ -72,7 +75,7 @@ class _TimelinePage extends State<TimelinePage> {
                             style: new TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 13,
-                                color: Colors.grey
+                                color: ColorConstants.titleColor
                             )
                         ),
                         subtitle: new GradientText(
@@ -92,8 +95,8 @@ class _TimelinePage extends State<TimelinePage> {
             ),
           ),
           position: TimelineItemPosition.left,
-          iconBackground: Colors.black,
-          icon: Icon(Icons.location_on, color: Colors.white)
+          iconBackground: ColorConstants.backgroundColor,
+          icon: Icon(Icons.location_on, color: ColorConstants.iconColor)
       );
       timeline.add(object);
     }

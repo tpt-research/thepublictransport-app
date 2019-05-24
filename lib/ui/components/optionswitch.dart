@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
 
 class OptionSwitch extends StatefulWidget {
   OptionSwitch({@required this.title, @required this.icon, @required this.id});
@@ -69,8 +70,13 @@ class _OptionSwitchState extends State<OptionSwitch> {
             isSwitched = snapshot.data;
 
             return new ListTile(
-              leading: new Icon(this.icon),
-              title: new Text(this.title),
+              leading: new Icon(this.icon, color: ColorConstants.iconColor),
+              title: new Text(
+                  this.title,
+                  style: TextStyle(
+                    color: ColorConstants.textColor
+                  ),
+              ),
               trailing: Switch(
                 value: isSwitched,
                 onChanged: (value) {
@@ -81,6 +87,8 @@ class _OptionSwitchState extends State<OptionSwitch> {
                 },
                 activeTrackColor: Colors.purpleAccent,
                 activeColor: Colors.purple,
+                inactiveTrackColor: Colors.grey[200],
+                inactiveThumbColor: Colors.grey[300],
               ),
             );
         }

@@ -3,6 +3,7 @@ import 'package:thepublictransport_app/ui/base/tptfabscaffold.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:desiredrive_api_flutter/service/rmv/rmv_query_request.dart';
 import 'package:thepublictransport_app/pages/nearby_search_result.dart';
+import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
 
 class NearbySearchPage extends StatefulWidget {
   @override
@@ -10,47 +11,71 @@ class NearbySearchPage extends StatefulWidget {
 }
 
 class _NearbySearchPage extends State<NearbySearchPage> {
+
   Widget build(BuildContext context) {
     return new TPTScaffold(
       title: "Suche in der Nähe",
       body: new Container(
-        padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
-        child: TypeAheadField(
-          textFieldConfiguration: TextFieldConfiguration(
-              autofocus: true,
-              style: new TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 35,
-                  color: Colors.grey[600]
+          child: new Container(
+            padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
+            child: Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  side: ColorConstants.decideBorderSide()
               ),
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(
-                          color: Colors.grey,
-                          style: BorderStyle.solid
+              color: ColorConstants.cardColor,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                child: TypeAheadField(
+                  textFieldConfiguration: TextFieldConfiguration(
+                      autofocus: true,
+                      autocorrect: true,
+                      style: new TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 35,
+                        color: ColorConstants.subtitleColor,
+                      ),
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                            borderSide: ColorConstants.decideBorderSide()
+
+                        ),
+                        labelText: "Suche...",
+                        labelStyle: new TextStyle(
+                            color: ColorConstants.textColor
+                        ),
                       )
                   ),
-                  labelText: "Suche"
-              )
-          ),
-          suggestionsCallback: (pattern) async {
-            return await RMVQueryRequest.getStations(pattern).catchError((e) {
-              return RMVQueryRequest.failure();
-            });
-          },
-          itemBuilder: (context, suggestion) {
-            return ListTile(
-              leading: Icon(Icons.place),
-              title: Text(suggestion.name),
-            );
-          },
-          onSuggestionSelected: (suggestion) {
-            if(suggestion.name != "Keine Ergebnisse") {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => NearbySearchResultPage(suggestion)));
-            }
-          },
-        ),
+                  suggestionsCallback: (pattern) async {
+                    return await RMVQueryRequest.getStations(pattern).catchError((e) {
+                      return RMVQueryRequest.failure();
+                    });
+                  },
+                  itemBuilder: (context, suggestion) {
+                    return Container(
+                      color: ColorConstants.backgroundColor,
+                      child: ListTile(
+                        leading: Icon(Icons.place, color: ColorConstants.iconColor),
+                        title: Text(
+                          suggestion.name,
+                          style: new TextStyle(
+                              color: ColorConstants.textColor
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  onSuggestionSelected: (suggestion) {
+                    if(suggestion.name != "Keine Ergebnisse") {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NearbySearchResultPage(suggestion)));
+                    }
+                  },
+                ),
+              ),
+            ),
+          )
       ),
     );
   }

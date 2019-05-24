@@ -73,3 +73,4 @@ build/
 # The Public Transport
 android/tpt.jks
 android/key.properties
+android/api.keys

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 import 'package:thepublictransport_app/pages/tripshow.dart';
+import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
 
 class TripDetails extends StatefulWidget {
   TripDetails({this.result});
@@ -46,8 +47,18 @@ class _TripDetailsState extends State<TripDetails> {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripShowPage(model: value)));
         },
         child: new ListTile(
-          title: new Text(value.direction),
-          subtitle: new Text((value.realtime.hour.toString().padLeft(2, '0') + ":" + value.realtime.minute.toString().padLeft(2, '0'))  + " • " + chooseAdditionalLineString(value.product) + value.name + chooseDelay(value.time, value.realtime)),
+          title: new Text(
+              value.direction,
+              style: new TextStyle(
+                color: ColorConstants.textColor
+              ),
+          ),
+          subtitle: new Text(
+            (value.realtime.hour.toString().padLeft(2, '0') + ":" + value.realtime.minute.toString().padLeft(2, '0'))  + " • " + chooseAdditionalLineString(value.product) + value.name + chooseDelay(value.time, value.realtime),
+            style: new TextStyle(
+              color: ColorConstants.subtitleColor
+            ),
+          ),
           leading: Container(
             child: new SizedBox(
                 width: 50,
@@ -80,27 +91,27 @@ class _TripDetailsState extends State<TripDetails> {
       case "train":
         return Icon(
             Icons.train,
-            color: Colors.black,
+            color: ColorConstants.iconColor,
             size: 30,
         );
       case "Niederflurbus":
       case "bus":
         return Icon(
             Icons.directions_bus,
-            color: Colors.black,
+            color: ColorConstants.iconColor,
             size: 30,
         );
       case "Niederflurstraßenbahn":
       case "tram":
         return Icon(
             Icons.tram,
-            color: Colors.black,
+            color: ColorConstants.iconColor,
             size: 30,
         );
       default:
         return Icon(
             Icons.directions,
-            color: Colors.black,
+            color: ColorConstants.iconColor,
             size: 30,
         );
     }

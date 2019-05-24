@@ -19,13 +19,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: Colors.white.withAlpha(30),
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.dark
-      )
-    );
+    if (ColorConstants.theme == "dark") {
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle.dark.copyWith(
+            statusBarIconBrightness: Brightness.light,
+            statusBarColor: Colors.black.withAlpha(30),
+            systemNavigationBarColor: Colors.black,
+            systemNavigationBarIconBrightness: Brightness.light
+        )
+      );
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle.light.copyWith(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarColor: Colors.white.withAlpha(30),
+              systemNavigationBarColor: Colors.white,
+              systemNavigationBarIconBrightness: Brightness.dark
+          )
+      );
+    }
+
     return MaterialApp(
       title: 'The Public Transport',
       theme: ThemeData(
@@ -94,14 +107,19 @@ class SplashScreenState extends State<SplashScreen> {
       animationType: InnerDrawerAnimation.quadratic, // default static
       innerDrawerCallback: (a) => print(a),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: ColorConstants.backgroundColor,
         body: Container(
           child: ListView(
             children: <Widget>[
               InkWell(
                 child: ListTile(
-                  leading: new Icon(OMIcons.search),
-                  title: new Text("Suche"),
+                  leading: new Icon(OMIcons.search, color: ColorConstants.iconColor),
+                  title: new Text(
+                      "Suche",
+                      style: new TextStyle(
+                        color: ColorConstants.textColor
+                      ),
+                  ),
                 ),
                 onTap: () {
                   _close();
@@ -113,8 +131,13 @@ class SplashScreenState extends State<SplashScreen> {
               ),
               InkWell(
                 child: ListTile(
-                  leading: new Icon(OMIcons.locationOn),
-                  title: new Text("In der Nähe"),
+                  leading: new Icon(OMIcons.locationOn, color: ColorConstants.iconColor),
+                  title: new Text(
+                      "In der Nähe",
+                    style: new TextStyle(
+                        color: ColorConstants.textColor
+                    ),
+                  ),
                 ),
                 onTap: () {
                   _close();
@@ -124,7 +147,8 @@ class SplashScreenState extends State<SplashScreen> {
                   });
                 },
               ),
-              InkWell(
+              // Coming Soon
+              /*InkWell(
                 child: ListTile(
                   leading: new Icon(OMIcons.train),
                   title: new Text("Pendlertools"),
@@ -136,11 +160,16 @@ class SplashScreenState extends State<SplashScreen> {
 
                   });
                 },
-              ),
+              ),*/
               InkWell(
                 child: ListTile(
-                  leading: new Icon(OMIcons.settings),
-                  title: new Text("Einstellungen"),
+                  leading: new Icon(OMIcons.settings, color: ColorConstants.iconColor),
+                  title: new Text(
+                      "Einstellungen",
+                    style: new TextStyle(
+                        color: ColorConstants.textColor
+                    ),
+                  ),
                 ),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsWidget()));
@@ -164,9 +193,10 @@ class SplashScreenState extends State<SplashScreen> {
           iconSize: 32,
           opacity: .2,
           hasInk: true,
-          hasNotch: true,
+          hasNotch: ColorConstants.theme == "light" ? true : false,
           fabLocation: BubbleBottomBarFabLocation.end,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+          backgroundColor: ColorConstants.backgroundColor,
+          inkColor: ColorConstants.backgroundColor,
           currentIndex: changed,
           onTap: (int index) {
             setState(() {
@@ -196,7 +226,8 @@ class SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
-            BubbleBottomBarItem(
+            //Coming Soon
+            /*BubbleBottomBarItem(
               backgroundColor: Colors.red,
               activeIcon: Icon(OMIcons.train, color: Colors.red[600]),
               icon: Icon(OMIcons.train, color: Colors.red[200]),
@@ -206,7 +237,7 @@ class SplashScreenState extends State<SplashScreen> {
                     color: Colors.red[600]
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
       ),

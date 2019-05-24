@@ -21,14 +21,13 @@ class _TPTScaffoldState extends State<TPTScaffold> {
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: ColorConstants.backgroundColor,
+      backgroundColor: Colors.white,
       floatingActionButton: new ShowUp(
         delay: 500,
         child: new CircularGradientButton(
           gradient: ColorConstants.tptfabgradient,
           child: Icon(Icons.arrow_back),
           callback: () {
-            FocusScope.of(context).requestFocus(new FocusNode());
             Navigator.of(context).pop();
           },
         ),
@@ -54,7 +53,7 @@ class _TPTScaffoldState extends State<TPTScaffold> {
                     style: new TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
-                        color: ColorConstants.titleColor
+                        color: Colors.grey[600]
                     )
                 ),
               ),

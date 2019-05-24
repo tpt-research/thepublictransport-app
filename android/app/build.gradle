@@ -27,6 +27,10 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+def apikeys = new Properties()
+def apiKeysFile = rootProject.file('api.keys')
+apikeys.load(new FileInputStream(apiKeysFile))
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -69,6 +73,10 @@ android {
             useProguard false
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "MAPS_KEY", apikeys['googleMapsAPIKEYRelease']
+        }
+        debug {
+            resValue "string", "MAPS_KEY", apikeys['googleMapsAPIKEYDebug']
         }
     }
 }

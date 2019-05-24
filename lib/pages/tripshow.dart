@@ -34,7 +34,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: Colors.grey
+                      color: ColorConstants.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -42,14 +42,14 @@ class _TripShowPageState extends State<TripShowPage> {
                 style: new TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 25,
-                    color: Colors.grey
+                    color: ColorConstants.titleColor
                 ),
                 gradient: ColorConstants.tptgradient,
               ),
               trailing: IconButton(
                   icon: new Icon(
                       Icons.map,
-                      color: Colors.black,
+                      color: ColorConstants.iconColor,
                       size: 30,
                   ),
                   onPressed: () {
@@ -64,7 +64,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: Colors.grey
+                      color: ColorConstants.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -79,7 +79,7 @@ class _TripShowPageState extends State<TripShowPage> {
               trailing: IconButton(
                   icon: new Icon(
                     Icons.timeline,
-                    color: Colors.black,
+                    color: ColorConstants.iconColor,
                     size: 30,
                   ),
                   onPressed: () {
@@ -97,7 +97,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: Colors.grey
+                      color: ColorConstants.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -112,7 +112,7 @@ class _TripShowPageState extends State<TripShowPage> {
               trailing: IconButton(
                   icon: new Icon(
                       Icons.map,
-                      color: Colors.black,
+                      color: ColorConstants.iconColor,
                       size: 30,
                   ),
                   onPressed: () {
@@ -127,7 +127,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: Colors.grey
+                      color: ColorConstants.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -147,7 +147,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: Colors.grey
+                      color: ColorConstants.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -167,7 +167,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: Colors.grey
+                      color: ColorConstants.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -187,7 +187,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: Colors.grey
+                      color: ColorConstants.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -218,27 +218,27 @@ class _TripShowPageState extends State<TripShowPage> {
       case "train":
         return Icon(
           Icons.train,
-          color: Colors.black,
+          color: ColorConstants.iconColor,
           size: 30,
         );
       case "Niederflurbus":
       case "bus":
         return Icon(
           Icons.directions_bus,
-          color: Colors.black,
+          color: ColorConstants.iconColor,
           size: 30,
         );
       case "Niederflurstraßenbahn":
       case "tram":
         return Icon(
           Icons.tram,
-          color: Colors.black,
+          color: ColorConstants.iconColor,
           size: 30,
         );
       default:
         return Icon(
           Icons.directions,
-          color: Colors.black,
+          color: ColorConstants.iconColor,
           size: 30,
         );
     }
@@ -285,7 +285,7 @@ class _TripShowPageState extends State<TripShowPage> {
             style: new TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 13,
-                color: Colors.grey
+                color: ColorConstants.titleColor
             )
         ),
         subtitle: new GradientText(

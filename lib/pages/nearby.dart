@@ -14,6 +14,7 @@ class NearbyWidget extends StatefulWidget {
 }
 
 class NearbyWidgetState extends State<NearbyWidget> {
+
   Widget build(BuildContext context) {
     return TPTScaffold(
       title: "In der Nähe",
@@ -37,7 +38,7 @@ class NearbyWidgetState extends State<NearbyWidget> {
                   child: new SizedBox(
                       width: 50,
                       height: 50,
-                      child: new CircularProgressIndicator()
+                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorConstants.iconColor))
                   ),
                 );
               case ConnectionState.done:
@@ -93,7 +94,7 @@ class NearbyWidgetState extends State<NearbyWidget> {
                   child: new SizedBox(
                       width: 50,
                       height: 50,
-                      child: new CircularProgressIndicator()
+                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorConstants.iconColor))
                   ),
                 );
               case ConnectionState.done:
@@ -153,10 +154,11 @@ class NearbyWidgetState extends State<NearbyWidget> {
   Future<Card> getTrips(BuildContext context, int index, List query, DesireNearbyLib nearby) async {
     var dep = await nearby.getNearby(index, query);
     return new Card(
-      color: Colors.white,
+      color: ColorConstants.cardColor,
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(25.0),
+          side: ColorConstants.decideBorderSide()
       ),
       child: new ListView(
         children: <Widget>[
@@ -168,6 +170,21 @@ class NearbyWidgetState extends State<NearbyWidget> {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
       ),
+    );
+  }
+
+  ListView getNoTripList() {
+    return new ListView(
+      children: <Widget>[
+        Padding(padding: EdgeInsets.only(top: 10)),
+        ListTile(
+          title: new Text("Keine Fahrten"),
+          subtitle: new Text("Keine Fahrten innerhalb der nächsten 60 Minuten"),
+        )
+      ],
+      physics: NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
     );
   }
   
@@ -182,8 +199,7 @@ class NearbyWidgetState extends State<NearbyWidget> {
                 model[0].stop,
                 style: new TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 25,
-                    color: Colors.grey
+                    fontSize: 25
                 ),
                 gradient: ColorConstants.tptgradient,
               ),
@@ -213,6 +229,6 @@ class NearbyWidgetState extends State<NearbyWidget> {
         ),
       );
     else
-      return Container();
+      return getNoTripList();
   } 
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:thepublictransport_app/ui/base/tptfabscaffold.dart';
+import 'package:flutter/services.dart';
+import 'package:thepublictransport_app/ui/base/tptfabnothemescaffold.dart';
 import 'package:preferences/preferences.dart';
 
 class SettingsWidget extends StatefulWidget {
@@ -28,7 +29,7 @@ class SettingsWidgetState extends State<SettingsWidget> {
               'Startseite',
               'start_page',
               defaultVal: 'Suche',
-              values: ['Suche', 'In der Nähe', 'Pendlertools'],
+              values: ['Suche', 'In der Nähe'],
             ),
             PreferenceTitle(
                 'Personalisierung'.toUpperCase(),
@@ -44,44 +45,46 @@ class SettingsWidgetState extends State<SettingsWidget> {
               'light',
               'ui_theme',
               isDefault: true,
+              onSelect: () async {
+                await showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SimpleDialog(
+                        title: const Text('Sie müssen die App neustarten, damit das Design sich verändert'),
+                        children: <Widget>[
+                          SimpleDialogOption(
+                            onPressed: () { SystemChannels.platform.invokeMethod('SystemNavigator.pop'); },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    }
+                );
+              },
             ),
             RadioPreference(
-              'Dark Theme (coming soon)',
+              'Dark Theme',
               'dark',
               'ui_theme',
-            ),
-            PreferenceTitle(
-                'flux.fail'.toUpperCase(),
-                leftPadding: 15,
-                style: new TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 13,
-                    color: Colors.grey
-                )
-            ),
-            PreferenceDialogLink(
-              'E-Mail ändern',
-              dialog: PreferenceDialog(
-                [
-                  TextFieldPreference(
-                    'E-Mail hier eingeben',
-                    'change_mail',
-                    padding: const EdgeInsets.only(top: 8.0),
-                    autofocus: true,
-                    maxLines: 1,
-                  )
-                ],
-                title: 'E-Mail ändern',
-                cancelText: 'Abbrechen',
-                submitText: 'Sichern',
-                onlySaveOnSubmit: true,
-              ),
-              onPop: () => setState(() {}),
-            ),
-            PreferenceText(
-              "flux.fail E-Mail: " + PrefService.getString('change_mail') ?? "Keine angegeben",
-              style: TextStyle(color: Colors.grey),
-            ),
+              onSelect: () async {
+                await showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SimpleDialog(
+                        title: const Text('Sie müssen die App neustarten, damit das Design sich verändert'),
+                        children: <Widget>[
+                          SimpleDialogOption(
+                            onPressed: () { SystemChannels.platform.invokeMethod('SystemNavigator.pop'); },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    }
+                );
+              },
+            )
           ]),
       ),
     );

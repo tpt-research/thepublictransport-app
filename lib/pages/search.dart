@@ -5,14 +5,15 @@ import 'package:thepublictransport_app/ui/components/searchbar.dart';
 import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
 import 'package:thepublictransport_app/ui/components/mapswidget.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:thepublictransport_app/ui/components/welcomecity.dart';
-import 'package:desiredrive_api_flutter/service/geocode/geocode.dart';
-import 'package:desiredrive_api_flutter/service/nominatim/nominatim_request.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thepublictransport_app/pages/searchinput.dart';
 import 'package:desiredrive_api_flutter/models/rmv/rmv_query.dart';
 import 'package:thepublictransport_app/ui/components/optionswitch.dart';
+import 'package:thepublictransport_app/pages/search_result.dart';
+import 'package:desiredrive_api_flutter/service/geocode/geocode.dart';
+import 'package:desiredrive_api_flutter/service/rmv/rmv_query_request.dart';
+
 
 class SearchWidget extends StatefulWidget {
   @override
@@ -25,11 +26,16 @@ class SearchWidgetState extends State<SearchWidget> {
   RMVQueryModel from;
   RMVQueryModel to;
   String datestring;
+  String datestring_rmv;
   String timestring;
+  String timestring_rmv;
+
+  GlobalKey<MapsWidgetState> _mapskey = new GlobalKey();
 
 
   Widget build(BuildContext context) {
     return new Scaffold(
+      backgroundColor: ColorConstants.backgroundColor,
       body: new Container(
         padding: EdgeInsets.fromLTRB(
             MediaQuery.of(context).padding.left,
@@ -46,30 +52,7 @@ class SearchWidgetState extends State<SearchWidget> {
                 new SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.30,
-                  child: new FutureBuilder<MapsWidget>(
-                    future: MapsWidgetDelayed(),
-                    builder: (BuildContext context, AsyncSnapshot<MapsWidget> snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.active:
-                        case ConnectionState.waiting:
-                        case ConnectionState.none:
-                          return new Container(
-                            alignment: Alignment.topCenter,
-                            padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.10),
-                            child: new SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: new CircularProgressIndicator()
-                            ),
-                          );
-                        case ConnectionState.done:
-                          if (snapshot.hasError)
-                            return new Text('Error: ${snapshot.error}');
-                          return snapshot.data;
-                      }
-                      return null; // unreachable
-                    },
-                  )
+                  child: new MapsWidget(key: _mapskey)
                 ),
                 new Center(
                   child: new Container(
@@ -92,8 +75,9 @@ class SearchWidgetState extends State<SearchWidget> {
                                   elevation: 2,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25.0),
+                                    side: ColorConstants.decideBorderSide()
                                   ),
-                                  color: Colors.white,
+                                  color: ColorConstants.cardColor,
                                   child: new Container(
                                     padding: EdgeInsets.only(top: 10),
                                     child: new Column(
@@ -107,6 +91,13 @@ class SearchWidgetState extends State<SearchWidget> {
                                             onTap: () {
                                               _navigateAndDisplaySelection(context, "Start", 1);
                                             },
+                                            onButtonPressed: () async {
+                                              DesireDriveGeocode geocode = new DesireDriveGeocode();
+                                              from = await RMVQueryRequest.getMostRelevantAndNearestStation(await geocode.latitude(), await geocode.longitude());
+                                              setState(() {
+
+                                              });
+                                            },
                                           ),
                                         ),
                                         new ShowUp(
@@ -115,6 +106,13 @@ class SearchWidgetState extends State<SearchWidget> {
                                             text: decideSearchbarString("Ziel", 2),
                                             onTap: () {
                                               _navigateAndDisplaySelection(context, "Ziel", 2);
+                                            },
+                                            onButtonPressed: () async {
+                                              DesireDriveGeocode geocode = new DesireDriveGeocode();
+                                              to = await RMVQueryRequest.getMostRelevantAndNearestStation(await geocode.latitude(), await geocode.longitude());
+                                              setState(() {
+
+                                              });
                                             },
                                           ),
                                         ),
@@ -190,14 +188,15 @@ class SearchWidgetState extends State<SearchWidget> {
                                             padding: EdgeInsets.fromLTRB(23, 20, 0, 0),
                                             child: new OutlineButton(
                                               highlightElevation: 0,
-                                              borderSide: new BorderSide(style: BorderStyle.solid, width: 2, color: Colors.black),
-                                              highlightedBorderColor: Colors.black,
+                                              borderSide: new BorderSide(style: BorderStyle.solid, width: 2, color: ColorConstants.textColor),
+                                              highlightedBorderColor: ColorConstants.textColor,
                                               child: Text(
                                                   'Optionen',
                                                   style: new TextStyle(
                                                       fontFamily: 'Roboto',
                                                       fontStyle: FontStyle.normal,
-                                                      fontSize: 17
+                                                      fontSize: 17,
+                                                      color: ColorConstants.textColor
                                                   )
                                               ),
                                               onPressed: () {
@@ -220,8 +219,23 @@ class SearchWidgetState extends State<SearchWidget> {
                                                     child: new Icon(
                                                         Icons.search
                                                     ),
-                                                    callback: (){
+                                                    callback: () async {
+                                                      super.reassemble();
+                                                      SharedPreferences _prefs = await SharedPreferences.getInstance();
+                                                      await Navigator.of(context).push(
+                                                          MaterialPageRoute(
+                                                              builder: (context) => SearchResultPage(
+                                                                from: from,
+                                                                to: to,
+                                                                time: timestring_rmv,
+                                                                date: datestring_rmv,
+                                                                saveDrive: _prefs.getBool('good_trips_pref') ?? false
+                                                              )
+                                                          )
+                                                      );
+                                                      setState(() {
 
+                                                      });
                                                     }
                                                 ),
                                               ),
@@ -234,22 +248,7 @@ class SearchWidgetState extends State<SearchWidget> {
                                 ),
                               ),
                             ),
-                            new FutureBuilder<ShowUp>(
-                              future: welcomeCityRenderer(),
-                              builder: (BuildContext context, AsyncSnapshot<ShowUp> snapshot) {
-                                switch (snapshot.connectionState) {
-                                  case ConnectionState.active:
-                                  case ConnectionState.waiting:
-                                  case ConnectionState.none:
-                                    return new Container();
-                                  case ConnectionState.done:
-                                    if (snapshot.hasError)
-                                      return new Text('Error: ${snapshot.error}');
-                                    return snapshot.data;
-                                }
-                                return null; // unreachable
-                              },
-                            )
+                            // Place for future widgets
                           ],
                         ),
                       ),
@@ -274,6 +273,7 @@ class SearchWidgetState extends State<SearchWidget> {
 
     if(picked != null)
       setState(() {
+        datestring_rmv = picked.year.toString() + "-" + picked.month.toString().padLeft(2, '0') + "-" + picked.day.toString().padLeft(2, '0');
         datestring = picked.day.toString().padLeft(2, '0') + "." + picked.month.toString().padLeft(2, '0') + "." + picked.year.toString();
       });
   }
@@ -292,6 +292,7 @@ class SearchWidgetState extends State<SearchWidget> {
 
     if(selectedTime24Hour != null)
       setState(() {
+        timestring_rmv = selectedTime24Hour.hour.toString().padLeft(2, '0') + ":" + selectedTime24Hour.minute.toString().padLeft(2, '0');
         timestring = selectedTime24Hour.hour.toString().padLeft(2, '0') + ":" + selectedTime24Hour.minute.toString().padLeft(2, '0');
       });
 
@@ -317,18 +318,23 @@ class SearchWidgetState extends State<SearchWidget> {
 
   String decideDateString() {
     var now = DateTime.now();
-    if (datestring != null)
+    if (datestring != null) {
       return datestring;
-    else
+    } else {
+      datestring_rmv = now.year.toString() + "-" + now.month.toString().padLeft(2, '0') + "-" + now.day.toString().padLeft(2, '0');
       return now.day.toString().padLeft(2, '0') + "." + now.month.toString().padLeft(2, '0') + "." + now.year.toString();
+    }
+
   }
 
   String decideTimeString() {
     var now = TimeOfDay.now();
-    if (timestring != null)
+    if (timestring != null) {
       return timestring;
-    else
+    } else {
+      timestring_rmv = now.hour.toString().padLeft(2, '0') + ":" + now.minute.toString().padLeft(2, '0');
       return now.hour.toString().padLeft(2, '0') + ":" + now.minute.toString().padLeft(2, '0');
+    }
   }
 
   _navigateAndDisplaySelection(BuildContext context, String title, int mode) async {
@@ -347,29 +353,12 @@ class SearchWidgetState extends State<SearchWidget> {
             break;
           case 2:
             to = result;
+            break;
+          default:
+            break;
         }
       });
     }
-  }
-
-  Future<ShowUp> welcomeCityRenderer() async {
-    var nominatim = new NominatimRequest();
-    var geocode = new DesireDriveGeocode();
-
-    return nominatim.getPlace(await geocode.latitude(), await geocode.longitude()).then((nominatim) {
-      return ShowUp(
-        child: new WelcomeCity(
-          city: nominatim.city,
-        ),
-        delay: 300,
-      );
-    });
-  }
-
-  Future<MapsWidget> MapsWidgetDelayed() {
-    return Future.delayed(const Duration(milliseconds: 2000), () {
-      return MapsWidget();
-    });
   }
 
   showOptions() {
@@ -378,9 +367,9 @@ class SearchWidgetState extends State<SearchWidget> {
         builder: (BuildContext context) {
           final ThemeData themeData = Theme.of(context);
           return Theme(
-            data: themeData.copyWith(canvasColor: Colors.white),
+            data: themeData.copyWith(canvasColor: ColorConstants.backgroundColor),
             child: DecoratedBox(
-              decoration: BoxDecoration(color: Colors.transparent),
+              decoration: BoxDecoration(color: ColorConstants.backgroundColor),
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(22.0),
@@ -410,4 +399,6 @@ class SearchWidgetState extends State<SearchWidget> {
           );
         });
   }
+
+
 }
