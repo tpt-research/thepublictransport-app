@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:thepublictransport_app/pages/search.dart';
-import 'package:thepublictransport_app/pages/nearby.dart';
-import 'package:thepublictransport_app/pages/settings.dart';
+import 'package:thepublictransport_app/pages/search/search.dart';
+import 'package:thepublictransport_app/pages/nearby/nearby.dart';
+import 'package:thepublictransport_app/pages/misc/settings.dart';
 import 'package:flutter/services.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 import 'package:preferences/preferences.dart';
+import 'package:thepublictransport_app/pages/misc/firstrun.dart';
+import 'package:thepublictransport_app/pages/misc/about.dart';
 
 void main() async {
   await PrefService.init(prefix: 'pref_settings_');
@@ -19,14 +21,42 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (ColorConstants.theme == "dark") {
+    return MaterialApp(
+      title: 'The Public Transport',
+      theme: ThemeData(
+        primaryColor: Colors.black,
+        accentColor: Colors.black
+      ),
+      home: getFirstRun(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+
+  Widget getFirstRun() {
+    if (PrefService.getBool("firstrun") == null ? true : false || PrefService.getBool("firstrun") == false) {
+      return FirstrunPage();
+    } else {
+      return SplashScreen();
+    }
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+
+  @override
+  SplashScreenState createState() => SplashScreenState();
+}
+
+class SplashScreenState extends State<SplashScreen> {
+  SplashScreenState() {
+    if (ColorThemeEngine.theme == "dark") {
       SystemChrome.setSystemUIOverlayStyle(
           SystemUiOverlayStyle.dark.copyWith(
-            statusBarIconBrightness: Brightness.light,
-            statusBarColor: Colors.black.withAlpha(30),
-            systemNavigationBarColor: Colors.black,
-            systemNavigationBarIconBrightness: Brightness.light
-        )
+              statusBarIconBrightness: Brightness.light,
+              statusBarColor: Colors.black.withAlpha(30),
+              systemNavigationBarColor: Colors.black,
+              systemNavigationBarIconBrightness: Brightness.light
+          )
       );
     } else {
       SystemChrome.setSystemUIOverlayStyle(
@@ -38,25 +68,8 @@ class MyApp extends StatelessWidget {
           )
       );
     }
-
-    return MaterialApp(
-      title: 'The Public Transport',
-      theme: ThemeData(
-        primaryColor: Colors.black,
-        accentColor: Colors.black
-      ),
-      home: SplashScreen(),
-    );
   }
-}
 
-class SplashScreen extends StatefulWidget {
-
-  @override
-  SplashScreenState createState() => SplashScreenState();
-}
-
-class SplashScreenState extends State<SplashScreen> {
   int changed = 0;
   final GlobalKey<InnerDrawerState> _innerDrawerKey = GlobalKey<InnerDrawerState>();
 
@@ -107,73 +120,103 @@ class SplashScreenState extends State<SplashScreen> {
       animationType: InnerDrawerAnimation.quadratic, // default static
       innerDrawerCallback: (a) => print(a),
       child: Scaffold(
-        backgroundColor: ColorConstants.backgroundColor,
+        backgroundColor: ColorThemeEngine.backgroundColor,
         body: Container(
-          child: ListView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              InkWell(
-                child: ListTile(
-                  leading: new Icon(OMIcons.search, color: ColorConstants.iconColor),
-                  title: new Text(
-                      "Suche",
-                      style: new TextStyle(
-                        color: ColorConstants.textColor
+              ListView(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                children: <Widget>[
+                  InkWell(
+                    child: ListTile(
+                      leading: new Icon(OMIcons.search, color: ColorThemeEngine.iconColor),
+                      title: new Text(
+                          "Suche",
+                          style: new TextStyle(
+                            color: ColorThemeEngine.textColor
+                          ),
                       ),
-                  ),
-                ),
-                onTap: () {
-                  _close();
-                  changed = 0;
-                  setState(() {
-
-                  });
-                },
-              ),
-              InkWell(
-                child: ListTile(
-                  leading: new Icon(OMIcons.locationOn, color: ColorConstants.iconColor),
-                  title: new Text(
-                      "In der Nähe",
-                    style: new TextStyle(
-                        color: ColorConstants.textColor
                     ),
+                    onTap: () {
+                      _close();
+                      changed = 0;
+                      setState(() {
+
+                      });
+                    },
                   ),
-                ),
-                onTap: () {
-                  _close();
-                  changed = 1;
-                  setState(() {
-
-                  });
-                },
-              ),
-              // Coming Soon
-              /*InkWell(
-                child: ListTile(
-                  leading: new Icon(OMIcons.train),
-                  title: new Text("Pendlertools"),
-                ),
-                onTap: () {
-                  _close();
-                  changed = 2;
-                  setState(() {
-
-                  });
-                },
-              ),*/
-              InkWell(
-                child: ListTile(
-                  leading: new Icon(OMIcons.settings, color: ColorConstants.iconColor),
-                  title: new Text(
-                      "Einstellungen",
-                    style: new TextStyle(
-                        color: ColorConstants.textColor
+                  InkWell(
+                    child: ListTile(
+                      leading: new Icon(OMIcons.locationOn, color: ColorThemeEngine.iconColor),
+                      title: new Text(
+                          "In der Nähe",
+                        style: new TextStyle(
+                            color: ColorThemeEngine.textColor
+                        ),
+                      ),
                     ),
+                    onTap: () {
+                      _close();
+                      changed = 1;
+                      setState(() {
+
+                      });
+                    },
                   ),
-                ),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsWidget()));
-                },
+                  // Coming Soon
+                  /*InkWell(
+                    child: ListTile(
+                      leading: new Icon(OMIcons.train),
+                      title: new Text("Pendlertools"),
+                    ),
+                    onTap: () {
+                      _close();
+                      changed = 2;
+                      setState(() {
+
+                      });
+                    },
+                  ),*/
+                  InkWell(
+                    child: ListTile(
+                      leading: new Icon(OMIcons.settings, color: ColorThemeEngine.iconColor),
+                      title: new Text(
+                          "Einstellungen",
+                        style: new TextStyle(
+                            color: ColorThemeEngine.textColor
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsWidget()));
+                    },
+                  )
+                ],
+              ),
+              ListView(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                children: <Widget>[
+                  InkWell(
+                    child: ListTile(
+                      leading: new Icon(OMIcons.info, color: ColorThemeEngine.iconColor),
+                      title: new Text(
+                        "Über die App",
+                        style: new TextStyle(
+                            color: ColorThemeEngine.textColor
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => AboutPage()));
+                    },
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 20))
+                ],
               )
             ],
           ),
@@ -186,17 +229,17 @@ class SplashScreenState extends State<SplashScreen> {
             _open();
           },
           child: Icon(Icons.menu),
-          gradient: ColorConstants.tptfabgradient,
+          gradient: ColorThemeEngine.tptfabgradient,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: BubbleBottomBar(
           iconSize: 32,
           opacity: .2,
           hasInk: true,
-          hasNotch: ColorConstants.theme == "light" ? true : false,
+          hasNotch: ColorThemeEngine.theme == "light" ? true : false,
           fabLocation: BubbleBottomBarFabLocation.end,
-          backgroundColor: ColorConstants.backgroundColor,
-          inkColor: ColorConstants.backgroundColor,
+          backgroundColor: ColorThemeEngine.backgroundColor,
+          inkColor: ColorThemeEngine.backgroundColor,
           currentIndex: changed,
           onTap: (int index) {
             setState(() {

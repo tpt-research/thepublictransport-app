@@ -2,15 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/ui/components/searchbar.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 import 'package:thepublictransport_app/ui/components/mapswidget.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:thepublictransport_app/pages/searchinput.dart';
+import 'package:thepublictransport_app/pages/search/searchinput.dart';
 import 'package:desiredrive_api_flutter/models/rmv/rmv_query.dart';
 import 'package:thepublictransport_app/ui/components/optionswitch.dart';
-import 'package:thepublictransport_app/pages/search_result.dart';
+import 'package:thepublictransport_app/pages/search/search_result.dart';
 import 'package:desiredrive_api_flutter/service/geocode/geocode.dart';
 import 'package:desiredrive_api_flutter/service/rmv/rmv_query_request.dart';
 
@@ -35,7 +35,7 @@ class SearchWidgetState extends State<SearchWidget> {
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: ColorConstants.backgroundColor,
+      backgroundColor: ColorThemeEngine.backgroundColor,
       body: new Container(
         padding: EdgeInsets.fromLTRB(
             MediaQuery.of(context).padding.left,
@@ -75,9 +75,9 @@ class SearchWidgetState extends State<SearchWidget> {
                                   elevation: 2,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25.0),
-                                    side: ColorConstants.decideBorderSide()
+                                    side: ColorThemeEngine.decideBorderSide()
                                   ),
-                                  color: ColorConstants.cardColor,
+                                  color: ColorThemeEngine.cardColor,
                                   child: new Container(
                                     padding: EdgeInsets.only(top: 10),
                                     child: new Column(
@@ -128,7 +128,7 @@ class SearchWidgetState extends State<SearchWidget> {
                                                   padding: EdgeInsets.fromLTRB(20, 10, 9, 0),
                                                   child: new GradientButton(
                                                       increaseWidthBy: 30,
-                                                      gradient: ColorConstants.tptfabgradient,
+                                                      gradient: ColorThemeEngine.tptfabgradient,
                                                       child: new Container(
                                                         padding: EdgeInsets.only(left: 10),
                                                         child: new Row(
@@ -156,7 +156,7 @@ class SearchWidgetState extends State<SearchWidget> {
                                                 new Container(
                                                   padding: EdgeInsets.fromLTRB(0, 10, 12, 0),
                                                   child: new GradientButton(
-                                                      gradient: ColorConstants.tptfabgradient,
+                                                      gradient: ColorThemeEngine.tptfabgradient,
                                                       child: new Container(
                                                         padding: EdgeInsets.only(left: 10),
                                                         child: new Row(
@@ -188,15 +188,15 @@ class SearchWidgetState extends State<SearchWidget> {
                                             padding: EdgeInsets.fromLTRB(23, 20, 0, 0),
                                             child: new OutlineButton(
                                               highlightElevation: 0,
-                                              borderSide: new BorderSide(style: BorderStyle.solid, width: 2, color: ColorConstants.textColor),
-                                              highlightedBorderColor: ColorConstants.textColor,
+                                              borderSide: new BorderSide(style: BorderStyle.solid, width: 2, color: ColorThemeEngine.textColor),
+                                              highlightedBorderColor: ColorThemeEngine.textColor,
                                               child: Text(
                                                   'Optionen',
                                                   style: new TextStyle(
                                                       fontFamily: 'Roboto',
                                                       fontStyle: FontStyle.normal,
                                                       fontSize: 17,
-                                                      color: ColorConstants.textColor
+                                                      color: ColorThemeEngine.textColor
                                                   )
                                               ),
                                               onPressed: () {
@@ -215,7 +215,7 @@ class SearchWidgetState extends State<SearchWidget> {
                                                 alignment: Alignment.bottomRight,
                                                 padding: EdgeInsets.fromLTRB(0, 5, 27, 10),
                                                 child: new CircularGradientButton(
-                                                    gradient: ColorConstants.tptfabgradient,
+                                                    gradient: ColorThemeEngine.tptfabgradient,
                                                     child: new Icon(
                                                         Icons.search
                                                     ),
@@ -268,7 +268,15 @@ class SearchWidgetState extends State<SearchWidget> {
         context: context,
         initialDate: new DateTime.now(),
         firstDate: new DateTime(2019),
-        lastDate: new DateTime(2020)
+        lastDate: new DateTime(2020),
+        builder: (BuildContext context, Widget child) {
+          return ShowUp(
+            child: MediaQuery(
+              data: MediaQuery.of(context),
+              child: child,
+            ),
+          );
+        },
     );
 
     if(picked != null)
@@ -283,9 +291,11 @@ class SearchWidgetState extends State<SearchWidget> {
       context: context,
       initialTime: TimeOfDay(hour: 10, minute: 47),
       builder: (BuildContext context, Widget child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child,
+        return ShowUp(
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child,
+          ),
         );
       },
     );
@@ -367,9 +377,14 @@ class SearchWidgetState extends State<SearchWidget> {
         builder: (BuildContext context) {
           final ThemeData themeData = Theme.of(context);
           return Theme(
-            data: themeData.copyWith(canvasColor: ColorConstants.backgroundColor),
+            data: themeData.copyWith(
+                canvasColor: ColorThemeEngine.backgroundColor,
+                backgroundColor: ColorThemeEngine.backgroundColor,
+                primaryColor: ColorThemeEngine.textColor,
+                accentColor: ColorThemeEngine.textColor,
+            ),
             child: DecoratedBox(
-              decoration: BoxDecoration(color: ColorConstants.backgroundColor),
+              decoration: BoxDecoration(color: ColorThemeEngine.backgroundColor),
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(22.0),
@@ -378,26 +393,17 @@ class SearchWidgetState extends State<SearchWidget> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     new OptionSwitch(
-                        title: "Nur Nahverkehr",
-                        icon: Icons.directions_bus,
-                        id: "just_busses"
-                    ),
-                    new OptionSwitch(
                         title: "Zuverlässigere Erreichbarkeit",
                         icon: Icons.access_time,
                         id: "good_trips"
-                    ),
-                    new OptionSwitch(
-                        title: "Nur Direktverbindungen",
-                        icon: Icons.fast_forward,
-                        id: "direct_trips"
                     ),
                   ],
                 ),
               ),
             ),
           );
-        });
+        }
+    );
   }
 
 

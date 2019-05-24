@@ -7,8 +7,8 @@ import 'package:timeline_list/timeline_model.dart';
 import 'package:desiredrive_api_flutter/service/rmv/rmv_journeys_request.dart';
 import 'package:desiredrive_api_flutter/models/rmv/rmv_journeys.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
-import 'package:thepublictransport_app/pages/timeline_result.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
+import 'package:thepublictransport_app/pages/timeline/timeline_result.dart';
 
 class TimelinePage extends StatefulWidget {
   TimelinePage(this.journeyID);
@@ -32,11 +32,11 @@ class _TimelinePage extends State<TimelinePage> {
       var object = TimelineModel(
           Container(
             child: Card(
-              color: ColorConstants.cardColor,
+              color: ColorThemeEngine.cardColor,
               margin: EdgeInsets.symmetric(vertical: 16.0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25.0),
-                  side: ColorConstants.decideBorderSide()
+                  side: ColorThemeEngine.decideBorderSide()
               ),
               clipBehavior: Clip.antiAlias,
               child: InkWell(
@@ -56,7 +56,7 @@ class _TimelinePage extends State<TimelinePage> {
                             style: new TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 13,
-                                color: ColorConstants.titleColor
+                                color: ColorThemeEngine.titleColor
                             )
                         ),
                         subtitle: new GradientText(
@@ -66,7 +66,7 @@ class _TimelinePage extends State<TimelinePage> {
                               fontSize: 25,
                               color: Colors.grey
                           ),
-                          gradient: ColorConstants.tptgradient,
+                          gradient: ColorThemeEngine.tptgradient,
                         ),
                       ),
                       ListTile(
@@ -75,7 +75,7 @@ class _TimelinePage extends State<TimelinePage> {
                             style: new TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 13,
-                                color: ColorConstants.titleColor
+                                color: ColorThemeEngine.titleColor
                             )
                         ),
                         subtitle: new GradientText(
@@ -85,7 +85,7 @@ class _TimelinePage extends State<TimelinePage> {
                               fontSize: 25,
                               color: Colors.grey
                           ),
-                          gradient: ColorConstants.tptgradient,
+                          gradient: ColorThemeEngine.tptgradient,
                         ),
                       ),
                     ],
@@ -95,8 +95,8 @@ class _TimelinePage extends State<TimelinePage> {
             ),
           ),
           position: TimelineItemPosition.left,
-          iconBackground: ColorConstants.backgroundColor,
-          icon: Icon(Icons.location_on, color: ColorConstants.iconColor)
+          iconBackground: ColorThemeEngine.iconColor,
+          icon: Icon(Icons.location_on, color: ColorThemeEngine.backgroundColor)
       );
       timeline.add(object);
     }

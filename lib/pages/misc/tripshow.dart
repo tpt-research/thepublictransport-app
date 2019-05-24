@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:thepublictransport_app/ui/base/tpttripshowscaffold.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:thepublictransport_app/pages/timeline.dart';
+import 'package:thepublictransport_app/pages/timeline/timeline.dart';
 
 class TripShowPage extends StatefulWidget {
   final DesireNearbyModel model;
@@ -34,7 +34,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: ColorConstants.titleColor
+                      color: ColorThemeEngine.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -42,14 +42,14 @@ class _TripShowPageState extends State<TripShowPage> {
                 style: new TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 25,
-                    color: ColorConstants.titleColor
+                    color: ColorThemeEngine.titleColor
                 ),
-                gradient: ColorConstants.tptgradient,
+                gradient: ColorThemeEngine.tptgradient,
               ),
               trailing: IconButton(
                   icon: new Icon(
                       Icons.map,
-                      color: ColorConstants.iconColor,
+                      color: ColorThemeEngine.iconColor,
                       size: 30,
                   ),
                   onPressed: () {
@@ -64,7 +64,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: ColorConstants.titleColor
+                      color: ColorThemeEngine.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -74,12 +74,12 @@ class _TripShowPageState extends State<TripShowPage> {
                     fontSize: 25,
                     color: Colors.grey
                 ),
-                gradient: ColorConstants.tptgradient,
+                gradient: ColorThemeEngine.tptgradient,
               ),
               trailing: IconButton(
                   icon: new Icon(
                     Icons.timeline,
-                    color: ColorConstants.iconColor,
+                    color: ColorThemeEngine.iconColor,
                     size: 30,
                   ),
                   onPressed: () {
@@ -97,7 +97,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: ColorConstants.titleColor
+                      color: ColorThemeEngine.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -107,12 +107,12 @@ class _TripShowPageState extends State<TripShowPage> {
                     fontSize: 25,
                     color: Colors.grey
                 ),
-                gradient: ColorConstants.tptgradient,
+                gradient: ColorThemeEngine.tptgradient,
               ),
               trailing: IconButton(
                   icon: new Icon(
                       Icons.map,
-                      color: ColorConstants.iconColor,
+                      color: ColorThemeEngine.iconColor,
                       size: 30,
                   ),
                   onPressed: () {
@@ -127,7 +127,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: ColorConstants.titleColor
+                      color: ColorThemeEngine.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -137,7 +137,7 @@ class _TripShowPageState extends State<TripShowPage> {
                     fontSize: 25,
                     color: Colors.grey
                 ),
-                gradient: ColorConstants.tptgradient,
+                gradient: ColorThemeEngine.tptgradient,
               ),
             ),
             Padding(padding: EdgeInsets.only(top:15)),
@@ -147,7 +147,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: ColorConstants.titleColor
+                      color: ColorThemeEngine.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -157,7 +157,7 @@ class _TripShowPageState extends State<TripShowPage> {
                     fontSize: 25,
                     color: Colors.grey
                 ),
-                gradient: ColorConstants.tptgradient,
+                gradient: ColorThemeEngine.tptgradient,
               ),
             ),
             Padding(padding: EdgeInsets.only(top:15)),
@@ -167,7 +167,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: ColorConstants.titleColor
+                      color: ColorThemeEngine.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -177,7 +177,7 @@ class _TripShowPageState extends State<TripShowPage> {
                     fontSize: 25,
                     color: Colors.grey
                 ),
-                gradient: ColorConstants.tptgradient,
+                gradient: ColorThemeEngine.tptgradient,
               ),
             ),
             Padding(padding: EdgeInsets.only(top:15)),
@@ -187,7 +187,7 @@ class _TripShowPageState extends State<TripShowPage> {
                   style: new TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
-                      color: ColorConstants.titleColor
+                      color: ColorThemeEngine.titleColor
                   )
               ),
               subtitle: new GradientText(
@@ -197,7 +197,7 @@ class _TripShowPageState extends State<TripShowPage> {
                     fontSize: 25,
                     color: Colors.grey
                 ),
-                gradient: ColorConstants.tptgradient,
+                gradient: ColorThemeEngine.tptgradient,
               ),
               trailing: chooseIcon(model.product)
             ),
@@ -218,27 +218,27 @@ class _TripShowPageState extends State<TripShowPage> {
       case "train":
         return Icon(
           Icons.train,
-          color: ColorConstants.iconColor,
+          color: ColorThemeEngine.iconColor,
           size: 30,
         );
       case "Niederflurbus":
       case "bus":
         return Icon(
           Icons.directions_bus,
-          color: ColorConstants.iconColor,
+          color: ColorThemeEngine.iconColor,
           size: 30,
         );
       case "Niederflurstraßenbahn":
       case "tram":
         return Icon(
           Icons.tram,
-          color: ColorConstants.iconColor,
+          color: ColorThemeEngine.iconColor,
           size: 30,
         );
       default:
         return Icon(
           Icons.directions,
-          color: ColorConstants.iconColor,
+          color: ColorThemeEngine.iconColor,
           size: 30,
         );
     }
@@ -285,7 +285,7 @@ class _TripShowPageState extends State<TripShowPage> {
             style: new TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 13,
-                color: ColorConstants.titleColor
+                color: ColorThemeEngine.titleColor
             )
         ),
         subtitle: new GradientText(

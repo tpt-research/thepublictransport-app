@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:desiredrive_api_flutter/service/geocode/geocode.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 
 
 class MapsWidget extends StatefulWidget {
@@ -32,7 +32,7 @@ class MapsWidgetState extends State<MapsWidget> {
       rotateGesturesEnabled: false,
       scrollGesturesEnabled: false,
       tiltGesturesEnabled: false,
-      mapType: ColorConstants.theme == "dark" ? MapType.hybrid : MapType.normal,
+      mapType: ColorThemeEngine.theme == "dark" ? MapType.hybrid : MapType.normal,
     );
   }
 

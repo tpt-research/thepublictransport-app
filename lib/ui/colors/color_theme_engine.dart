@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:preferences/preferences.dart';
 
-class ColorConstants {
+class ColorThemeEngine {
 
   static String theme = PrefService.getString('ui_theme') == "dark" ? "dark" : "light";
 

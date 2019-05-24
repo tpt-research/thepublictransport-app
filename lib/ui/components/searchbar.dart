@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 
 class Searchbar extends StatelessWidget {
   Searchbar({this.text, this.onTap, this.onButtonPressed});
@@ -13,11 +13,11 @@ class Searchbar extends StatelessWidget {
       shape: new StadiumBorder(
         side: new BorderSide(
           width: 2.0,
-          color: ColorConstants.textColor
+          color: ColorThemeEngine.textColor
         )
       ),
       margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-      color: ColorConstants.backgroundColor,
+      color: ColorThemeEngine.backgroundColor,
       child: SizedBox(
           height: 50,
           child: InkWell(
@@ -33,12 +33,12 @@ class Searchbar extends StatelessWidget {
                         style: new TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 17,
-                            color: ColorConstants.subtitleColor
+                            color: ColorThemeEngine.subtitleColor
                         )
                     ),
                     new Container(
                       child: IconButton(
-                          icon: Icon(Icons.my_location, color: ColorConstants.iconColor),
+                          icon: Icon(Icons.my_location, color: ColorThemeEngine.iconColor),
                           onPressed: onButtonPressed
                       ),
                     )

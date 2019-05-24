@@ -4,8 +4,8 @@ import 'package:desiredrive_api_flutter/models/rmv/rmv_query.dart';
 import 'package:desiredrive_api_flutter/models/rmv/rmv_trip.dart';
 import 'package:desiredrive_api_flutter/service/rmv/rmv_trip_search_request.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
-import 'package:thepublictransport_app/pages/search_result_trip.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
+import 'package:thepublictransport_app/pages/search/search_result_trip.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 
 class SearchResultPage extends StatefulWidget {
@@ -54,7 +54,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   child: new SizedBox(
                       width: 50,
                       height: 50,
-                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorConstants.iconColor))
+                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorThemeEngine.iconColor))
                   ),
                 );
               case ConnectionState.done:
@@ -92,9 +92,9 @@ class _SearchResultPageState extends State<SearchResultPage> {
       elevation: 2,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),
-          side: ColorConstants.decideBorderSide()
+          side: ColorThemeEngine.decideBorderSide()
       ),
-      color: ColorConstants.cardColor,
+      color: ColorThemeEngine.cardColor,
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultTripPage(result: model.leg)));
@@ -112,7 +112,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     style: new TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
-                        color: ColorConstants.titleColor
+                        color: ColorThemeEngine.titleColor
                     )
                 ),
                 subtitle: new GradientText(
@@ -122,7 +122,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                       fontSize: 25,
                       color: Colors.grey
                   ),
-                  gradient: ColorConstants.tptgradient,
+                  gradient: ColorThemeEngine.tptgradient,
                 ),
               ),
               ListTile(
@@ -131,7 +131,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     style: new TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
-                        color: ColorConstants.titleColor
+                        color: ColorThemeEngine.titleColor
                     )
                 ),
                 subtitle: new GradientText(
@@ -141,7 +141,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                       fontSize: 25,
                       color: Colors.grey
                   ),
-                  gradient: ColorConstants.tptgradient,
+                  gradient: ColorThemeEngine.tptgradient,
                 ),
               ),
               ListTile(
@@ -150,7 +150,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     style: new TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
-                        color: ColorConstants.titleColor
+                        color: ColorThemeEngine.titleColor
                     )
                 ),
                 subtitle: new GradientText(
@@ -160,7 +160,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                       fontSize: 25,
                       color: Colors.grey
                   ),
-                  gradient: ColorConstants.tptgradient,
+                  gradient: ColorThemeEngine.tptgradient,
                 ),
               ),
               ListTile(
@@ -169,7 +169,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     style: new TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
-                        color: ColorConstants.titleColor
+                        color: ColorThemeEngine.titleColor
                     )
                 ),
                 subtitle: new GradientText(
@@ -179,7 +179,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                       fontSize: 25,
                       color: Colors.grey
                   ),
-                  gradient: ColorConstants.tptgradient,
+                  gradient: ColorThemeEngine.tptgradient,
                 ),
                 trailing: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +190,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                         style: new TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 13,
-                            color: ColorConstants.titleColor
+                            color: ColorThemeEngine.titleColor
                         )
                     ),
                     new GradientText(
@@ -200,7 +200,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                           fontSize: 25,
                           color: Colors.grey
                       ),
-                      gradient: ColorConstants.tptgradient,
+                      gradient: ColorThemeEngine.tptgradient,
                     )
                   ],
                 ),

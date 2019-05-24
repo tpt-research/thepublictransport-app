@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
-import 'package:thepublictransport_app/pages/tripshow.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:thepublictransport_app/pages/misc/tripshow.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 
 class TripDetails extends StatefulWidget {
   TripDetails({this.result});
@@ -50,13 +50,13 @@ class _TripDetailsState extends State<TripDetails> {
           title: new Text(
               value.direction,
               style: new TextStyle(
-                color: ColorConstants.textColor
+                color: ColorThemeEngine.textColor
               ),
           ),
           subtitle: new Text(
             (value.realtime.hour.toString().padLeft(2, '0') + ":" + value.realtime.minute.toString().padLeft(2, '0'))  + " • " + chooseAdditionalLineString(value.product) + value.name + chooseDelay(value.time, value.realtime),
             style: new TextStyle(
-              color: ColorConstants.subtitleColor
+              color: ColorThemeEngine.subtitleColor
             ),
           ),
           leading: Container(
@@ -91,27 +91,27 @@ class _TripDetailsState extends State<TripDetails> {
       case "train":
         return Icon(
             Icons.train,
-            color: ColorConstants.iconColor,
+            color: ColorThemeEngine.iconColor,
             size: 30,
         );
       case "Niederflurbus":
       case "bus":
         return Icon(
             Icons.directions_bus,
-            color: ColorConstants.iconColor,
+            color: ColorThemeEngine.iconColor,
             size: 30,
         );
       case "Niederflurstraßenbahn":
       case "tram":
         return Icon(
             Icons.tram,
-            color: ColorConstants.iconColor,
+            color: ColorThemeEngine.iconColor,
             size: 30,
         );
       default:
         return Icon(
             Icons.directions,
-            color: ColorConstants.iconColor,
+            color: ColorThemeEngine.iconColor,
             size: 30,
         );
     }

@@ -4,8 +4,8 @@ import 'package:desiredrive_api_flutter/models/rmv/rmv_subtrip.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
-import 'package:thepublictransport_app/pages/timeline_result.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
+import 'package:thepublictransport_app/pages/timeline/timeline_result.dart';
 
 class SearchResultTripPage extends StatefulWidget {
   SearchResultTripPage({@required this.result});
@@ -66,20 +66,20 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
               margin: EdgeInsets.symmetric(vertical: 16.0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25.0),
-                  side: ColorConstants.decideBorderSide()
+                  side: ColorThemeEngine.decideBorderSide()
               ),
               clipBehavior: Clip.antiAlias,
-              color: ColorConstants.cardColor,
+              color: ColorThemeEngine.cardColor,
               child: new Container(
                 child: Column(
                   children: <Widget>[
                     ListTile(
                       title: new Text(
-                          "Einstieg".toUpperCase(),
+                          "Von".toUpperCase(),
                           style: new TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 13,
-                              color: ColorConstants.titleColor
+                              color: ColorThemeEngine.titleColor
                           )
                       ),
                       subtitle: new GradientText(
@@ -89,7 +89,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                             fontSize: 20,
                             color: Colors.grey
                         ),
-                        gradient: ColorConstants.tptgradient,
+                        gradient: ColorThemeEngine.tptgradient,
                       ),
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +102,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                                 fontSize: 15,
                                 color: Colors.grey
                             ),
-                            gradient: ColorConstants.tptgradient,
+                            gradient: ColorThemeEngine.tptgradient,
                           )
                         ],
                       ),
@@ -112,11 +112,11 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                     ),
                     ListTile(
                       title: new Text(
-                          "Ausstieg".toUpperCase(),
+                          "Nach".toUpperCase(),
                           style: new TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 13,
-                              color: ColorConstants.titleColor
+                              color: ColorThemeEngine.titleColor
                           )
                       ),
                       subtitle: new GradientText(
@@ -126,7 +126,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                             fontSize: 20,
                             color: Colors.grey
                         ),
-                        gradient: ColorConstants.tptgradient,
+                        gradient: ColorThemeEngine.tptgradient,
                       ),
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -139,7 +139,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                                 fontSize: 15,
                                 color: Colors.grey
                             ),
-                            gradient: ColorConstants.tptgradient,
+                            gradient: ColorThemeEngine.tptgradient,
                           )
                         ],
                       ),
@@ -153,7 +153,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                             style: new TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 13,
-                                color: ColorConstants.titleColor
+                                color: ColorThemeEngine.titleColor
                             )
                         ),
                         subtitle: new GradientText(
@@ -163,7 +163,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                               fontSize: 20,
                               color: Colors.grey
                           ),
-                          gradient: ColorConstants.tptgradient,
+                          gradient: ColorThemeEngine.tptgradient,
                         )
                     ),
                   ],
@@ -173,7 +173,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
           ),
           position: TimelineItemPosition.left,
           iconBackground: Colors.purple,
-          icon: Icon(Icons.directions_run, color: Colors.white)
+          icon: Icon(Icons.directions_run, color: ColorThemeEngine.iconColor)
       );
     }
 
@@ -183,9 +183,9 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
           margin: EdgeInsets.symmetric(vertical: 16.0),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25.0),
-              side: ColorConstants.decideBorderSide()
+              side: ColorThemeEngine.decideBorderSide()
           ),
-          color: ColorConstants.cardColor,
+          color: ColorThemeEngine.cardColor,
           clipBehavior: Clip.antiAlias,
           child: new Container(
             child: Column(
@@ -193,11 +193,11 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                 Padding(padding: EdgeInsets.only(top: 10)),
                 ListTile(
                   title: new Text(
-                      "Von".toUpperCase(),
+                      "Einstieg".toUpperCase(),
                       style: new TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 13,
-                          color: ColorConstants.titleColor
+                          color: ColorThemeEngine.titleColor
                       )
                   ),
                   subtitle: new GradientText(
@@ -207,7 +207,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                         fontSize: 20,
                         color: Colors.grey
                     ),
-                    gradient: ColorConstants.tptgradient,
+                    gradient: ColorThemeEngine.tptgradient,
                   ),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -220,7 +220,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                             fontSize: 15,
                             color: Colors.grey
                         ),
-                        gradient: ColorConstants.tptgradient,
+                        gradient: ColorThemeEngine.tptgradient,
                       ),
                       new GradientText(
                         model.origin.track,
@@ -229,7 +229,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                             fontSize: 15,
                             color: Colors.grey
                         ),
-                        gradient: ColorConstants.tptgradient,
+                        gradient: ColorThemeEngine.tptgradient,
                       ),
                     ],
                   ),
@@ -239,11 +239,11 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                 ),
                 ListTile(
                   title: new Text(
-                      "Nach".toUpperCase(),
+                      "Ausstieg".toUpperCase(),
                       style: new TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 13,
-                          color: ColorConstants.titleColor
+                          color: ColorThemeEngine.titleColor
                       )
                   ),
                   subtitle: new GradientText(
@@ -253,7 +253,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                         fontSize: 20,
                         color: Colors.grey
                     ),
-                    gradient: ColorConstants.tptgradient,
+                    gradient: ColorThemeEngine.tptgradient,
                   ),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -266,7 +266,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                             fontSize: 15,
                             color: Colors.grey
                         ),
-                        gradient: ColorConstants.tptgradient,
+                        gradient: ColorThemeEngine.tptgradient,
                       ),
                       new GradientText(
                         model.destination.track,
@@ -275,7 +275,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                             fontSize: 15,
                             color: Colors.grey
                         ),
-                        gradient: ColorConstants.tptgradient,
+                        gradient: ColorThemeEngine.tptgradient,
                       ),
                     ],
                   ),
@@ -289,7 +289,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                       style: new TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 13,
-                          color: ColorConstants.titleColor
+                          color: ColorThemeEngine.titleColor
                       )
                   ),
                   subtitle: new GradientText(
@@ -299,7 +299,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                         fontSize: 20,
                         color: Colors.grey
                     ),
-                    gradient: ColorConstants.tptgradient,
+                    gradient: ColorThemeEngine.tptgradient,
                   )
                 ),
                 Padding(padding: EdgeInsets.only(top: 10)),
@@ -309,8 +309,8 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
         ),
       ),
         position: TimelineItemPosition.left,
-        iconBackground: ColorConstants.backgroundColor,
-        icon: Icon(Icons.location_on, color: ColorConstants.iconColor)
+        iconBackground: ColorThemeEngine.iconColor,
+        icon: Icon(Icons.location_on, color: ColorThemeEngine.backgroundColor)
     );
   }
 
@@ -321,8 +321,6 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
     } catch (e) {
       wayIn = Duration(minutes: 0);
     }
-
-    print(wayIn);
 
     String expression = "Minute";
 
@@ -335,9 +333,9 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
           margin: EdgeInsets.symmetric(vertical: 16.0),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25.0),
-              side: ColorConstants.decideBorderSide()
+              side: ColorThemeEngine.decideBorderSide()
           ),
-          color: ColorConstants.cardColor,
+          color: ColorThemeEngine.cardColor,
           clipBehavior: Clip.antiAlias,
           child: new Container(
             child: Column(
@@ -349,7 +347,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                       style: new TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 13,
-                          color: ColorConstants.titleColor
+                          color: ColorThemeEngine.titleColor
                       )
                   ),
                   subtitle: new GradientText(
@@ -359,7 +357,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                         fontSize: 25,
                         color: Colors.grey
                     ),
-                    gradient: ColorConstants.tptgradient,
+                    gradient: ColorThemeEngine.tptgradient,
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(top: 10)),
@@ -370,7 +368,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
       ),
         position: TimelineItemPosition.left,
         iconBackground: Colors.purple,
-        icon: Icon(Icons.directions_run, color: ColorConstants.iconColor)
+        icon: Icon(Icons.directions_run, color: ColorThemeEngine.iconColor)
     );
   }
 
@@ -381,9 +379,9 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
           margin: EdgeInsets.symmetric(vertical: 16.0),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25.0),
-              side: ColorConstants.decideBorderSide()
+              side: ColorThemeEngine.decideBorderSide()
           ),
-          color: ColorConstants.cardColor,
+          color: ColorThemeEngine.cardColor,
           clipBehavior: Clip.antiAlias,
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -391,7 +389,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
             child: Center(
               child: new GradientText(
                 "Sie haben ihr Ziel erreicht! 🎉",
-                gradient: ColorConstants.tptgradient,
+                gradient: ColorThemeEngine.tptgradient,
                 style: new TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 25,

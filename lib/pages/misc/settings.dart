@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:thepublictransport_app/ui/base/tptfabnothemescaffold.dart';
 import 'package:preferences/preferences.dart';
+import 'package:thepublictransport_app/pages/misc/firstrun.dart';
 
 class SettingsWidget extends StatefulWidget {
   @override
@@ -46,21 +47,25 @@ class SettingsWidgetState extends State<SettingsWidget> {
               'ui_theme',
               isDefault: true,
               onSelect: () async {
-                await showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: const Text('Sie müssen die App neustarten, damit das Design sich verändert'),
-                        children: <Widget>[
-                          SimpleDialogOption(
-                            onPressed: () { SystemChannels.platform.invokeMethod('SystemNavigator.pop'); },
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      );
-                    }
-                );
+                if(PrefService.getBool("settingsfirstrun") == null) {
+                  // Do nothing
+                } else {
+                  await showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SimpleDialog(
+                          title: const Text('Sie müssen die App neustarten, damit das Design sich verändert'),
+                          children: <Widget>[
+                            SimpleDialogOption(
+                              onPressed: () { SystemChannels.platform.invokeMethod('SystemNavigator.pop'); },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      }
+                  );
+                }
               },
             ),
             RadioPreference(
@@ -84,6 +89,23 @@ class SettingsWidgetState extends State<SettingsWidget> {
                     }
                 );
               },
+            ),
+            PreferenceTitle(
+                'Vorschau'.toUpperCase(),
+                leftPadding: 15,
+                style: new TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                    color: Colors.grey
+                )
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => FirstrunPage()));
+              },
+              child: PreferenceText(
+                  'Vorschau anzeigen',
+              ),
             )
           ]),
       ),

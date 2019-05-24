@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 
 class OptionSwitch extends StatefulWidget {
   OptionSwitch({@required this.title, @required this.icon, @required this.id});
@@ -70,11 +70,11 @@ class _OptionSwitchState extends State<OptionSwitch> {
             isSwitched = snapshot.data;
 
             return new ListTile(
-              leading: new Icon(this.icon, color: ColorConstants.iconColor),
+              leading: new Icon(this.icon, color: ColorThemeEngine.iconColor),
               title: new Text(
                   this.title,
                   style: TextStyle(
-                    color: ColorConstants.textColor
+                    color: ColorThemeEngine.textColor
                   ),
               ),
               trailing: Switch(

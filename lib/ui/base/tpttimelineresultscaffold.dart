@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 
 class TPTScaffold extends StatefulWidget {
@@ -21,11 +21,11 @@ class _TPTScaffoldState extends State<TPTScaffold> {
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: ColorConstants.backgroundColor,
+      backgroundColor: ColorThemeEngine.backgroundColor,
       floatingActionButton: new ShowUp(
         delay: 500,
         child: new CircularGradientButton(
-            gradient: ColorConstants.tptfabgradient,
+            gradient: ColorThemeEngine.tptfabgradient,
             child: Icon(Icons.arrow_back),
             callback: () {
               Navigator.of(context).pop();
@@ -53,7 +53,7 @@ class _TPTScaffoldState extends State<TPTScaffold> {
                     style: new TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
-                        color: ColorConstants.titleColor
+                        color: ColorThemeEngine.titleColor
                     )
                 ),
               ),
@@ -69,7 +69,7 @@ class _TPTScaffoldState extends State<TPTScaffold> {
                         fontSize: 35,
                         color: Colors.grey
                     ),
-                    gradient: ColorConstants.tptgradient
+                    gradient: ColorThemeEngine.tptgradient
                 ),
               ),
             ),

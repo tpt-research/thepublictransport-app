@@ -7,7 +7,7 @@ import 'package:desiredrive_api_flutter/service/desirecore/desire_nearby_lib.dar
 import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:thepublictransport_app/ui/colors/colorconstants.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 class NearbyWidget extends StatefulWidget {
   @override
   NearbyWidgetState createState() => NearbyWidgetState();
@@ -38,7 +38,7 @@ class NearbyWidgetState extends State<NearbyWidget> {
                   child: new SizedBox(
                       width: 50,
                       height: 50,
-                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorConstants.iconColor))
+                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorThemeEngine.iconColor))
                   ),
                 );
               case ConnectionState.done:
@@ -94,7 +94,7 @@ class NearbyWidgetState extends State<NearbyWidget> {
                   child: new SizedBox(
                       width: 50,
                       height: 50,
-                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorConstants.iconColor))
+                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorThemeEngine.iconColor))
                   ),
                 );
               case ConnectionState.done:
@@ -154,11 +154,11 @@ class NearbyWidgetState extends State<NearbyWidget> {
   Future<Card> getTrips(BuildContext context, int index, List query, DesireNearbyLib nearby) async {
     var dep = await nearby.getNearby(index, query);
     return new Card(
-      color: ColorConstants.cardColor,
+      color: ColorThemeEngine.cardColor,
       elevation: 2,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),
-          side: ColorConstants.decideBorderSide()
+          side: ColorThemeEngine.decideBorderSide()
       ),
       child: new ListView(
         children: <Widget>[
@@ -201,7 +201,7 @@ class NearbyWidgetState extends State<NearbyWidget> {
                     fontWeight: FontWeight.w500,
                     fontSize: 25
                 ),
-                gradient: ColorConstants.tptgradient,
+                gradient: ColorThemeEngine.tptgradient,
               ),
               alignment: Alignment.centerLeft,
             ),
