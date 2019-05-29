@@ -1,10 +1,10 @@
 name: thepublictransport_app
 description: Die ÖPV App für Deutschland
-version: 0.0.6+6
+version: 0.0.7+7
 author: Tristan Marsell, The Public Transport
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -37,6 +37,9 @@ dependencies:
   transformer_page_view: 0.1.6
   eva_icons_flutter: 1.0.4
   package_info: ^0.4.0+3
+  flutter_spinkit: 3.1.0
+  flare_flutter: 1.5.1
+  sprung: 1.1.0+11
 
 dev_dependencies:
   flutter_test:
@@ -59,8 +62,8 @@ flutter:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
   assets:
-  - fonts/
-  - vectors/
+    - fonts/
+    - vectors/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

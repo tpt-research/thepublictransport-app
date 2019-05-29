@@ -4,6 +4,8 @@ import 'package:desiredrive_api_flutter/models/rmv/rmv_query.dart';
 import 'package:thepublictransport_app/ui/components/tripdetail.dart';
 import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:desiredrive_api_flutter/service/desirecore/desire_nearby_lib.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 
 class NearbySearchResultPage extends StatefulWidget {
   NearbySearchResultPage(this.rmv);
@@ -33,7 +35,10 @@ class _NearbySearchResultPage extends State<NearbySearchResultPage> {
                 case ConnectionState.active:
                 case ConnectionState.waiting:
                 case ConnectionState.none:
-                  return new Container();
+                  return new SpinKitChasingDots(
+                    size: 50,
+                    color: ColorThemeEngine.iconColor,
+                  );
                 case ConnectionState.done:
                   if (snapshot.hasError) {
                     return Container();

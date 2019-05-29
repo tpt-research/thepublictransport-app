@@ -9,6 +9,7 @@ import 'package:desiredrive_api_flutter/models/rmv/rmv_journeys.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 import 'package:thepublictransport_app/pages/timeline/timeline_result.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class TimelinePage extends StatefulWidget {
   TimelinePage(this.journeyID);
@@ -124,7 +125,10 @@ class _TimelinePage extends State<TimelinePage> {
                 child: new SizedBox(
                     width: 50,
                     height: 50,
-                    child: new CircularProgressIndicator()
+                    child: new SpinKitChasingDots(
+                      size: 50,
+                      color: ColorThemeEngine.iconColor,
+                    )
                 ),
               );
             case ConnectionState.done:

@@ -49,9 +49,9 @@ class _NearbySearchPage extends State<NearbySearchPage> {
                       )
                   ),
                   suggestionsCallback: (pattern) async {
-                    return await RMVQueryRequest.getStations(pattern).catchError((e) {
-                      return RMVQueryRequest.failure();
-                    });
+
+
+                    return await RMVQueryRequest.getIntelligentStations(pattern);
                   },
                   itemBuilder: (context, suggestion) {
                     return Container(

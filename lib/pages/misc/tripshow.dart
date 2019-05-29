@@ -5,6 +5,7 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:thepublictransport_app/pages/timeline/timeline.dart';
+import "package:flare_flutter/flare_actor.dart";
 
 class TripShowPage extends StatefulWidget {
   final DesireNearbyModel model;
@@ -298,9 +299,9 @@ class _TripShowPageState extends State<TripShowPage> {
           gradient: Gradients.blush,
         ),
         trailing: Icon(
-            Icons.warning,
-            color: Colors.red,
-            size: 30,
+          Icons.warning,
+          color: Colors.red,
+          size: 30,
         ),
       );
     else

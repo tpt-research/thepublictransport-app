@@ -7,28 +7,63 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 import 'package:thepublictransport_app/pages/search/search_result_trip.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SearchResultPage extends StatefulWidget {
-  SearchResultPage({@required this.from, @required this.to, @required this.time, @required this.date, this.saveDrive});
+  SearchResultPage({@required this.from, @required this.to, @required this.time, @required this.date, this.saveDrive, this.bitmask, this.wheelchair, this.unsharp, this.arrival, this.past, this.bike_carriage});
 
   final RMVQueryModel from;
   final RMVQueryModel to;
   final String time;
   final String date;
   final bool saveDrive;
+  final int bitmask;
+  final bool wheelchair;
+  final bool unsharp;
+  final bool arrival;
+  final bool past;
+  final bool bike_carriage;
 
   @override
-  _SearchResultPageState createState() => _SearchResultPageState(this.from, this.to, this.time, this.date, this.saveDrive);
+  _SearchResultPageState createState() => _SearchResultPageState(
+      this.from,
+      this.to,
+      this.time,
+      this.date,
+      this.saveDrive,
+      this.bitmask,
+      this.wheelchair,
+      this.unsharp,
+      this.arrival,
+      this.past,
+      this.bike_carriage);
 }
 
 class _SearchResultPageState extends State<SearchResultPage> {
-  _SearchResultPageState(this.from, this.to, this.time, this.date, this.saveDrive);
+  _SearchResultPageState(
+      this.from,
+      this.to,
+      this.time,
+      this.date,
+      this.saveDrive,
+      this.bitmask,
+      this.wheelchair,
+      this.unsharp,
+      this.arrival,
+      this.past,
+      this.bike_carriage);
 
   final RMVQueryModel from;
   final RMVQueryModel to;
   final String time;
   final String date;
   final bool saveDrive;
+  final int bitmask;
+  final bool wheelchair;
+  final bool unsharp;
+  final bool arrival;
+  final bool past;
+  final bool bike_carriage;
 
   Widget build(BuildContext context) {
     return new TPTScaffold(
@@ -38,7 +73,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height - 200,
         child: new FutureBuilder<List<RMVTripModel>>(
-          future: RMVTripRequest.getTrips(from.extID, to.extID, time, date, saveDrive, from.name, to.name),
+          future: RMVTripRequest.getTrips(from.extID, to.extID, time, date, saveDrive, from.name, to.name, bitmask, wheelchair, unsharp, arrival, past, bike_carriage),
           builder: (BuildContext context,
               AsyncSnapshot<List<RMVTripModel>> snapshot) {
             switch (snapshot.connectionState) {
@@ -54,7 +89,10 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   child: new SizedBox(
                       width: 50,
                       height: 50,
-                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorThemeEngine.iconColor))
+                      child: new SpinKitChasingDots(
+                        size: 50,
+                        color: ColorThemeEngine.iconColor,
+                      )
                   ),
                 );
               case ConnectionState.done:

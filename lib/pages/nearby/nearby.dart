@@ -8,6 +8,8 @@ import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 class NearbyWidget extends StatefulWidget {
   @override
   NearbyWidgetState createState() => NearbyWidgetState();
@@ -38,7 +40,10 @@ class NearbyWidgetState extends State<NearbyWidget> {
                   child: new SizedBox(
                       width: 50,
                       height: 50,
-                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorThemeEngine.iconColor))
+                      child: new SpinKitChasingDots(
+                        size: 50,
+                        color: ColorThemeEngine.iconColor,
+                      )
                   ),
                 );
               case ConnectionState.done:
@@ -94,7 +99,10 @@ class NearbyWidgetState extends State<NearbyWidget> {
                   child: new SizedBox(
                       width: 50,
                       height: 50,
-                      child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(ColorThemeEngine.iconColor))
+                      child: new SpinKitChasingDots(
+                        size: 50,
+                        color: ColorThemeEngine.iconColor,
+                      )
                   ),
                 );
               case ConnectionState.done:

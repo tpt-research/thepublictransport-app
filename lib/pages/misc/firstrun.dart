@@ -39,7 +39,7 @@ class Welcome extends StatelessWidget {
     "Viel Spaß !"
   ];
   final List<String> subtitles = [
-    "Willkommen bei The Public Transport. Zum Fortfahren, wischen sie bitte nach rechts.",
+    "Willkommen bei The Public Transport. Zum Fortfahren, wischen sie bitte nach links.",
     "Wir sind The Public Transport. Die erste App für öffentlichen Verkehr in Flutter. Wir sind aber nicht nur eine App.",
     "Wir möchten den öffentlichen Verkehr verändern. Die Ära der Verspätungen und Unzuverlässigkeiten soll endlich enden! Deswegen bauen wir diese App, und was du in deinen Händen hältst ist erst der Anfang!!",
     "Wir arbeiten daran sowohl Züge, als auch Busse, Straßenbahnen, Fernbusse und Fahrgemeinschaften in einer App zu bündeln. Zurzeit unterstützen wir die Verkehrsmittel des RMV, und die Fernzüge der Deutschen Bahn.",

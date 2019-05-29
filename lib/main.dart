@@ -34,10 +34,18 @@ class MyApp extends StatelessWidget {
 
   Widget getFirstRun() {
     if (PrefService.getBool("firstrun") == null ? true : false || PrefService.getBool("firstrun") == false) {
+      firstInit();
       return FirstrunPage();
     } else {
       return SplashScreen();
     }
+  }
+
+  firstInit() {
+    PrefService.setBool("long_distance_trains", true);
+    PrefService.setBool("regional_trains", true);
+    PrefService.setBool("local_trains", true);
+    PrefService.setBool("local_vehicles", true);
   }
 }
 

@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:sprung/sprung.dart';
 
 class ShowUp extends StatefulWidget {
   final Widget child;
   final int delay;
+  final Duration duration;
 
-  ShowUp({@required this.child, this.delay});
+  ShowUp({@required this.child, this.delay, this.duration});
 
   @override
   _ShowUpState createState() => _ShowUpState();
@@ -19,10 +21,17 @@ class _ShowUpState extends State<ShowUp> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _animController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    if (widget.duration == null) {
+      _animController =
+          AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    } else {
+      _animController =
+          AnimationController(vsync: this, duration: widget.duration);
+    }
+
+
     final curve =
-    CurvedAnimation(curve: Curves.decelerate, parent: _animController);
+    CurvedAnimation(curve: Sprung(damped: Damped.under), parent: _animController);
     _animOffset =
         Tween<Offset>(begin: const Offset(0.0, 0.35), end: Offset.zero)
             .animate(curve);

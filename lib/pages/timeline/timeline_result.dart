@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/ui/base/tpttimelineresultscaffold.dart';
 import 'package:thepublictransport_app/ui/components/tripdetail.dart';
 import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
 import 'package:desiredrive_api_flutter/service/desirecore/desire_nearby_lib.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class TimelineResultPage extends StatefulWidget {
   TimelineResultPage(this.id, this.name);
@@ -34,7 +38,10 @@ class _TimelineResultPage extends State<TimelineResultPage> {
                 case ConnectionState.active:
                 case ConnectionState.waiting:
                 case ConnectionState.none:
-                  return new Container();
+                  return new SpinKitChasingDots(
+                    size: 50,
+                    color: ColorThemeEngine.iconColor,
+                  );
                 case ConnectionState.done:
                   if (snapshot.hasError) {
                     return Container();

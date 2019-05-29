@@ -6,7 +6,7 @@ import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 import 'package:thepublictransport_app/ui/components/mapswidget.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/pages/search/searchinput.dart';
 import 'package:desiredrive_api_flutter/models/rmv/rmv_query.dart';
 import 'package:thepublictransport_app/ui/components/optionswitch.dart';
@@ -22,7 +22,6 @@ class SearchWidget extends StatefulWidget {
 
 class SearchWidgetState extends State<SearchWidget> {
 
-  SharedPreferences pref;
   RMVQueryModel from;
   RMVQueryModel to;
   String datestring;
@@ -221,7 +220,6 @@ class SearchWidgetState extends State<SearchWidget> {
                                                     ),
                                                     callback: () async {
                                                       super.reassemble();
-                                                      SharedPreferences _prefs = await SharedPreferences.getInstance();
                                                       await Navigator.of(context).push(
                                                           MaterialPageRoute(
                                                               builder: (context) => SearchResultPage(
@@ -229,7 +227,13 @@ class SearchWidgetState extends State<SearchWidget> {
                                                                 to: to,
                                                                 time: timestring_rmv,
                                                                 date: datestring_rmv,
-                                                                saveDrive: _prefs.getBool('good_trips_pref') ?? false
+                                                                saveDrive: PrefService.getBool("good_trips") ?? false,
+                                                                wheelchair: PrefService.getBool("wheelchair_mode") ?? false,
+                                                                unsharp: PrefService.getBool("unsharp_mode") ?? false,
+                                                                arrival: PrefService.getBool("arrival_mode") ?? false,
+                                                                past: PrefService.getBool("past_trips") ?? false,
+                                                                bike_carriage: PrefService.getBool("bike_mode") ?? false,
+                                                                bitmask: calculateFilterBitmask(),
                                                               )
                                                           )
                                                       );
@@ -388,15 +392,129 @@ class SearchWidgetState extends State<SearchWidget> {
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(22.0),
-                    topRight: Radius.circular(22.0)),
+                    topRight: Radius.circular(22.0)
+                ),
                 child: new Column(
                   mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    new OptionSwitch(
-                        title: "Zuverlässigere Erreichbarkeit",
-                        icon: Icons.access_time,
-                        id: "good_trips"
+                    Container(
+                      padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
+                      child: new Text(
+                          "Allgemein".toUpperCase(),
+                          style: new TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: ColorThemeEngine.titleColor
+                          )
+                      ),
                     ),
+                    new OptionSwitch(
+                      title: "Nach Ankunft suchen",
+                      icon: Icons.location_on,
+                      id: "arrival_mode",
+                      default_bool: false,
+                    ),
+                    new OptionSwitch(
+                      title: "Vorherige Routen anzeigen",
+                      icon: Icons.arrow_back,
+                      id: "past_trips",
+                      default_bool: false,
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
+                      child: new Text(
+                          "Fahrrad".toUpperCase(),
+                          style: new TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: ColorThemeEngine.titleColor
+                          )
+                      ),
+                    ),
+                    new OptionSwitch(
+                      title: "Routen für Fahrradmitnahme",
+                      icon: Icons.directions_bike,
+                      id: "bike_mode",
+                      default_bool: false,
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
+                      child: new Text(
+                          "Barrierefreiheit".toUpperCase(),
+                          style: new TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: ColorThemeEngine.titleColor
+                          )
+                      ),
+                    ),
+                    new OptionSwitch(
+                      title: "Barrierefreie Routen",
+                      icon: Icons.accessible,
+                      id: "wheelchair_mode",
+                      default_bool: false,
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
+                      child: new Text(
+                          "Suchtools".toUpperCase(),
+                          style: new TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: ColorThemeEngine.titleColor
+                          )
+                      ),
+                    ),
+                    new OptionSwitch(
+                      title: "Zuverlässigere Erreichbarkeit",
+                      icon: Icons.access_time,
+                      id: "good_trips",
+                      default_bool: false,
+                    ),
+                    new OptionSwitch(
+                      title: "Unschärfe Modus",
+                      icon: Icons.location_searching,
+                      id: "unsharp_mode",
+                      default_bool: false,
+                    ),
+                    // SoonTM
+                    /*Container(
+                      padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
+                      child: new Text(
+                          "Verkehrsmittel".toUpperCase(),
+                          style: new TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: ColorThemeEngine.titleColor
+                          )
+                      ),
+                    ),
+                    new OptionSwitch(
+                        title: "Fernzüge (ICE, IC, EC)",
+                        icon: Icons.train,
+                        id: "long_distance_trains",
+                        default_bool: true,
+                    ),
+                    new OptionSwitch(
+                        title: "Regionale Züge (RE, RB, etc.)",
+                        icon: Icons.directions_railway,
+                        id: "regional_trains",
+                        default_bool: true,
+                    ),
+                    new OptionSwitch(
+                        title: "Lokale Züge (S-Bahn, etc.)",
+                        icon: Icons.directions_subway,
+                        id: "local_trains",
+                        default_bool: true,
+                    ),
+                    new OptionSwitch(
+                        title: "Lokalverkehr (Bus, Straßenbahn, etc.)",
+                        icon: Icons.directions_bus,
+                        id: "local_vehicles",
+                        default_bool: true,
+                    ),*/
                   ],
                 ),
               ),
@@ -406,5 +524,26 @@ class SearchWidgetState extends State<SearchWidget> {
     );
   }
 
+  int calculateFilterBitmask() {
+    int bitmask = 0;
 
+    if (PrefService.getBool("long_distance_trains") != null && PrefService.getBool("long_distance_trains") != false) {
+      bitmask += 2;
+    }
+
+    if (PrefService.getBool("regional_trains") != null && PrefService.getBool("regional_trains") != false) {
+      bitmask += 4;
+    }
+
+    if (PrefService.getBool("local_trains") != null && PrefService.getBool("local_trains") != false) {
+      bitmask += 8;
+    }
+
+    if (PrefService.getBool("local_vehicles") != null && PrefService.getBool("local_vehicles") != false) {
+      bitmask += 16;
+    }
+
+
+    return bitmask;
+  }
 }
