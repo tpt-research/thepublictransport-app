@@ -4,5 +4,4 @@ class PermissionConstants {
   static get LocationPermission {
     return PermissionGroup.location;
   }
-
 }

@@ -5,12 +5,13 @@ import 'package:desiredrive_api_flutter/service/rmv/rmv_query_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:thepublictransport_app/pages/nearby/nearby_search_result.dart';
+import 'package:thepublictransport_app/pages/nearby/nearby.dart';
 import 'package:thepublictransport_app/ui/base/tptscaffold.dart';
 import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 
 class InputScreen extends StatefulWidget {
-  InputScreen({@required this.title, @required this.mode, @required this.isNearby});
+  InputScreen(
+      {@required this.title, @required this.mode, @required this.isNearby});
 
   final String title;
   final int mode;
@@ -63,7 +64,6 @@ class _InputScreenState extends State<InputScreen> {
                 ? MapType.hybrid
                 : MapType.normal,
             markers: markers,
-
           ),
           Container(
             padding: EdgeInsets.only(top: 20),
@@ -90,21 +90,22 @@ class _InputScreenState extends State<InputScreen> {
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(24.0)),
                             borderSide: ColorThemeEngine.decideBorderSide()),
                         labelText: "Suche",
-                        labelStyle:
-                        new TextStyle(
+                        labelStyle: new TextStyle(
                             color: ColorThemeEngine.textColor,
-                            fontFamily: 'NunitoSemiBold'
-                        ),
+                            fontFamily: 'NunitoSemiBold'),
                       )),
                   suggestionsCallback: (pattern) async {
-                    var models = await RMVQueryRequest.getIntelligentStations(pattern);
+                    var models =
+                        await RMVQueryRequest.getIntelligentStations(pattern);
                     var firstModel = models[0];
                     var controller = await _controller.future;
 
-                    controller.animateCamera(CameraUpdate.newLatLng(LatLng(firstModel.lat, firstModel.lon)));
+                    controller.animateCamera(CameraUpdate.newLatLng(
+                        LatLng(firstModel.lat, firstModel.lon)));
 
                     return models;
                   },
@@ -112,17 +113,18 @@ class _InputScreenState extends State<InputScreen> {
                     return Container(
                       color: ColorThemeEngine.backgroundColor,
                       child: ListTile(
-                        leading:
-                        Icon(Icons.place, color: ColorThemeEngine.iconColor),
+                        leading: Icon(Icons.place,
+                            color: ColorThemeEngine.iconColor),
                         title: Text(
                           suggestion.name,
-                          style: new TextStyle(color: ColorThemeEngine.textColor),
+                          style:
+                              new TextStyle(color: ColorThemeEngine.textColor),
                         ),
                       ),
                     );
                   },
                   onSuggestionSelected: (suggestion) {
-                    if(suggestion.name != "Keine Ergebnisse") {
+                    if (suggestion.name != "Keine Ergebnisse") {
                       if (isNearby) {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
@@ -148,5 +150,4 @@ class _InputScreenState extends State<InputScreen> {
     controller.moveCamera(CameraUpdate.newLatLng(
         LatLng(await geocode.latitude(), await geocode.longitude())));
   }
-
 }

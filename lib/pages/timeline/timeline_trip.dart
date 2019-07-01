@@ -72,6 +72,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                 openWay(model.origin.name, model.destination.name);
               },
               child: new Card(
+                elevation: 5,
                 margin: EdgeInsets.symmetric(vertical: 16.0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25.0),
@@ -184,22 +185,25 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
 
     return TimelineModel(
         Container(
-          child: InkWell(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => TripDetailPage(model: model)));
-            },
-            child: new Card(
-              margin: EdgeInsets.symmetric(vertical: 16.0),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                  side: ColorThemeEngine.decideBorderSide()),
-              color: ColorThemeEngine.cardColor,
-              clipBehavior: Clip.antiAlias,
+          child: new Card(
+            elevation: 5,
+            margin: EdgeInsets.symmetric(vertical: 16.0),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                side: ColorThemeEngine.decideBorderSide()),
+            color: ColorThemeEngine.cardColor,
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => TripDetailPage(model: model)));
+              },
               child: new Container(
+                alignment: Alignment.topCenter,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(top: 10)),
                     ListTile(
                       title: new Text("Einstieg".toUpperCase(),
                           style: new TextStyle(
@@ -265,8 +269,8 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                         children: <Widget>[
                           new GradientText(
                             model.destination.time.hour
-                                    .toString()
-                                    .padLeft(2, '0') +
+                                .toString()
+                                .padLeft(2, '0') +
                                 ":" +
                                 model.destination.time.minute
                                     .toString()
@@ -305,7 +309,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
                               color: Colors.grey),
                           gradient: ColorThemeEngine.tptgradient,
                         )),
-                    Padding(padding: EdgeInsets.only(top: 10)),
+                    Padding(padding: EdgeInsets.only(top: 10))
                   ],
                 ),
               ),
@@ -335,6 +339,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
     return TimelineModel(
         Container(
           child: new Card(
+            elevation: 5,
             margin: EdgeInsets.symmetric(vertical: 16.0),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
@@ -380,6 +385,7 @@ class _SearchResultTripPageState extends State<SearchResultTripPage> {
     return TimelineModel(
         Container(
           child: Card(
+            elevation: 5,
             margin: EdgeInsets.symmetric(vertical: 16.0),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),

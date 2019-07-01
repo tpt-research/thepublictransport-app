@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:transformer_page_view/transformer_page_view.dart';
+import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/main.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
-import 'package:preferences/preferences.dart';
+import 'package:transformer_page_view/transformer_page_view.dart';
 
 class FirstrunPage extends StatefulWidget {
   FirstrunPage({Key key}) : super(key: key) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle.dark.copyWith(
-            statusBarIconBrightness: Brightness.light,
-            statusBarColor: Colors.black.withAlpha(30),
-            systemNavigationBarColor: Colors.black,
-            systemNavigationBarIconBrightness: Brightness.light
-        )
-    );
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: Colors.black.withAlpha(30),
+        systemNavigationBarColor: Colors.black,
+        systemNavigationBarIconBrightness: Brightness.light));
   }
 
   @override
@@ -54,13 +50,7 @@ class Welcome extends StatelessWidget {
     new Color(0xff000000)
   ];
 
-  final List<bool> showButton = [
-    false,
-    false,
-    false,
-    false,
-    true
-  ];
+  final List<bool> showButton = [false, false, false, false, true];
 
   final index;
 
@@ -69,115 +59,112 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new TransformerPageView(
-        index: index,
-        loop: false,
-        transformer: new PageTransformerBuilder(
-            builder: (Widget child, TransformInfo info) {
-              return new ParallaxColor(
-                colors: backgroundColors,
-                info: info,
-                child: new Column(
+      index: index,
+      loop: false,
+      transformer: new PageTransformerBuilder(
+          builder: (Widget child, TransformInfo info) {
+        return new ParallaxColor(
+          colors: backgroundColors,
+          info: info,
+          child: new Column(
+            children: <Widget>[
+              new Expanded(
+                  child: new ParallaxContainer(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Expanded(
-                        child: new ParallaxContainer(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              ShowUp(
-                                delay: 100,
-                                child: new Icon(
-                                    images[info.index][0],
-                                    color: Colors.white,
-                                    size: 100,
-                                ),
-                              ),
-                              ShowUp(
-                                delay: 200,
-                                child: new Icon(
-                                  images[info.index][1],
-                                  color: Colors.white,
-                                  size: 100,
-                                ),
-                              ),
-                              ShowUp(
-                                delay: 300,
-                                child: new Icon(
-                                  images[info.index][2],
-                                  color: Colors.white,
-                                  size: 100,
-                                ),
-                              ),
-                              ShowUp(
-                                delay: 400,
-                                child: new Icon(
-                                  images[info.index][3],
-                                  color: Colors.white,
-                                  size: 100,
-                                ),
-                              ),
-                            ],
-                          ),
-                          position: info.position,
-                          opacityFactor: 1.0,
-                          translationFactor: 400.0,
-                        )
-                    ),
-                    new ParallaxContainer(
-                      child: new Text(
-                        titles[info.index],
-                        style: new TextStyle(fontSize: 30.0, color: Colors.white),
-                        textAlign: TextAlign.center,
+                    ShowUp(
+                      delay: 100,
+                      child: new Icon(
+                        images[info.index][0],
+                        color: Colors.white,
+                        size: 100,
                       ),
-                      position: info.position,
-                      translationFactor: 100.0,
                     ),
-                    new ParallaxContainer(
-                      child: new Padding(
-                          padding: new EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0),
-                          child: new Text(subtitles[info.index],
-                              textAlign: TextAlign.center,
-                              style: new TextStyle(
-                                  fontSize: 13.0, color: Colors.white
-                              )
-                          )
+                    ShowUp(
+                      delay: 200,
+                      child: new Icon(
+                        images[info.index][1],
+                        color: Colors.white,
+                        size: 100,
                       ),
-                      position: info.position,
-                      translationFactor: 50.0,
                     ),
-                    new Visibility(
-                        visible: showButton[info.index],
-                        child: new ParallaxContainer(
-                          child: new Padding(
-                              padding: new EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0),
-                              child: new OutlineButton(
-                                  highlightElevation: 0,
-                                  borderSide: new BorderSide(style: BorderStyle.solid, width: 2, color: Colors.white),
-                                  highlightedBorderColor: Colors.white,
-                                  child: Text(
-                                      'Fortfahren',
-                                      style: new TextStyle(
-                                          fontFamily: 'Roboto',
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 17,
-                                          color: Colors.white
-                                      )
-                                  ),
-                                  onPressed: () {
-                                    PrefService.setBool("firstrun", true);
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => SplashScreen()));
-                                  }
-                              ),
-                          ),
-                          position: info.position,
-                          translationFactor: 50.0,
-                        ),
-                    )
+                    ShowUp(
+                      delay: 300,
+                      child: new Icon(
+                        images[info.index][2],
+                        color: Colors.white,
+                        size: 100,
+                      ),
+                    ),
+                    ShowUp(
+                      delay: 400,
+                      child: new Icon(
+                        images[info.index][3],
+                        color: Colors.white,
+                        size: 100,
+                      ),
+                    ),
                   ],
                 ),
-              );
-            }),
-        itemCount: 5,
+                position: info.position,
+                opacityFactor: 1.0,
+                translationFactor: 400.0,
+              )),
+              new ParallaxContainer(
+                child: new Text(
+                  titles[info.index],
+                  style: new TextStyle(fontSize: 30.0, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                position: info.position,
+                translationFactor: 100.0,
+              ),
+              new ParallaxContainer(
+                child: new Padding(
+                    padding: new EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0),
+                    child: new Text(subtitles[info.index],
+                        textAlign: TextAlign.center,
+                        style: new TextStyle(
+                            fontSize: 13.0, color: Colors.white))),
+                position: info.position,
+                translationFactor: 50.0,
+              ),
+              new Visibility(
+                visible: showButton[info.index],
+                child: new ParallaxContainer(
+                  child: new Padding(
+                    padding: new EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0),
+                    child: new OutlineButton(
+                        highlightElevation: 0,
+                        borderSide: new BorderSide(
+                            style: BorderStyle.solid,
+                            width: 2,
+                            color: Colors.white),
+                        highlightedBorderColor: Colors.white,
+                        child: Text('Fortfahren',
+                            style: new TextStyle(
+                                fontFamily: 'Roboto',
+                                fontStyle: FontStyle.normal,
+                                fontSize: 17,
+                                color: Colors.white)),
+                        onPressed: () {
+                          PrefService.setBool("firstrun", true);
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => SplashScreen()));
+                        }),
+                  ),
+                  position: info.position,
+                  translationFactor: 50.0,
+                ),
+              )
+            ],
+          ),
+        );
+      }),
+      itemCount: 5,
     );
   }
 }

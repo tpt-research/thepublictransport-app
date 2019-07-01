@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sprung/sprung.dart';
 
@@ -22,16 +23,15 @@ class _ShowUpState extends State<ShowUp> with TickerProviderStateMixin {
     super.initState();
 
     if (widget.duration == null) {
-      _animController =
-          AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+      _animController = AnimationController(
+          vsync: this, duration: Duration(milliseconds: 500));
     } else {
       _animController =
           AnimationController(vsync: this, duration: widget.duration);
     }
 
-
-    final curve =
-    CurvedAnimation(curve: Sprung(damped: Damped.under), parent: _animController);
+    final curve = CurvedAnimation(
+        curve: Sprung(damped: Damped.under), parent: _animController);
     _animOffset =
         Tween<Offset>(begin: const Offset(0.0, 0.35), end: Offset.zero)
             .animate(curve);

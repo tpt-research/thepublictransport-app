@@ -1,14 +1,15 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
+
+import 'package:desiredrive_api_flutter/models/core/base/desire_journeys.dart';
+import 'package:flutter/material.dart';
+import 'package:thepublictransport_app/pages/trip/tripshow.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
-import 'package:thepublictransport_app/pages/misc/tripshow.dart';
 import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 
 class TripDetails extends StatefulWidget {
   TripDetails({this.result});
 
-  final DesireNearbyModel result;
+  final DesireJourneyModel result;
 
   @override
   _TripDetailsState createState() => _TripDetailsState(this.result);
@@ -25,18 +26,18 @@ class _TripDetailsState extends State<TripDetails> {
 
     // defines a timer
     _everySecond = Timer.periodic(Duration(minutes: 1), (Timer t) {
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
 
-  final DesireNearbyModel value;
-  
+  final DesireJourneyModel value;
+
   Color importanceColor(int value) {
     if (value < 3) return Colors.red;
-    if (value <= 5) return Colors.blue;
-    else return Colors.green;
+    if (value <= 5)
+      return Colors.blue;
+    else
+      return Colors.green;
   }
 
   Widget build(BuildContext context) {
@@ -44,44 +45,41 @@ class _TripDetailsState extends State<TripDetails> {
       visible: chooseVisibility(createTimeleft(value.realtime)),
       child: new InkWell(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripShowPage(model: value)));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => TripShowPage(model: value)));
         },
         child: new ListTile(
           title: new Text(
-              value.direction,
-              style: new TextStyle(
-                color: ColorThemeEngine.textColor
-              ),
+            value.direction,
+            style: new TextStyle(color: ColorThemeEngine.textColor),
           ),
           subtitle: new Text(
-            (value.realtime.hour.toString().padLeft(2, '0') + ":" + value.realtime.minute.toString().padLeft(2, '0'))  + " • " + chooseAdditionalLineString(value.product) + value.name + chooseDelay(value.time, value.realtime),
-            style: new TextStyle(
-              color: ColorThemeEngine.subtitleColor
-            ),
+            (value.realtime.hour.toString().padLeft(2, '0') +
+                    ":" +
+                    value.realtime.minute.toString().padLeft(2, '0')) +
+                " • " +
+                chooseAdditionalLineString(value.product) +
+                value.name +
+                chooseDelay(value.time, value.realtime),
+            style: new TextStyle(color: ColorThemeEngine.subtitleColor),
           ),
           leading: Container(
             child: new SizedBox(
-                width: 50,
-                height: 50,
-                child: chooseIcon(value.product)
-            ),
+                width: 50, height: 50, child: chooseIcon(value.product)),
           ),
           trailing: new ShowUp(
             delay: 50,
-            child: new Text(
-                createTimeleft(value.realtime).toString(),
+            child: new Text(createTimeleft(value.realtime).toString(),
                 style: TextStyle(
                     fontSize: 35,
                     color: importanceColor(createTimeleft(value.realtime)),
-                    fontWeight: FontWeight.w300
-                )
-            ),
+                    fontWeight: FontWeight.w300)),
           ),
         ),
       ),
     );
   }
-  
+
   Icon chooseIcon(String type) {
     switch (type) {
       case "RB":
@@ -90,37 +88,37 @@ class _TripDetailsState extends State<TripDetails> {
       case "ICE":
       case "train":
         return Icon(
-            Icons.train,
-            color: ColorThemeEngine.iconColor,
-            size: 30,
+          Icons.train,
+          color: ColorThemeEngine.iconColor,
+          size: 30,
         );
       case "Niederflurbus":
       case "bus":
         return Icon(
-            Icons.directions_bus,
-            color: ColorThemeEngine.iconColor,
-            size: 30,
+          Icons.directions_bus,
+          color: ColorThemeEngine.iconColor,
+          size: 30,
         );
       case "Niederflurstraßenbahn":
       case "tram":
         return Icon(
-            Icons.tram,
-            color: ColorThemeEngine.iconColor,
-            size: 30,
+          Icons.tram,
+          color: ColorThemeEngine.iconColor,
+          size: 30,
         );
       default:
         return Icon(
-            Icons.directions,
-            color: ColorThemeEngine.iconColor,
-            size: 30,
+          Icons.directions,
+          color: ColorThemeEngine.iconColor,
+          size: 30,
         );
     }
   }
-  
+
   bool chooseVisibility(int time) {
     if (time < 0)
       return false;
-    else 
+    else
       return true;
   }
 

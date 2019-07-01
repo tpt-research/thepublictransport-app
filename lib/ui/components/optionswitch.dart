@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 import 'package:preferences/preferences.dart';
+import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 
 class OptionSwitch extends StatefulWidget {
-  OptionSwitch({@required this.title, @required this.icon, @required this.id, this.default_bool});
+  OptionSwitch(
+      {@required this.title,
+      @required this.icon,
+      @required this.id,
+      this.default_bool});
 
   final String title;
   final IconData icon;
@@ -13,11 +17,12 @@ class OptionSwitch extends StatefulWidget {
   final bool default_bool;
 
   @override
-  _OptionSwitchState createState() => _OptionSwitchState(this.title, this.icon, this.id, this.default_bool);
+  _OptionSwitchState createState() =>
+      _OptionSwitchState(this.title, this.icon, this.id, this.default_bool);
 }
 
 class _OptionSwitchState extends State<OptionSwitch> {
-  _OptionSwitchState(this.title, this.icon, this.id, this.default_bool){
+  _OptionSwitchState(this.title, this.icon, this.id, this.default_bool) {
     if (this.default_bool != null) {
       if (PrefService.getBool(id) == null) {
         PrefService.setBool(id, this.default_bool);
@@ -43,14 +48,12 @@ class _OptionSwitchState extends State<OptionSwitch> {
     PrefService.setBool(id, value);
   }
 
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return new ListTile(
       leading: new Icon(this.icon, color: ColorThemeEngine.iconColor),
       title: new Text(
         this.title,
-        style: TextStyle(
-            color: ColorThemeEngine.textColor
-        ),
+        style: TextStyle(color: ColorThemeEngine.textColor),
       ),
       trailing: Switch(
         value: PrefService.getBool(id),
@@ -66,8 +69,4 @@ class _OptionSwitchState extends State<OptionSwitch> {
       ),
     );
   }
-
-
-
-
 }

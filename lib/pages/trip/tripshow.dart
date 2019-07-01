@@ -1,4 +1,4 @@
-import 'package:desiredrive_api_flutter/models/core/desire_nearby.dart';
+import 'package:desiredrive_api_flutter/models/core/base/desire_journeys.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/pages/timeline/timeline.dart';
@@ -7,7 +7,7 @@ import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TripShowPage extends StatefulWidget {
-  final DesireNearbyModel model;
+  final DesireJourneyModel model;
 
   TripShowPage({this.model});
 
@@ -16,7 +16,7 @@ class TripShowPage extends StatefulWidget {
 }
 
 class _TripShowPageState extends State<TripShowPage> {
-  final DesireNearbyModel model;
+  final DesireJourneyModel model;
 
   _TripShowPageState(this.model);
 

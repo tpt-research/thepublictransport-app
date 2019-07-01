@@ -10,43 +10,36 @@ class Searchbar extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return new Card(
-      shape: new StadiumBorder(
-        side: new BorderSide(
-          width: 2.0,
-          color: ColorThemeEngine.textColor
-        )
-      ),
-      margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-      color: ColorThemeEngine.backgroundColor,
-      child: SizedBox(
-          height: 50,
-          child: InkWell(
-            onTap: onTap,
-            child: new Container(
-                padding: EdgeInsets.only(left: 17),
-                child : new Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new Text(
-                        this.text,
-                        style: new TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 17,
-                            color: ColorThemeEngine.subtitleColor
-                        )
-                    ),
-                    new Container(
-                      child: IconButton(
-                          icon: Icon(Icons.my_location, color: ColorThemeEngine.iconColor),
-                          onPressed: onButtonPressed
-                      ),
-                    )
-                  ],
-                )
-            ),
-          )
-      )
-    );
+        shape: new RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            side: new BorderSide(width: 0.5, color: Colors.grey)),
+        elevation: 0,
+        margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+        color: ColorThemeEngine.backgroundColor,
+        child: SizedBox(
+            height: 50,
+            child: InkWell(
+              onTap: onTap,
+              child: new Container(
+                  padding: EdgeInsets.only(left: 17),
+                  child: new Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      new Text(this.text,
+                          overflow: TextOverflow.fade,
+                          style: new TextStyle(
+                              fontFamily: 'Nunito',
+                              fontSize: 17,
+                              color: ColorThemeEngine.subtitleColor)),
+                      new Container(
+                        child: IconButton(
+                            icon: Icon(Icons.my_location,
+                                color: ColorThemeEngine.iconColor),
+                            onPressed: onButtonPressed),
+                      )
+                    ],
+                  )),
+            )));
   }
 }

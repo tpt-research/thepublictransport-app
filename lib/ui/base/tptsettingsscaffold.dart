@@ -51,7 +51,8 @@ class _TPTScaffoldState extends State<TPTScaffold> {
                     style: new TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
-                        color: Colors.grey[600])),
+                        color: Colors.grey[600],
+                        fontFamily: 'NunitoSemiBold')),
               ),
             ),
             new ShowUp(
@@ -62,7 +63,8 @@ class _TPTScaffoldState extends State<TPTScaffold> {
                     style: new TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 35,
-                        color: Colors.grey),
+                        color: Colors.grey,
+                        fontFamily: 'NunitoSemiBold'),
                     gradient: ColorThemeEngine.tptgradient),
               ),
             ),
