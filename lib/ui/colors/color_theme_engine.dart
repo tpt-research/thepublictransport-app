@@ -1,3 +1,5 @@
+// This is Deprecated and will be removed soon.
+
 import 'package:flutter/material.dart';
 import 'package:preferences/preferences.dart';
 

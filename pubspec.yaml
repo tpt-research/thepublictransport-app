@@ -13,42 +13,23 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  google_maps_flutter: ^0.5.16
-  desiredrive_api_flutter:
-    path: ./desiredrive_api_flutter
-  trustdatabase_flutter_api:
-    path: ./trustdatabase_flutter_api
+  google_maps_flutter: ^0.5.20
   http: ^0.12.0+1
-  permission_handler: 3.0.0
-  flutter_svg: 0.12.4
-  gradient_widgets: 0.4.1
-  outline_material_icons: 0.1.0
-  bubble_bottom_bar: 1.2.0
-  url_launcher: 5.0.2
-  auto_size_text: 1.1.2
-  flutter_typeahead: 1.5.0
-  frideos_light: 0.4.3
-  flutter_inner_drawer: 0.2.6
   shared_preferences: 0.5.2
   sliding_up_panel: ^0.3.4
-  timeline_list: ^0.0.3
-  liquid_pull_to_refresh: ^1.1.0
-  preferences: ^3.0.0
-  transformer_page_view: 0.1.6
-  eva_icons_flutter: 1.0.4
-  package_info: ^0.4.0+3
+  preferences: ^4.0.0
   flutter_spinkit: 3.1.0
-  flare_flutter: 1.5.1
   sprung: 1.1.0+11
-  expandable: 2.2.2+3
-  animated_text_kit: 1.3.1
+  geolocator: ^5.1.1
+  gradient_widgets: ^0.5.0
+  flutter_typeahead: 1.6.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 
-# For information on the generic Dart part of this file, see the
+# For information on the generic pDart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
 # The following section is specific to Flutter.
@@ -63,8 +44,9 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
+
   assets:
-    - vectors/
+    - icons/
 
   fonts:
     - family: Rubik
@@ -99,6 +81,23 @@ flutter:
     - family: NunitoLight
       fonts:
           - asset: fonts/Nunito-Light.ttf
+
+
+    - family: NunitoSans
+      fonts:
+          - asset: fonts/NunitoSans-Regular.ttf
+
+    - family: NunitoSansSemiBold
+      fonts:
+          - asset: fonts/NunitoSans-SemiBold.ttf
+
+    - family: NunitoSansBold
+      fonts:
+          - asset: fonts/NunitoSans-Bold.ttf
+
+    - family: NunitoSansLight
+      fonts:
+          - asset: fonts/NunitoSans-Light.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
