@@ -197,6 +197,7 @@ class _ResultState extends State<Result> {
         continue;
 
       travels.add(i.line.name.replaceAll(new RegExp("[^A-Za-z]+"), ""));
+      counter++;
     }
 
 

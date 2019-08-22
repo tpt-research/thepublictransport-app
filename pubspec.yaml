@@ -1,6 +1,6 @@
 name: thepublictransport_app
 description: Die ÖPV App für Deutschland
-version: 0.0.7+7
+version: 1.0.0+10
 author: Tristan Marsell, The Public Transport
 
 environment:
@@ -8,6 +8,8 @@ environment:
 
 dependencies:
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
@@ -23,6 +25,9 @@ dependencies:
   geolocator: ^5.1.1
   gradient_widgets: ^0.5.0
   flutter_typeahead: 1.6.1
+  url_launcher: 5.1.2
+  transformer_page_view: 0.1.6
+  eva_icons_flutter: 2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -46,7 +51,8 @@ flutter:
   #  - images/a_dot_ham.jpeg
 
   assets:
-    - icons/
+    - icons/fluxfail.png
+    - icons/anja.png
 
   fonts:
     - family: Rubik

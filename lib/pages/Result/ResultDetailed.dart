@@ -396,7 +396,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              difference.inMinutes.remainder(60).toString() + " Minuten " + "Umstiegszeit",
+              difference.inMinutes.toString() + " Minuten " + "Umstiegszeit",
               style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'NunitoSansBold'

@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:preferences/preferences.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:thepublictransport_app/pages/Home/Home.dart';
+import 'package:thepublictransport_app/pages/Start/Start.dart';
 
 void main() async {
   await PrefService.init(prefix: 'pref_settings_');
-
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.white, // navigation bar color
-    statusBarColor: Colors.transparent, // status bar color
-    statusBarBrightness: Brightness.light,
-    statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarIconBrightness: Brightness.dark
-  ));
-
   runApp(Boot());
 }
 
@@ -32,10 +24,26 @@ class _BootState extends State<Boot> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.grey,
-        fontFamily: 'NunitoSans'
+        fontFamily: 'NunitoSans',
       ),
-      home: Home(),
+      home: getSplashRun(),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('de'), // Deutsch
+      ],
     );
+  }
+
+  Widget getSplashRun() {
+    if (PrefService.getBool("firstrun") == null ? true : false || PrefService.getBool("firstrun") == false) {
+      return Start();
+    } else {
+      return Home();
+    }
   }
 }
 

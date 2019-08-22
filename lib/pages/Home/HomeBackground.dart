@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:thepublictransport_app/pages/Delay/Delay.dart';
+import 'package:thepublictransport_app/pages/Settings/Settings.dart';
 import 'package:thepublictransport_app/ui/components/SelectionButtons.dart';
 
 class HomeBackground extends StatefulWidget {
@@ -72,7 +74,12 @@ class _HomeBackgroundState extends State<HomeBackground> {
           children: <Widget>[
             SelectionButtons(
               gradient: Gradients.cosmicFusion,
-              description: Text("Suche"),
+              description: Text(
+                  "Suche",
+                  style: TextStyle(
+                    fontSize: 12
+                  ),
+              ),
               icon: Icon(
                   Icons.search,
                   color: Colors.white,
@@ -84,7 +91,12 @@ class _HomeBackgroundState extends State<HomeBackground> {
             ),
             SelectionButtons(
               gradient: Gradients.jShine,
-              description: Text("Haltestellen"),
+              description: Text(
+                  "Haltestellen",
+                style: TextStyle(
+                    fontSize: 12
+                ),
+              ),
               icon: Icon(
                 Icons.location_on,
                 color: Colors.white,
@@ -96,21 +108,37 @@ class _HomeBackgroundState extends State<HomeBackground> {
             ),
             SelectionButtons(
               gradient: Gradients.rainbowBlue,
-              description: Text("Bewerten"),
+              description: Text(
+                  "Verspätungen",
+                style: TextStyle(
+                    fontSize: 12
+                ),
+              ),
               icon: Icon(
-                Icons.star,
+                Icons.timer,
                 color: Colors.white,
                 size: 30,
               ),
+              callback: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Delay()));
+              },
             ),
             SelectionButtons(
               gradient: Gradients.coldLinear,
-              description: Text("Einstellungen"),
+              description: Text(
+                  "Einstellungen",
+                style: TextStyle(
+                    fontSize: 12
+                ),
+              ),
               icon: Icon(
                 Icons.settings,
                 color: Colors.white,
                 size: 30,
               ),
+              callback: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Settings()));
+              },
             ),
           ],
         )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/core/LocationModel.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
 import 'package:thepublictransport_app/pages/Station/Station.dart';
@@ -32,8 +33,9 @@ class LocationShow extends StatelessWidget {
             );
           case ConnectionState.done:
             if (snapshot.hasError) {
-              return Text(snapshot.error);
+              return Text("Service kurzzeitig nicht verfügbar. Versuchen sie es gleich erneut !");
             } else {
+
               List<Widget> generated = [];
               var counter = 0;
 
@@ -108,7 +110,7 @@ class LocationShow extends StatelessWidget {
 
   Future<LocationModel> fetchNearby() async {
     final response = await CoreService.getLocationNearby(
-        3.toString(),
+        PrefService.getBool("datasave_mode") == false ? 3.toString() : 1.toString(),
         'DB'
     );
 

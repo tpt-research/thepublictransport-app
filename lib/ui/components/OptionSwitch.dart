@@ -6,23 +6,21 @@ import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
 
 class OptionSwitch extends StatefulWidget {
   OptionSwitch(
-      {@required this.title,
-      @required this.icon,
-      @required this.id,
-      this.default_bool});
+      {@required this.title, @required this.icon, @required this.id, this.default_bool, this.subtitle});
 
   final String title;
+  final String subtitle;
   final IconData icon;
   final String id;
   final bool default_bool;
 
   @override
   _OptionSwitchState createState() =>
-      _OptionSwitchState(this.title, this.icon, this.id, this.default_bool);
+      _OptionSwitchState(this.title, this.icon, this.id, this.default_bool, this.subtitle);
 }
 
 class _OptionSwitchState extends State<OptionSwitch> {
-  _OptionSwitchState(this.title, this.icon, this.id, this.default_bool) {
+  _OptionSwitchState(this.title, this.icon, this.id, this.default_bool, this.subtitle) {
     if (this.default_bool != null) {
       if (PrefService.getBool(id) == null) {
         PrefService.setBool(id, this.default_bool);
@@ -31,6 +29,7 @@ class _OptionSwitchState extends State<OptionSwitch> {
   }
 
   final String title;
+  final String subtitle;
   final IconData icon;
   final String id;
   final bool default_bool;
@@ -58,6 +57,7 @@ class _OptionSwitchState extends State<OptionSwitch> {
             fontFamily: "NunitoSansBold"
         ),
       ),
+      subtitle: Text(subtitle),
       trailing: Switch(
         value: PrefService.getBool(id),
         onChanged: (value) {

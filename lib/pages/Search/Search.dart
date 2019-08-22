@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
 import 'package:thepublictransport_app/ui/components/Maps/MapsOverlay.dart';
@@ -64,7 +65,7 @@ class _SearchState extends State<Search> {
   }
 
   Future<List<SuggestedLocation>> getResults(String query) async {
-    var result = await CoreService.getLocationQuery(query, "STATION", 5.toString(), "DB");
+    var result = await CoreService.getLocationQuery(query, "STATION", PrefService.getBool("datasave_mode") == false ? 7.toString() : 3.toString(), "DB");
 
     return result.suggestedLocations;
   }
