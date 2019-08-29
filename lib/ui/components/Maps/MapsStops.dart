@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 
 class MapsStops extends StatefulWidget {
   final List<SuggestedLocation> location;
@@ -20,6 +21,8 @@ class MapsStopsState extends State<MapsStops> {
   Completer<GoogleMapController> _controller = Completer();
   Geolocator geolocator = Geolocator();
   Set<Marker> markers = Set();
+
+  var theme = ThemeEngine.getCurrentTheme();
 
   MapsStopsState(this.location) {
     for (var i in location) {
@@ -47,14 +50,12 @@ class MapsStopsState extends State<MapsStops> {
       rotateGesturesEnabled: false,
       scrollGesturesEnabled: false,
       tiltGesturesEnabled: false,
-      mapType: MapType.normal,
+      mapType: theme.status == "light" ? MapType.normal : MapType.hybrid,
       markers: markers,
     );
   }
 
   void _onMapCreated(GoogleMapController controller) async {
-
-    bool firstRun = false;
 
     // Avoid race conditions
     await Future.delayed(Duration(milliseconds: 500));

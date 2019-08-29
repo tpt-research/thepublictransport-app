@@ -6,6 +6,7 @@ import 'package:thepublictransport_app/backend/models/core/TripModel.dart';
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
@@ -42,16 +43,19 @@ class _ResultState extends State<Result> {
 
   _ResultState(this.from_search, this.to_search, this.time, this.date, this.barrier, this.slowwalk, this.fastroute);
 
+  var theme = ThemeEngine.getCurrentTheme();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       floatingActionButton: FloatingActionButton(
           heroTag: "HEROOOO2",
           onPressed: () {
             Navigator.of(context).pop();
           },
-          backgroundColor: Colors.black,
-          child: Icon(Icons.arrow_back, color: Colors.white),
+          backgroundColor: theme.floatingActionButtonColor,
+          child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -69,7 +73,7 @@ class _ResultState extends State<Result> {
                   Text(
                     "Suche",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontSize: 30,
                         fontFamily: 'NunitoSansBold'
                     ),
@@ -86,8 +90,8 @@ class _ResultState extends State<Result> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("Von:"),
-                              Text("Nach:")
+                              Text("Von:", style: TextStyle(color: theme.textColor)),
+                              Text("Nach:", style: TextStyle(color: theme.textColor))
                             ],
                           ),
                           SizedBox(width: 10),
@@ -102,7 +106,8 @@ class _ResultState extends State<Result> {
                                   child: Text(
                                     from_search.location.name + (from_search.location.place != null ? ", " + from_search.location.place : ""),
                                     style: TextStyle(
-                                      fontFamily: 'NunitoSansBold'
+                                      fontFamily: 'NunitoSansBold',
+                                        color: theme.textColor
                                     ),
                                   ),
                                 ),
@@ -114,7 +119,8 @@ class _ResultState extends State<Result> {
                                   child: Text(
                                     to_search.location.name + (to_search.location.place != null ? ", " + to_search.location.place : ""),
                                     style: TextStyle(
-                                        fontFamily: 'NunitoSansBold'
+                                        fontFamily: 'NunitoSansBold',
+                                        color: theme.textColor
                                     ),
                                   ),
                                 ),
@@ -129,9 +135,15 @@ class _ResultState extends State<Result> {
                         children: <Widget>[
                           Text(
                             time.hour.toString() + ":" + time.minute.toString().padLeft(2, '0'),
+                            style: TextStyle(
+                                color: theme.textColor
+                            ),
                           ),
                           Text(
-                              date.day.toString().padLeft(2, '0') + "." + date.month.toString().padLeft(2, '0') + "." + date.year.toString().padLeft(4, '0')
+                              date.day.toString().padLeft(2, '0') + "." + date.month.toString().padLeft(2, '0') + "." + date.year.toString().padLeft(4, '0'),
+                            style: TextStyle(
+                                color: theme.textColor
+                            ),
                           )
                         ],
                       )
@@ -155,7 +167,7 @@ class _ResultState extends State<Result> {
                         child: Center(
                             child: SpinKitPulse(
                               size: 100,
-                              color: Colors.black,
+                              color: theme.iconColor,
                             )
                         ),
                       );
@@ -165,7 +177,7 @@ class _ResultState extends State<Result> {
                       } else {
                         if (snapshot.data.trips == null) {
                           return Center(
-                            child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: Colors.grey)),
+                            child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
                           );
                         }
                         return ListView.builder(
@@ -202,6 +214,7 @@ class _ResultState extends State<Result> {
 
 
     return Card(
+      color: theme.cardColor,
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResultDetailed(trip: trip)));
@@ -222,7 +235,8 @@ class _ResultState extends State<Result> {
                     begin.hour.toString().padLeft(2, '0') + ":" + begin.minute.toString().padLeft(2, '0'),
                     style: TextStyle(
                         fontSize: 15,
-                        fontFamily: 'NunitoSansBold'
+                        fontFamily: 'NunitoSansBold',
+                        color: theme.textColor
                     ),
                   ),
                   SizedBox(width: 20),
@@ -230,7 +244,8 @@ class _ResultState extends State<Result> {
                     end.hour.toString().padLeft(2, '0') + ":" + end.minute.toString().padLeft(2, '0'),
                     style: TextStyle(
                         fontSize: 15,
-                        fontFamily: 'NunitoSansBold'
+                        fontFamily: 'NunitoSansBold',
+                        color: theme.textColor
                     ),
                   ),
                   SizedBox(width: 20),
@@ -238,7 +253,8 @@ class _ResultState extends State<Result> {
                     difference,
                     style: TextStyle(
                         fontSize: 15,
-                        fontFamily: 'NunitoSansBold'
+                        fontFamily: 'NunitoSansBold',
+                        color: theme.textColor
                     ),
                   ),
                   SizedBox(width: 20),
@@ -246,6 +262,7 @@ class _ResultState extends State<Result> {
                     counter.toString(),
                     style: TextStyle(
                       fontSize: 15,
+                        color: theme.textColor
                     ),
                   ),
                 ],
@@ -257,7 +274,8 @@ class _ResultState extends State<Result> {
                 travels.join(" - "),
                 style: TextStyle(
                     fontSize: 15,
-                    fontFamily: 'NunitoSansBold'
+                    fontFamily: 'NunitoSansBold',
+                    color: theme.textColor
                 ),
               )
             ],

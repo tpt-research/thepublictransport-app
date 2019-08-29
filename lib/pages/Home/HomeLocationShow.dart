@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/core/LocationModel.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/Station/Station.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
 import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
@@ -11,6 +13,8 @@ import 'package:thepublictransport_app/ui/animations/ShowUp.dart';
 import 'package:thepublictransport_app/ui/components/Maps/MapsStops.dart';
 
 class LocationShow extends StatelessWidget {
+
+  var theme = ThemeEngine.getCurrentTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +31,18 @@ class LocationShow extends StatelessWidget {
               child: Center(
                 child: SpinKitPulse(
                   size: 100,
-                  color: Colors.black,
+                  color: theme.iconColor,
                 )
               ),
             );
           case ConnectionState.done:
             if (snapshot.hasError) {
-              return Text("Service kurzzeitig nicht verfügbar. Versuchen sie es gleich erneut !");
+              return Text(
+                  "Service kurzzeitig nicht verfügbar. Versuchen sie es gleich erneut !",
+                  style: TextStyle(
+                    color: theme.textColor
+                  ),
+              );
             } else {
 
               List<Widget> generated = [];
@@ -47,14 +56,14 @@ class LocationShow extends StatelessWidget {
                   child: Chip(
                       avatar: CircleAvatar(
                         backgroundColor: Colors.transparent,
-                        foregroundColor: Colors.white,
-                        child: Icon(Icons.directions_bus),
+                        foregroundColor: theme.foregroundColor,
+                        child: Icon(MaterialCommunityIcons.bus_multiple, color: theme.foregroundColor),
                       ),
-                      backgroundColor: Colors.black,
+                      backgroundColor: theme.textColor,
                       label: Text(
                         i.location.name,
                         style: TextStyle(
-                            color: Colors.white
+                            color: theme.foregroundColor
                         ),
                       )
                   ),

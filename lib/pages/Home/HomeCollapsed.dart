@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
 import 'package:thepublictransport_app/pages/Home/HomeLocationShow.dart';
 
@@ -8,11 +9,14 @@ class HomeCollapsed extends StatefulWidget {
 }
 
 class _HomeCollapsedState extends State<HomeCollapsed> {
+  var theme = ThemeEngine.getCurrentTheme();
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Container(
           width: 80,
@@ -29,7 +33,8 @@ class _HomeCollapsedState extends State<HomeCollapsed> {
             "In der Nähe",
             style: TextStyle(
                 fontSize: 30,
-                fontFamily: 'NunitoSansSemiBold'
+                fontFamily: 'NunitoSansSemiBold',
+                color: theme.titleColor
             ),
           )
         ),
@@ -51,7 +56,7 @@ class _HomeCollapsedState extends State<HomeCollapsed> {
                 Text(
                   "Für mehr Funktionen, einfach nach oben wischen.",
                   style: TextStyle(
-                      color: Colors.grey
+                      color: theme.subtitleColor
                   ),
                 ),
               ],

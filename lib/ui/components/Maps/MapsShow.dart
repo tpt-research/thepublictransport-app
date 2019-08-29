@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:thepublictransport_app/backend/models/main/Location.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 
 class MapsShow extends StatefulWidget {
   final Location location;
@@ -18,6 +19,8 @@ class MapsShowState extends State<MapsShow> {
 
   Completer<GoogleMapController> _controller = Completer();
   Set<Marker> markers = Set();
+
+  var theme = ThemeEngine.getCurrentTheme();
 
   MapsShowState(this.location) {
     markers.add(Marker(
@@ -44,7 +47,7 @@ class MapsShowState extends State<MapsShow> {
       scrollGesturesEnabled: false,
       tiltGesturesEnabled: false,
       zoomGesturesEnabled: false,
-      mapType: MapType.normal,
+      mapType: theme.status == "light" ? MapType.normal : MapType.hybrid,
       markers: markers,
     );
   }

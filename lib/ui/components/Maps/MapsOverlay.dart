@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 
 class MapsOverlay extends StatefulWidget {
 
@@ -16,6 +17,8 @@ class MapsOverlayState extends State<MapsOverlay> {
 
   Completer<GoogleMapController> _controller = Completer();
   Geolocator geolocator = Geolocator();
+
+  var theme = ThemeEngine.getCurrentTheme();
 
   static final CameraPosition _kInitialPosition = CameraPosition(
     target: LatLng(37.422, -122.084),
@@ -32,7 +35,7 @@ class MapsOverlayState extends State<MapsOverlay> {
       scrollGesturesEnabled: false,
       tiltGesturesEnabled: false,
       zoomGesturesEnabled: false,
-      mapType: MapType.normal,
+      mapType: theme.status == "light" ? MapType.normal : MapType.hybrid,
     );
   }
 

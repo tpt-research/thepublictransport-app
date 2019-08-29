@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:thepublictransport_app/backend/models/core/DepartureModel.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 
 class StationDeparture extends StatefulWidget {
   final String stationId;
@@ -14,6 +15,8 @@ class StationDeparture extends StatefulWidget {
 
 class _StationDepartureState extends State<StationDeparture> {
   final String stationId;
+
+  var theme = ThemeEngine.getCurrentTheme();
 
   _StationDepartureState(this.stationId);
 
@@ -42,9 +45,24 @@ class _StationDepartureState extends State<StationDeparture> {
                           snapshot.data.stationDepartures.first.departures[index].time
                       );
                       return ListTile(
-                        title: Text(snapshot.data.stationDepartures.first.departures[index].line.name),
-                        subtitle: Text(snapshot.data.stationDepartures.first.departures[index].destination.name),
-                        trailing: Text(dateTime.hour.toString() + ":" + dateTime.minute.toString().padLeft(2, '0')),
+                        title: Text(
+                            snapshot.data.stationDepartures.first.departures[index].line.name,
+                            style: TextStyle(
+                                color: theme.titleColor
+                            ),
+                        ),
+                        subtitle: Text(
+                            snapshot.data.stationDepartures.first.departures[index].destination.name,
+                            style: TextStyle(
+                                color: theme.subtitleColor
+                            ),
+                        ),
+                        trailing: Text(
+                            dateTime.hour.toString() + ":" + dateTime.minute.toString().padLeft(2, '0'),
+                            style: TextStyle(
+                                color: theme.textColor
+                            ),
+                        ),
                       );
                     }
                 );

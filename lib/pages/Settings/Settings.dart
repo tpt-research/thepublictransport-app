@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/About/About.dart';
 import 'package:thepublictransport_app/pages/Start/Start.dart';
 import 'package:thepublictransport_app/ui/components/OptionSwitch.dart';
@@ -10,25 +10,20 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  _SettingsState() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.white, // navigation bar color
-        statusBarColor: Colors.transparent, // status bar color
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarIconBrightness: Brightness.dark
-    ));
-  }
+
+  var theme = ThemeEngine.getCurrentTheme();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       floatingActionButton: FloatingActionButton(
         heroTag: "HEROOOO",
         onPressed: () {
           Navigator.of(context).pop();
         },
-        backgroundColor: Colors.black,
-        child: Icon(Icons.arrow_back, color: Colors.white),
+        backgroundColor: theme.floatingActionButtonColor,
+        child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -46,7 +41,7 @@ class _SettingsState extends State<Settings> {
                     child: Text(
                       "Einstellungen",
                       style: TextStyle(
-                          color: Colors.black,
+                          color: theme.titleColor,
                           fontSize: 30,
                           fontFamily: 'NunitoSansBold'
                       ),
@@ -77,16 +72,37 @@ class _SettingsState extends State<Settings> {
                   SizedBox(
                     height: 20.5,
                   ),
+                  new OptionSwitch(
+                    title: "Dunkles Design",
+                    subtitle: "Spart besonders Energie bei OLED Displays und sieht für diverse User ästhetisch aus. Um die Änderungen wirksam zu machen, starten sie die App neu.",
+                    icon: Icons.settings_brightness,
+                    id: "theme_mode",
+                    default_bool: false,
+                  ),
+                  SizedBox(
+                    height: 20.5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 20.5,
+                  ),
                   ListTile(
-                    leading: new Icon(Icons.view_carousel),
+                    leading: new Icon(Icons.view_carousel, color: theme.iconColor),
                     title: new Text(
                       "Vorschau nochmals anschauen",
                       style: TextStyle(
-                          color: Colors.black,
+                          color: theme.titleColor,
                           fontFamily: "NunitoSansBold"
                       ),
                     ),
-                    subtitle: Text("Sehen sie sich nochmal die Vorschau an, die am Anfang präsentiert wurde."),
+                    subtitle: Text(
+                        "Sehen sie sich nochmal die Vorschau an, die am Anfang präsentiert wurde.",
+                        style: TextStyle(
+                            color: theme.subtitleColor
+                        ),
+                    ),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => Start()));
                     },
@@ -101,15 +117,20 @@ class _SettingsState extends State<Settings> {
                     height: 20.5,
                   ),
                   ListTile(
-                    leading: new Icon(Icons.info),
+                    leading: new Icon(Icons.info, color: theme.iconColor),
                     title: new Text(
                       "Über diese App",
                       style: TextStyle(
-                          color: Colors.black,
+                          color: theme.titleColor,
                           fontFamily: "NunitoSansBold"
                       ),
                     ),
-                    subtitle: Text("Lernen sie die Personen kennen, die ihr bestes gegeben haben diese App zu präsentieren."),
+                    subtitle: Text(
+                        "Lernen sie die Personen kennen, die ihr bestes gegeben haben diese App zu präsentieren.",
+                        style: TextStyle(
+                          color: theme.subtitleColor
+                        ),
+                    ),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => About()));
                     },

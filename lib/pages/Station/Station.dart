@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/backend/models/main/Location.dart';
 import 'package:thepublictransport_app/backend/service/geocode/Geocode.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/ui/components/Maps/MapsShow.dart';
 
 import 'StationDeparture.dart';
@@ -19,11 +20,14 @@ class Station extends StatefulWidget {
 class _StationState extends State<Station> {
   final Location location;
 
+  var theme = ThemeEngine.getCurrentTheme();
+
   _StationState(this.location);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,11 +36,6 @@ class _StationState extends State<Station> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.35,
             child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                      color: Colors.black
-                  ),
-                ),
                 child: Stack(
                   children: <Widget>[
                     MapsShow(location: location),
@@ -58,7 +57,7 @@ class _StationState extends State<Station> {
                               Navigator.of(context).pop();
                             },
                             heroTag: "HEROOOO",
-                            child: Icon(Icons.arrow_back, color: Colors.white),
+                            child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
                           ),
                         )
                     )
@@ -137,19 +136,31 @@ class _StationState extends State<Station> {
           title: Text(
             "Haltestelle",
             style: TextStyle(
-                fontFamily: 'NunitoSansBold'
+                fontFamily: 'NunitoSansBold',
+                color: theme.titleColor
             ),
           ),
-          subtitle: Text(location.name),
+          subtitle: Text(
+              location.name,
+              style: TextStyle(
+                  color: theme.subtitleColor
+              ),
+          ),
         ),
         ListTile(
           title: Text(
             "Verkehrsmittel",
             style: TextStyle(
-                fontFamily: 'NunitoSansBold'
+                fontFamily: 'NunitoSansBold',
+                color: theme.titleColor
             ),
           ),
-          subtitle: Text(joinArray(location.products)),
+          subtitle: Text(
+              joinArray(location.products),
+              style: TextStyle(
+                color: theme.subtitleColor
+              ),
+          ),
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.02,
@@ -158,7 +169,8 @@ class _StationState extends State<Station> {
           title: Text(
             "Demnächst",
             style: TextStyle(
-                fontFamily: 'NunitoSansBold'
+                fontFamily: 'NunitoSansBold',
+                color: theme.titleColor
             ),
           ),
         ),

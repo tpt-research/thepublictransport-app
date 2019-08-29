@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:preferences/preferences.dart';
-import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 
 class OptionSwitch extends StatefulWidget {
   OptionSwitch(
@@ -36,6 +36,8 @@ class _OptionSwitchState extends State<OptionSwitch> {
 
   bool isSwitched = false;
 
+  var theme = ThemeEngine.getCurrentTheme();
+
   Future<bool> getSwitched() async {
     if (PrefService.getBool(id) != null)
       return PrefService.getBool(id);
@@ -49,15 +51,15 @@ class _OptionSwitchState extends State<OptionSwitch> {
 
   Widget build(BuildContext context) {
     return new ListTile(
-      leading: new Icon(this.icon),
+      leading: new Icon(this.icon, color: theme.iconColor),
       title: new Text(
         this.title,
         style: TextStyle(
-            color: ColorThemeEngine.textColor,
+            color: theme.textColor,
             fontFamily: "NunitoSansBold"
         ),
       ),
-      subtitle: Text(subtitle),
+      subtitle: subtitle != null ? Text(subtitle, style: TextStyle(color: theme.subtitleColor)) : null,
       trailing: Switch(
         value: PrefService.getBool(id),
         onChanged: (value) {
@@ -65,8 +67,8 @@ class _OptionSwitchState extends State<OptionSwitch> {
             setSwitched(value);
           });
         },
-        activeTrackColor: Colors.black.withAlpha(90),
-        activeColor: Colors.black,
+        activeTrackColor: theme.iconColor.withAlpha(90),
+        activeColor: theme.iconColor,
         inactiveTrackColor: Colors.grey[200],
         inactiveThumbColor: Colors.grey[300],
       ),

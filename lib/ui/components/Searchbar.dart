@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thepublictransport_app/ui/colors/color_theme_engine.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 
 class Searchbar extends StatelessWidget {
   Searchbar({this.text, this.onTap, this.onButtonPressed});
@@ -7,6 +7,8 @@ class Searchbar extends StatelessWidget {
   final String text;
   final Function onTap;
   final Function onButtonPressed;
+
+  var theme = ThemeEngine.getCurrentTheme();
 
   Widget build(BuildContext context) {
     return new Card(
@@ -16,7 +18,7 @@ class Searchbar extends StatelessWidget {
         ),
         elevation: 0,
         margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-        color: ColorThemeEngine.backgroundColor,
+        color: theme.backgroundColor,
         child: SizedBox(
             height: 50,
             child: InkWell(
@@ -31,11 +33,11 @@ class Searchbar extends StatelessWidget {
                           overflow: TextOverflow.fade,
                           style: new TextStyle(
                               fontSize: 17,
-                              color: ColorThemeEngine.subtitleColor)),
+                              color: theme.subtitleColor)),
                       new Container(
                         child: IconButton(
                             icon: Icon(Icons.my_location,
-                                color: ColorThemeEngine.iconColor),
+                                color: theme.iconColor),
                             onPressed: onButtonPressed),
                       )
                     ],

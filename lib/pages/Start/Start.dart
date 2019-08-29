@@ -45,11 +45,11 @@ class Welcome extends StatelessWidget {
   ];
 
   final List<Color> backgroundColors = [
-    new Color(0xff000000),
-    new Color(0xff000000),
-    new Color(0xff000000),
-    new Color(0xff000000),
-    new Color(0xff000000)
+    new Color(0xffffffff),
+    new Color(0xffffffff),
+    new Color(0xffffffff),
+    new Color(0xffffffff),
+    new Color(0xffffffff)
   ];
 
   final List<bool> showButton = [false, false, false, false, true];
@@ -84,7 +84,7 @@ class Welcome extends StatelessWidget {
                               delay: 100,
                               child: new Icon(
                                 images[info.index][0],
-                                color: Colors.white,
+                                color: Colors.black,
                                 size: 100,
                               ),
                             ),
@@ -92,7 +92,7 @@ class Welcome extends StatelessWidget {
                               delay: 200,
                               child: new Icon(
                                 images[info.index][1],
-                                color: Colors.white,
+                                color: Colors.black,
                                 size: 100,
                               ),
                             ),
@@ -100,7 +100,7 @@ class Welcome extends StatelessWidget {
                               delay: 300,
                               child: new Icon(
                                 images[info.index][2],
-                                color: Colors.white,
+                                color: Colors.black,
                                 size: 100,
                               ),
                             ),
@@ -108,7 +108,7 @@ class Welcome extends StatelessWidget {
                               delay: 400,
                               child: new Icon(
                                 images[info.index][3],
-                                color: Colors.white,
+                                color: Colors.black,
                                 size: 100,
                               ),
                             ),
@@ -124,7 +124,7 @@ class Welcome extends StatelessWidget {
                       duration: Duration(seconds: 1),
                       child: new Text(
                         titles[info.index],
-                        style: new TextStyle(fontSize: 30.0, color: Colors.white),
+                        style: new TextStyle(fontSize: 30.0, color: Colors.black),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -140,7 +140,7 @@ class Welcome extends StatelessWidget {
                           child: new Text(subtitles[info.index],
                               textAlign: TextAlign.center,
                               style: new TextStyle(
-                                  fontSize: 13.0, color: Colors.white)),
+                                  fontSize: 13.0, color: Colors.black)),
                         )),
                     position: info.position,
                     translationFactor: 50.0,
@@ -155,14 +155,13 @@ class Welcome extends StatelessWidget {
                             borderSide: new BorderSide(
                                 style: BorderStyle.solid,
                                 width: 2,
-                                color: Colors.white),
-                            highlightedBorderColor: Colors.white,
+                                color: Colors.black),
+                            highlightedBorderColor: Colors.black,
                             child: Text('Fortfahren',
                                 style: new TextStyle(
-                                    fontFamily: 'Roboto',
                                     fontStyle: FontStyle.normal,
                                     fontSize: 17,
-                                    color: Colors.white)),
+                                    color: Colors.black)),
                             onPressed: () {
                               PrefService.setBool("firstrun", true);
                               Navigator.of(context).pushReplacement(

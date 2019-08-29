@@ -4,6 +4,7 @@ import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/core/FluxDelayStream.dart';
 import 'package:thepublictransport_app/backend/models/fluxfail/Report.dart';
 import 'package:thepublictransport_app/backend/service/fluxfail/FluxFailService.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,16 +15,21 @@ class Delay extends StatefulWidget {
 }
 
 class _DelayState extends State<Delay> {
+
+  var theme = ThemeEngine.getCurrentTheme();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       floatingActionButton: FloatingActionButton(
         heroTag: "HEROOOO",
         onPressed: () {
           Navigator.of(context).pop();
         },
-        backgroundColor: Colors.black,
-        child: Icon(Icons.arrow_back, color: Colors.white),
+        backgroundColor: theme.floatingActionButtonColor,
+        child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -41,7 +47,7 @@ class _DelayState extends State<Delay> {
                   Text(
                     "Verspätungen",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontSize: 30,
                         fontFamily: 'NunitoSansBold'
                     ),
@@ -54,7 +60,7 @@ class _DelayState extends State<Delay> {
                         Text(
                           "Powered by ",
                           style: TextStyle(
-                              color: Colors.black,
+                              color: theme.titleColor,
                               fontSize: 20,
                           ),
                         ),
@@ -87,7 +93,7 @@ class _DelayState extends State<Delay> {
                         child: Center(
                             child: SpinKitPulse(
                               size: 100,
-                              color: Colors.black,
+                              color: theme.iconColor,
                             )
                         ),
                       );
@@ -97,7 +103,7 @@ class _DelayState extends State<Delay> {
                       } else {
                         if (snapshot.data.reports == null) {
                           return Center(
-                            child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: Colors.grey)),
+                            child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
                           );
                         }
                         return ListView.builder(
@@ -123,6 +129,7 @@ class _DelayState extends State<Delay> {
     var difference = DurationParser.parse(end.difference(begin));
 
     return Card(
+      color: theme.cardColor,
       child: InkWell(
         onTap: () {
 
@@ -143,7 +150,8 @@ class _DelayState extends State<Delay> {
                     begin.hour.toString().padLeft(2, '0') + ":" + begin.minute.toString().padLeft(2, '0'),
                     style: TextStyle(
                         fontSize: 15,
-                        fontFamily: 'NunitoSansBold'
+                        fontFamily: 'NunitoSansBold',
+                        color: theme.textColor
                     ),
                   ),
                   SizedBox(width: 20),
@@ -169,6 +177,7 @@ class _DelayState extends State<Delay> {
                     begin.day.toString().padLeft(2, '0') + "." + begin.month.toString().padLeft(2, '0') + "." + begin.year.toString().padLeft(4, '0'),
                     style: TextStyle(
                       fontSize: 15,
+                        color: theme.textColor
                     ),
                   ),
                 ],
@@ -180,13 +189,15 @@ class _DelayState extends State<Delay> {
                 report.line + " " + report.direction,
                 style: TextStyle(
                     fontSize: 15,
-                    fontFamily: 'NunitoSansBold'
+                    fontFamily: 'NunitoSansBold',
+                    color: theme.textColor
                 ),
               ),
               Text(
                 "Gemeldet in: " + report.city + " - " + report.location,
                 style: TextStyle(
                     fontSize: 15,
+                    color: theme.textColor
                 ),
               )
             ],
@@ -207,6 +218,7 @@ class _DelayState extends State<Delay> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          backgroundColor: theme.backgroundColor,
           title: SizedBox(
               height: 40,
               width: 100,
@@ -216,31 +228,50 @@ class _DelayState extends State<Delay> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                  "flux.fail ist ein Projekt aus Berlin, welches das Ziel verfolgt, alle Verspätungen dieser Welt zu protokollieren, aber ohne eure Daten zu sammeln."
+                  "flux.fail ist ein Projekt aus Berlin, welches das Ziel verfolgt, alle Verspätungen dieser Welt zu protokollieren, aber ohne eure Daten zu sammeln.",
+                  style: TextStyle(
+                    color: theme.textColor
+                  ),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
-                  "Wir als Partner von flux.fail, wollen dies auch unterstützen."
+                  "Wir als Partner von flux.fail, wollen dies auch unterstützen.",
+                  style: TextStyle(
+                      color: theme.textColor
+                  ),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
-                  'Wenn es euer Interesse geweckt hat und ihr vielleicht auch die Welt zu einer besseren machen wollt, dann klickt auf den "Ich bin dabei" Button und ihr werdet direkt umgeleitet.'
+                  'Wenn es euer Interesse geweckt hat und ihr vielleicht auch die Welt zu einer besseren machen wollt, dann klickt auf den "Ich bin dabei" Button und ihr werdet direkt umgeleitet.',
+                  style: TextStyle(
+                      color: theme.textColor
+                  ),
               )
             ],
           ),
           actions: <Widget>[
             new FlatButton(
-              child: new Text("Ich bin dabei"),
+              child: new Text(
+                  "Ich bin dabei",
+                  style: TextStyle(
+                      color: theme.textColor
+                  ),
+              ),
               onPressed: () {
                 _launchURL();
               },
             ),
             new FlatButton(
-              child: new Text("Schließen"),
+              child: new Text(
+                  "Schließen",
+                  style: TextStyle(
+                      color: theme.textColor
+                  ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },

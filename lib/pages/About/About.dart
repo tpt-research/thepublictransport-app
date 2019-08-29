@@ -1,5 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget {
@@ -8,16 +10,19 @@ class About extends StatefulWidget {
 }
 
 class _AboutState extends State<About> {
+  var theme = ThemeEngine.getCurrentTheme();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       floatingActionButton: FloatingActionButton(
         heroTag: "HEROOOO",
         onPressed: () {
           Navigator.of(context).pop();
         },
-        backgroundColor: Colors.black,
-        child: Icon(Icons.arrow_back, color: Colors.white),
+        backgroundColor: theme.floatingActionButtonColor,
+        child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Column(
@@ -36,7 +41,7 @@ class _AboutState extends State<About> {
                     child: Text(
                       "Über diese App",
                       style: TextStyle(
-                          color: Colors.black,
+                          color: theme.titleColor,
                           fontSize: 30,
                           fontFamily: 'NunitoSansBold'
                       ),
@@ -67,7 +72,7 @@ class _AboutState extends State<About> {
                   title: Text(
                     "The Public Transport",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold"
                     ),
                   ),
@@ -78,15 +83,15 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       IconButton(
                           icon: Icon(
-                            EvaIcons.githubOutline,
-                            color: Colors.black,
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
                           ),
                           onPressed: () {
                             openURL('https://github.com/thepublictransport');
                           }),
                       IconButton(
                           icon: Icon(
-                            EvaIcons.twitterOutline,
+                            MaterialCommunityIcons.twitter,
                             color: Colors.lightBlueAccent,
                           ),
                           onPressed: () {
@@ -94,7 +99,7 @@ class _AboutState extends State<About> {
                           }),
                       IconButton(
                           icon: Icon(
-                            EvaIcons.cameraOutline,
+                            MaterialCommunityIcons.instagram,
                             color: Colors.purpleAccent,
                           ),
                           onPressed: () {
@@ -110,7 +115,7 @@ class _AboutState extends State<About> {
                   child: Text(
                     "Unsere Entwickler:",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold",
                         fontSize: 20
                     ),
@@ -135,12 +140,15 @@ class _AboutState extends State<About> {
                   title: Text(
                     "Tristan Marsell",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold"
                     ),
                   ),
                   subtitle: Text(
-                    "Initiator & Hauptentwickler"
+                    "Initiator & Hauptentwickler",
+                    style: TextStyle(
+                      color: theme.subtitleColor
+                    ),
                   ),
                   trailing: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -149,15 +157,15 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       IconButton(
                           icon: Icon(
-                            EvaIcons.githubOutline,
-                            color: Colors.black,
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
                           ),
                           onPressed: () {
                             openURL('https://github.com/PDesire');
                           }),
                       IconButton(
                           icon: Icon(
-                            EvaIcons.twitterOutline,
+                            MaterialCommunityIcons.twitter,
                             color: Colors.lightBlueAccent,
                           ),
                           onPressed: () {
@@ -165,7 +173,7 @@ class _AboutState extends State<About> {
                           }),
                       IconButton(
                           icon: Icon(
-                            EvaIcons.cameraOutline,
+                            MaterialCommunityIcons.instagram,
                             color: Colors.purpleAccent,
                           ),
                           onPressed: () {
@@ -191,12 +199,38 @@ class _AboutState extends State<About> {
                   title: Text(
                     "Anja Greiß",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold"
                     ),
                   ),
                   subtitle: Text(
-                      "Designberatung & Design"
+                      "Designberatung",
+                    style: TextStyle(
+                        color: theme.subtitleColor
+                    ),
+                  ),
+                  trailing: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton(
+                          icon: Icon(
+                            MaterialCommunityIcons.twitter,
+                            color: Colors.lightBlueAccent,
+                          ),
+                          onPressed: () {
+                            openURL('https://twitter.com/anja_helena87');
+                          }),
+                      IconButton(
+                          icon: Icon(
+                            MaterialCommunityIcons.instagram,
+                            color: Colors.purpleAccent,
+                          ),
+                          onPressed: () {
+                            openURL('https://www.instagram.com/anja_helena87');
+                          }),
+                    ],
                   ),
                 ),
                 ListTile(
@@ -215,12 +249,15 @@ class _AboutState extends State<About> {
                   title: Text(
                     "Seira Ren",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold"
                     ),
                   ),
                   subtitle: Text(
-                      "Designberatung & Design"
+                      "Designberatung & Design",
+                    style: TextStyle(
+                        color: theme.subtitleColor
+                    ),
                   ),
                   trailing: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -229,8 +266,8 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       IconButton(
                           icon: Icon(
-                            EvaIcons.githubOutline,
-                            color: Colors.black,
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
                           ),
                           onPressed: () {
                             openURL('https://github.com/toptsundere');
@@ -245,7 +282,7 @@ class _AboutState extends State<About> {
                   child: Text(
                     "Herzliches Dankeschön an:",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold",
                         fontSize: 20
                     ),
@@ -270,7 +307,7 @@ class _AboutState extends State<About> {
                   title: Text(
                     "Andreas Schildbach",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold"
                     ),
                   ),
@@ -281,8 +318,8 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       IconButton(
                           icon: Icon(
-                            EvaIcons.githubOutline,
-                            color: Colors.black,
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
                           ),
                           onPressed: () {
                             openURL('https://github.com/schildbach');
@@ -309,7 +346,7 @@ class _AboutState extends State<About> {
                   title: Text(
                     "Felix Delattre",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold"
                     ),
                   ),
@@ -320,8 +357,8 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       IconButton(
                           icon: Icon(
-                            EvaIcons.githubOutline,
-                            color: Colors.black,
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
                           ),
                           onPressed: () {
                             openURL('https://github.com/xamanu');
@@ -348,7 +385,7 @@ class _AboutState extends State<About> {
                   title: Text(
                     "Torsten Grote & Transportr",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold"
                     ),
                   ),
@@ -359,8 +396,8 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       IconButton(
                           icon: Icon(
-                            EvaIcons.githubOutline,
-                            color: Colors.black,
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
                           ),
                           onPressed: () {
                             openURL('https://github.com/grote');
@@ -387,7 +424,7 @@ class _AboutState extends State<About> {
                   title: Text(
                     "Flutter",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold"
                     ),
                   ),
@@ -398,8 +435,8 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       IconButton(
                           icon: Icon(
-                            EvaIcons.githubOutline,
-                            color: Colors.black,
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
                           ),
                           onPressed: () {
                             openURL('https://github.com/flutter');
@@ -426,7 +463,7 @@ class _AboutState extends State<About> {
                   title: Text(
                     "JetBrains",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold"
                     ),
                   ),
@@ -437,8 +474,8 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       IconButton(
                           icon: Icon(
-                            EvaIcons.githubOutline,
-                            color: Colors.black,
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
                           ),
                           onPressed: () {
                             openURL('https://github.com/JetBrains');
@@ -465,7 +502,7 @@ class _AboutState extends State<About> {
                   title: Text(
                     "Öffi",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontFamily: "NunitoSansBold"
                     ),
                   ),
@@ -476,8 +513,8 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       IconButton(
                           icon: Icon(
-                            EvaIcons.githubOutline,
-                            color: Colors.black,
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
                           ),
                           onPressed: () {
                             openURL('https://gitlab.com/oeffi/oeffi');

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 
 import 'HomeBackground.dart';
 import 'HomeCollapsed.dart';
@@ -13,14 +14,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  var theme = ThemeEngine.getCurrentTheme();
+
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.white, // navigation bar color
+        systemNavigationBarColor: theme.backgroundColor, // navigation bar color
         statusBarColor: Colors.transparent, // status bar color
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarIconBrightness: Brightness.dark
+        statusBarBrightness: theme.statusbarBrightness,
+        statusBarIconBrightness: theme.statusbarIconBrightness,
+        systemNavigationBarIconBrightness: theme.navbarIconBrightness
     ));
 
     super.initState();
@@ -36,6 +39,7 @@ class _HomeState extends State<Home> {
 
     
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       body: SlidingUpPanel(
         // Config
         borderRadius: radius,
@@ -55,7 +59,7 @@ class _HomeState extends State<Home> {
           ),
           child: HomeCollapsed(),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: theme.cardColor,
               borderRadius: radius
           ),
         ),
@@ -68,6 +72,7 @@ class _HomeState extends State<Home> {
           ),
           child: HomeSlider(),
           decoration: BoxDecoration(
+              color: theme.cardColor,
               borderRadius: radius
           ),
         ),

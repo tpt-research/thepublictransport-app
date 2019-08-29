@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/backend/models/main/From.dart';
 import 'package:thepublictransport_app/backend/models/main/Leg.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
+import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 import 'package:thepublictransport_app/pages/Station/Station.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
@@ -25,6 +26,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
   DateTime begin;
   DateTime end;
 
+  var theme = ThemeEngine.getCurrentTheme();
+
   @override
   void initState() {
     begin = UnixTimeParser.parse(trip.firstDepartureTime);
@@ -36,13 +39,14 @@ class _ResultDetailedState extends State<ResultDetailed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       floatingActionButton: FloatingActionButton(
         heroTag: "HEROOOO2",
         onPressed: () {
           Navigator.of(context).pop();
         },
-        backgroundColor: Colors.black,
-        child: Icon(Icons.arrow_back, color: Colors.white),
+        backgroundColor: theme.floatingActionButtonColor,
+        child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Column(
@@ -59,7 +63,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
                   Text(
                     "Suche",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: theme.titleColor,
                         fontSize: 30,
                         fontFamily: 'NunitoSansBold'
                     ),
@@ -76,8 +80,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("Von:"),
-                              Text("Nach:")
+                              Text("Von:", style: TextStyle(color: theme.textColor)),
+                              Text("Nach:", style: TextStyle(color: theme.textColor))
                             ],
                           ),
                           SizedBox(width: 10),
@@ -92,7 +96,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
                                   child: Text(
                                     trip.from.name + (trip.from.place != null ? ", " + trip.from.place : ""),
                                     style: TextStyle(
-                                        fontFamily: 'NunitoSansBold'
+                                        fontFamily: 'NunitoSansBold',
+                                        color: theme.textColor
                                     ),
                                   ),
                                 ),
@@ -104,7 +109,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
                                   child: Text(
                                     trip.to.name + (trip.to.place != null ? ", " + trip.to.place : ""),
                                     style: TextStyle(
-                                        fontFamily: 'NunitoSansBold'
+                                        fontFamily: 'NunitoSansBold',
+                                        color: theme.textColor
                                     ),
                                   ),
                                 ),
@@ -120,13 +126,15 @@ class _ResultDetailedState extends State<ResultDetailed> {
                           Text(
                             begin.hour.toString() + ":" + begin.minute.toString().padLeft(2, '0'),
                             style: TextStyle(
-                                fontFamily: 'NunitoSansBold'
+                                fontFamily: 'NunitoSansBold',
+                                color: theme.textColor
                             ),
                           ),
                           Text(
                             end.hour.toString() + ":" + end.minute.toString().padLeft(2, '0'),
                             style: TextStyle(
-                                fontFamily: 'NunitoSansBold'
+                                fontFamily: 'NunitoSansBold',
+                                color: theme.textColor
                             ),
                           ),
                         ],
@@ -170,7 +178,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
                 difference.inMinutes.remainder(60).toString() + " Minuten " + "Umstiegszeit",
                 style: TextStyle(
                     fontSize: 15,
-                    fontFamily: 'NunitoSansBold'
+                    fontFamily: 'NunitoSansBold',
+                    color: theme.textColor
                 ),
               ),
             ],
@@ -182,6 +191,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
     return Column(
       children: <Widget>[
         Card(
+          color: theme.cardColor,
           child: Container(
             padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Column(
@@ -207,7 +217,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
                                 leg.departure.name,
                                 style: TextStyle(
                                     fontSize: 15,
-                                    fontFamily: 'NunitoSansBold'
+                                    fontFamily: 'NunitoSansBold',
+                                    color: theme.textColor
                                 ),
                               ),
                             ),
@@ -218,7 +229,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
                         leg.departurePosition != null ? "Gl. " + leg.departurePosition.name : "",
                         style: TextStyle(
                             fontSize: 15,
-                            fontFamily: 'NunitoSansBold'
+                            fontFamily: 'NunitoSansBold',
+                            color: theme.textColor
                         ),
                       ),
                     ],
@@ -241,7 +253,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Icon(getIcon(leg.line.product)),
+                        Icon(getIcon(leg.line.product), color: theme.iconColor),
                         SizedBox(
                           width: 20,
                         ),
@@ -249,8 +261,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(leg.line.name),
-                            Text(leg.destination.name)
+                            Text(leg.line.name, style: TextStyle(color: theme.textColor)),
+                            Text(leg.destination.name, style: TextStyle(color: theme.textColor))
                           ],
                         )
                       ],
@@ -294,7 +306,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
                                 leg.arrival.name,
                                 style: TextStyle(
                                     fontSize: 15,
-                                    fontFamily: 'NunitoSansBold'
+                                    fontFamily: 'NunitoSansBold',
+                                    color: theme.textColor
                                 ),
                               ),
                             ),
@@ -305,7 +318,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
                         leg.arrivalPosition != null ? "Gl. " + leg.arrivalPosition.name : "",
                         style: TextStyle(
                             fontSize: 15,
-                            fontFamily: 'NunitoSansBold'
+                            fontFamily: 'NunitoSansBold',
+                            color: theme.textColor
                         ),
                       ),
                     ],
@@ -354,7 +368,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
       time.hour.toString().padLeft(2, '0') + ":" + time.minute.toString().padLeft(2, '0') + "  ",
       style: TextStyle(
           fontSize: 15,
-          fontFamily: 'NunitoSansBold'
+          fontFamily: 'NunitoSansBold',
+          color: theme.textColor
       ),
     );
   }
@@ -399,7 +414,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
               difference.inMinutes.toString() + " Minuten " + "Umstiegszeit",
               style: TextStyle(
                   fontSize: 15,
-                  fontFamily: 'NunitoSansBold'
+                  fontFamily: 'NunitoSansBold',
+                  color: theme.textColor
               ),
             ),
           ],
@@ -415,12 +431,13 @@ class _ResultDetailedState extends State<ResultDetailed> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Meldungen"),
-          content: new Text(message != null ? message : "Keine Meldungen"),
+          backgroundColor: theme.backgroundColor,
+          title: new Text("Meldungen", style: TextStyle(color: theme.textColor)),
+          content: new Text(message != null ? message : "Keine Meldungen", style: TextStyle(color: theme.textColor)),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text("Schließen"),
+              child: new Text("Schließen", style: TextStyle(color: theme.textColor)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
