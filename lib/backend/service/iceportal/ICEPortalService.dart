@@ -5,7 +5,7 @@ import 'package:thepublictransport_app/backend/models/core/ICEPortalModel.dart';
 
 
 class ICEPortalService {
-  static Future<IcePortalModel> getDelayStream(
+  static Future<IcePortalModel> getICEPortal(
       String limit,
       String offset) {
     return http.get(
