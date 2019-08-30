@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:thepublictransport_app/backend/models/core/ICEPortalModel.dart';
 
 
-class FluxFailService {
+class ICEPortalService {
   static Future<IcePortalModel> getDelayStream(
       String limit,
       String offset) {
