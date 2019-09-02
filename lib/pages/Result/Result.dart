@@ -7,6 +7,7 @@ import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dar
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
+import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
@@ -293,24 +294,11 @@ class _ResultState extends State<Result> {
     return CoreService.getTripById(
         from_search.location.id,
         to_search.location.id,
-        dateStringBuilder(),
+        DateParser.getTPTDate(date, time),
         barrier_mode,
         fastroute_mode,
         slowwalk_mode,
         "DB"
     );
-  }
-
-  String dateStringBuilder() {
-    return date.day.toString().padLeft(2, '0')
-        + "." +
-        date.month.toString().padLeft(2, '0')
-        + "." +
-        date.year.toString().padLeft(4, '0')
-        + "T" +
-        time.hour.toString().padLeft(2, '0')
-        + ":" +
-        time.minute.toString().padLeft(2, '0')
-        + ":" + "00";
   }
 }
