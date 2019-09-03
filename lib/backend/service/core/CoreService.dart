@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:thepublictransport_app/backend/constants/ptetptconstants.dart';
+import 'package:thepublictransport_app/backend/constants/TrainAPIConstants.dart';
 import 'package:thepublictransport_app/backend/models/core/DepartureModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:thepublictransport_app/backend/models/core/LocationModel.dart';
@@ -14,8 +14,8 @@ class CoreService {
       String stationId,
       String source) {
     return http.get(
-        PTETPTConstants.API_URL +
-            PTETPTConstants.API_ENDPOINT_DEPARTURE +
+        TrainAPIConstants.API_URL +
+            TrainAPIConstants.API_ENDPOINT_DEPARTURE +
             "?stationId=" + stationId +
             "&source=" + source +
             "&hourshift=" + "2" +
@@ -39,9 +39,9 @@ class CoreService {
       String source) {
 
     return http.get(
-            PTETPTConstants.API_URL +
-            PTETPTConstants.API_ENDPOINT_TRIP +
-            PTETPTConstants.API_ENDPOINT_TRIP_SEARCH_NAME +
+            TrainAPIConstants.API_URL +
+            TrainAPIConstants.API_ENDPOINT_TRIP +
+            TrainAPIConstants.API_ENDPOINT_TRIP_SEARCH_NAME +
                 "?from=" + from +
                 "&to=" + to +
                 "&when=" + when +
@@ -67,9 +67,9 @@ class CoreService {
       String walkspeed,
       String source) {
 
-    print(PTETPTConstants.API_URL +
-        PTETPTConstants.API_ENDPOINT_TRIP +
-        PTETPTConstants.API_ENDPOINT_TRIP_SEARCH_ID +
+    print(TrainAPIConstants.API_URL +
+        TrainAPIConstants.API_ENDPOINT_TRIP +
+        TrainAPIConstants.API_ENDPOINT_TRIP_SEARCH_ID +
         "?from=" + from +
         "&to=" + to +
         "&when=" + when +
@@ -79,9 +79,9 @@ class CoreService {
         "&source=" + source);
 
     return http.get(
-            PTETPTConstants.API_URL +
-            PTETPTConstants.API_ENDPOINT_TRIP +
-            PTETPTConstants.API_ENDPOINT_TRIP_SEARCH_ID +
+            TrainAPIConstants.API_URL +
+            TrainAPIConstants.API_ENDPOINT_TRIP +
+            TrainAPIConstants.API_ENDPOINT_TRIP_SEARCH_ID +
                 "?from=" + from +
                 "&to=" + to +
                 "&when=" + when +
@@ -105,9 +105,9 @@ class CoreService {
       String source) {
 
     return http.get(
-        PTETPTConstants.API_URL +
-            PTETPTConstants.API_ENDPOINT_LOCATION +
-            PTETPTConstants.API_ENDPOINT_LOCATION_SUGGEST +
+        TrainAPIConstants.API_URL +
+            TrainAPIConstants.API_ENDPOINT_LOCATION +
+            TrainAPIConstants.API_ENDPOINT_LOCATION_SUGGEST +
             "?q=" + query +
             "&maxLocations=" + maxLocations +
             "&source=" + source
@@ -129,9 +129,9 @@ class CoreService {
 
 
     return http.get(
-        PTETPTConstants.API_URL +
-            PTETPTConstants.API_ENDPOINT_LOCATION +
-            PTETPTConstants.API_ENDPOINT_LOCATION_SUGGEST +
+        TrainAPIConstants.API_URL +
+            TrainAPIConstants.API_ENDPOINT_LOCATION +
+            TrainAPIConstants.API_ENDPOINT_LOCATION_SUGGEST +
             "?q=" + nominatim.address.road + "," + nominatim.address.city +
             "&types=" + "STATION"+
             "&maxLocations=" + maxLocations +

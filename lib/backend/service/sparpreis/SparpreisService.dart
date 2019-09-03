@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:thepublictransport_app/backend/constants/ptetptconstants.dart';
+import 'package:thepublictransport_app/backend/constants/SparpreisConstants.dart';
 import 'package:thepublictransport_app/backend/models/core/SparpreisFinderModel.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,7 +12,7 @@ class SparpreisService {
       String when) {
 
     return http.get(
-        PTETPTConstants.API_URL + "/sparpreise/" + from + "/" + to + "/" + when
+        SparpreisConstants.API_URL + SparpreisConstants.API_ENDPOINT_SPARPREIS + "/" + from + "/" + to + "/" + when
 
     ).then((res) {
 

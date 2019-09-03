@@ -30,6 +30,7 @@ class _HomeState extends State<Home> {
   }
   @override
   Widget build(BuildContext context) {
+
     BorderRadiusGeometry radius = BorderRadius.only(
       topLeft: Radius.circular(36.0),
       topRight: Radius.circular(36.0),
@@ -77,13 +78,13 @@ class _HomeState extends State<Home> {
           ),
         ),
         body: Container(
-          padding: EdgeInsets.fromLTRB(
-              MediaQuery.of(context).size.width * 0.05,
-              MediaQuery.of(context).size.height * 0.09,
-              MediaQuery.of(context).size.width * 0.05,
-              0
-          ),
-          child: HomeBackground(_pc)
+            padding: EdgeInsets.fromLTRB(
+                MediaQuery.of(context).size.width * 0.05,
+                MediaQuery.of(context).size.height * 0.09,
+                MediaQuery.of(context).size.width * 0.05,
+                0
+            ),
+            child: HomeBackground(_pc)
         ),
       ),
     );
