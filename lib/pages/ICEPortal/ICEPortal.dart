@@ -17,6 +17,9 @@ class _ICEPortalState extends State<ICEPortal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Center(
+        child: Text("Bald verfügbar. #SoonTM"),
+      ),
     );
   }
 

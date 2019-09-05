@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:thepublictransport_app/backend/models/core/FlixbusJourneyModel.dart';
@@ -155,14 +156,16 @@ class _FlixbusResultState extends State<FlixbusResult> {
                     case ConnectionState.active:
                     case ConnectionState.waiting:
                     case ConnectionState.none:
-                      return ScaleUp(
-                        duration: Duration(milliseconds: 500),
-                        delay: 100,
-                        child: Center(
-                            child: SpinKitPulse(
-                              size: 100,
-                              color: theme.iconColor,
-                            )
+                      return Center(
+                        child: SizedBox(
+                          width: 500,
+                          height: 500,
+                          child: FlareActor(
+                            'anim/cloud_loading.flr',
+                            alignment: Alignment.center,
+                            fit: BoxFit.contain,
+                            animation: 'Sync',
+                          ),
                         ),
                       );
                     case ConnectionState.done:

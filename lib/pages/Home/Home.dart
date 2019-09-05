@@ -1,7 +1,9 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
+import 'package:thepublictransport_app/ui/scaffold/FlareScaffoldBackground.dart';
 
 import 'HomeBackground.dart';
 import 'HomeCollapsed.dart';
@@ -37,6 +39,8 @@ class _HomeState extends State<Home> {
     );
 
     PanelController _pc = new PanelController();
+
+    var theme = ThemeEngine.getCurrentTheme();
 
     
     return Scaffold(
@@ -77,14 +81,19 @@ class _HomeState extends State<Home> {
               borderRadius: radius
           ),
         ),
-        body: Container(
-            padding: EdgeInsets.fromLTRB(
-                MediaQuery.of(context).size.width * 0.05,
-                MediaQuery.of(context).size.height * 0.09,
-                MediaQuery.of(context).size.width * 0.05,
-                0
+        body: Stack(
+          children: <Widget>[
+            FlareScaffoldBackground(),
+            Container(
+                padding: EdgeInsets.fromLTRB(
+                    MediaQuery.of(context).size.width * 0.05,
+                    MediaQuery.of(context).size.height * 0.09,
+                    MediaQuery.of(context).size.width * 0.05,
+                    0
+                ),
+                child: HomeBackground(_pc)
             ),
-            child: HomeBackground(_pc)
+          ],
         ),
       ),
     );

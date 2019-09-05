@@ -1,6 +1,6 @@
 name: thepublictransport_app
 description: Die ÖPV App für Deutschland
-version: 1.1.0+11
+version: 1.2.0+12
 author: Tristan Marsell, The Public Transport
 
 environment:
@@ -30,6 +30,7 @@ dependencies:
   eva_icons_flutter: 2.0.0
   flutter_vector_icons: 0.2.1
   flutter_swiper: ^1.1.6
+  flare_flutter: 1.5.8
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +56,11 @@ flutter:
   assets:
     - icons/fluxfail.png
     - icons/anja.png
+    - anim/error.flr
+    - anim/loader.flr
+    - anim/cloud_loading.flr
+    - anim/dark_background.flr
+    - anim/light_background.flr
 
   fonts:
     - family: Rubik

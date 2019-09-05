@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:thepublictransport_app/backend/models/core/DepartureModel.dart';
@@ -29,8 +30,15 @@ class _StationDepartureState extends State<StationDeparture> {
             case ConnectionState.active:
             case ConnectionState.waiting:
             case ConnectionState.none:
-              return SpinKitRotatingCircle(
-                color: Colors.black,
+              return SizedBox(
+                width: 500,
+                height: 500,
+                child: FlareActor(
+                  'anim/cloud_loading.flr',
+                  alignment: Alignment.center,
+                  fit: BoxFit.contain,
+                  animation: 'Sync',
+                ),
               );
             case ConnectionState.done:
               if (snapshot.hasError) {

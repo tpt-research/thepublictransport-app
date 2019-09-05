@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -25,23 +26,37 @@ class LocationShow extends StatelessWidget {
           case ConnectionState.active:
           case ConnectionState.waiting:
           case ConnectionState.none:
-            return ScaleUp(
-              duration: Duration(milliseconds: 500),
-              delay: 100,
-              child: Center(
-                child: SpinKitPulse(
-                  size: 100,
-                  color: theme.iconColor,
-                )
+            return SizedBox(
+              width: 300,
+              height: 300,
+              child: FlareActor(
+                'anim/cloud_loading.flr',
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                animation: 'Sync',
               ),
             );
           case ConnectionState.done:
             if (snapshot.hasError) {
-              return Text(
-                  "Service kurzzeitig nicht verfügbar. Versuchen sie es gleich erneut !",
-                  style: TextStyle(
-                    color: theme.textColor
+              return Column(
+                children: <Widget>[
+                  SizedBox(
+                    width: 150,
+                    height: 150,
+                    child: FlareActor(
+                        'anim/error.flr',
+                        alignment: Alignment.center,
+                        fit: BoxFit.contain,
+                        animation: 'Top-down',
+                    ),
                   ),
+                  Text(
+                      "Service kurzzeitig nicht verfügbar. Versuchen sie es gleich erneut !",
+                      style: TextStyle(
+                        color: theme.textColor
+                      ),
+                  ),
+                ],
               );
             } else {
 
