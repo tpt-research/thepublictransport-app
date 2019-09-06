@@ -3,6 +3,8 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:thepublictransport_app/backend/service/geocode/Geocode.dart';
+import 'package:thepublictransport_app/backend/service/nominatim/NominatimRequest.dart';
 import 'package:thepublictransport_app/framework/theme/PredefinedColors.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/Delay/Delay.dart';
@@ -11,6 +13,7 @@ import 'package:thepublictransport_app/pages/ICEPortal/ICEPortal.dart';
 import 'package:thepublictransport_app/pages/Settings/Settings.dart';
 import 'package:thepublictransport_app/pages/Sparpreis/SparpreisSearch.dart';
 import 'package:thepublictransport_app/ui/components/SelectionButtons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeBackground extends StatefulWidget {
   final PanelController controller;
@@ -249,12 +252,25 @@ class _HomeBackgroundState extends State<HomeBackground> {
               color: theme.titleColorInverted,
               size: 30,
             ),
-            callback: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Delay()));
+            callback: () async {
+              await sightseeingGMaps();
             },
           ),
         ],
       )
     ];
+  }
+
+  sightseeingGMaps() async {
+    var coordinates = await Geocode.location();
+    var nominatim = await NominatimRequest.getPlace(coordinates.latitude, coordinates.longitude);
+
+    var url = 'https://www.google.com/maps/search/'+ nominatim.address.city + '+point+of+interest';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

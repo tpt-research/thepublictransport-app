@@ -242,6 +242,48 @@ class _AboutState extends State<About> {
                           image: new DecorationImage(
                               fit: BoxFit.fill,
                               image: new NetworkImage(
+                                  "https://avatars2.githubusercontent.com/u/28508724")
+                          )
+                      )
+                  ),
+                  title: Text(
+                    "Tim (CodeNameT1M)",
+                    style: TextStyle(
+                        color: theme.titleColor,
+                        fontFamily: "NunitoSansBold"
+                    ),
+                  ),
+                  subtitle: Text(
+                    "DevOps",
+                    style: TextStyle(
+                        color: theme.subtitleColor
+                    ),
+                  ),
+                  trailing: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton(
+                          icon: Icon(
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
+                          ),
+                          onPressed: () {
+                            openURL('https://github.com/CodeNameT1M');
+                          }),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  leading: new Container(
+                      width: 50.0,
+                      height: 50.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image: new NetworkImage(
                                   "https://avatars1.githubusercontent.com/u/30511480")
                           )
                       )
@@ -323,6 +365,84 @@ class _AboutState extends State<About> {
                           ),
                           onPressed: () {
                             openURL('https://github.com/schildbach');
+                          }),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                ListTile(
+                  leading: new Container(
+                      width: 50.0,
+                      height: 50.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image: new NetworkImage(
+                                  "https://avatars0.githubusercontent.com/u/1584289")
+                          )
+                      )
+                  ),
+                  title: Text(
+                    "Julius Tens",
+                    style: TextStyle(
+                        color: theme.titleColor,
+                        fontFamily: "NunitoSansBold"
+                    ),
+                  ),
+                  trailing: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton(
+                          icon: Icon(
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
+                          ),
+                          onPressed: () {
+                            openURL('https://github.com/juliuste');
+                          }),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                ListTile(
+                  leading: new Container(
+                      width: 50.0,
+                      height: 50.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image: new NetworkImage(
+                                  "https://avatars1.githubusercontent.com/u/5072613")
+                          )
+                      )
+                  ),
+                  title: Text(
+                    "Jannis Redmann",
+                    style: TextStyle(
+                        color: theme.titleColor,
+                        fontFamily: "NunitoSansBold"
+                    ),
+                  ),
+                  trailing: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton(
+                          icon: Icon(
+                            MaterialCommunityIcons.github_circle,
+                            color: theme.iconColor,
+                          ),
+                          onPressed: () {
+                            openURL('https://github.com/derhuerst');
                           }),
                     ],
                   ),

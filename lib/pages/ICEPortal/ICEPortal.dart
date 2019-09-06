@@ -17,8 +17,18 @@ class _ICEPortalState extends State<ICEPortal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
+      floatingActionButton: FloatingActionButton(
+        heroTag: "HEROOOO",
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        backgroundColor: theme.floatingActionButtonColor,
+        child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Center(
-        child: Text("Bald verfügbar. #SoonTM"),
+        child: Text("Bald verfügbar. #SoonTM", style: TextStyle(color: theme.textColor)),
       ),
     );
   }

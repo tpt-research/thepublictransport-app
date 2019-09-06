@@ -56,7 +56,7 @@ class _FlixbusSearchState extends State<FlixbusSearch> {
                   children: <Widget>[
                     Center(
                       child: Text(
-                        "Flixbus",
+                        "Flixbus (Instabil)",
                         style: TextStyle(
                             color: theme.titleColor,
                             fontSize: 30,
