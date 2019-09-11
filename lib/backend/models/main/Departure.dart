@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'Line.dart';
-import 'Position.dart';
 import 'Location.dart';
+import 'Position.dart';
 
 class Departure {
   String plannedTime;

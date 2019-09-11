@@ -14,21 +14,21 @@ import 'package:thepublictransport_app/pages/Station/Station.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
 import 'package:toast/toast.dart';
 
-class ResultDetailed extends StatefulWidget {
+class SavedTripsDetailed extends StatefulWidget {
 
   final Trip trip;
 
-  const ResultDetailed({Key key, this.trip}) : super(key: key);
+  const SavedTripsDetailed({Key key, this.trip}) : super(key: key);
 
   @override
-  _ResultDetailedState createState() => _ResultDetailedState(trip);
+  _SavedTripsDetailedState createState() => _SavedTripsDetailedState(trip);
 }
 
-class _ResultDetailedState extends State<ResultDetailed> {
+class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
 
   final Trip trip;
 
-  _ResultDetailedState(this.trip);
+  _SavedTripsDetailedState(this.trip);
 
   DateTime begin;
   DateTime end;
@@ -72,15 +72,16 @@ class _ResultDetailedState extends State<ResultDetailed> {
               onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlternativeTrip(trip: trip))),
             ),
             SpeedDialChild(
-              child: Icon(Icons.save),
+              child: Icon(Icons.close),
               backgroundColor: Colors.green,
-              label: 'Speichern',
+              label: 'Entfernen',
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () async {
-                await _databaseHelper.insert(trip).then((res) {
-                  Toast.show("Speichern abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                await _databaseHelper.delete(trip).then((res) {
+                  Toast.show("Entfernen abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                  Navigator.of(context).pop();
                 }).catchError((err) {
-                  Toast.show("Speichern fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                  Toast.show("Entfernen fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
                 });
               },
             ),

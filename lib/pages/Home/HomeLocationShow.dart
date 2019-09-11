@@ -1,16 +1,13 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:preferences/preferences.dart';
-import 'package:thepublictransport_app/backend/models/core/LocationModel.dart';
+import 'package:thepublictransport_app/backend/models/main/Location.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/Station/Station.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
-import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
 import 'package:thepublictransport_app/ui/animations/ShowUp.dart';
-
 import 'package:thepublictransport_app/ui/components/Maps/MapsStops.dart';
 
 class LocationShow extends StatelessWidget {
@@ -21,7 +18,7 @@ class LocationShow extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: fetchNearby(),
-      builder: (BuildContext context, AsyncSnapshot<LocationModel> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<Location>> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.active:
           case ConnectionState.waiting:
@@ -61,12 +58,36 @@ class LocationShow extends StatelessWidget {
             } else {
 
               List<Widget> generated = [];
-              var counter = 0;
+              List<Location> locations = Set<Location>.from(snapshot.data).toList();
 
-              for (var i in snapshot.data.suggestedLocations) {
-                if (counter == 3)
-                  break;
+              if (snapshot.data == null)
+                return Column(
+                  children: <Widget>[
+                    ShowUp(
+                      duration: Duration(seconds: 1),
+                      delay: 100,
+                      child: Text("Keine Haltestellen in der Nähe gefunden."),
+                    ),
+                    ShowUp(
+                      duration: Duration(seconds: 1),
+                      delay: 500,
+                      child: Container(
+                          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.025),
+                          height: MediaQuery.of(context).size.height * 0.22,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.black
+                                ),
+                              ),
+                              child: MapsStops(location: snapshot.data)
+                          )
+                      ),
+                    ),
+                  ],
+                );
 
+              for (var i in locations) {
                 generated.add(InkWell(
                   child: Chip(
                       avatar: CircleAvatar(
@@ -76,19 +97,18 @@ class LocationShow extends StatelessWidget {
                       ),
                       backgroundColor: theme.textColor,
                       label: Text(
-                        i.location.name,
+                        i.name,
                         style: TextStyle(
                             color: theme.foregroundColor
                         ),
                       )
                   ),
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Station(i.location)));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Station(i)));
                   },
                 ));
 
                 generated.add(SizedBox(width: 6));
-                counter++;
               }
 
               return Column(
@@ -117,7 +137,7 @@ class LocationShow extends StatelessWidget {
                                   color: Colors.black
                               ),
                             ),
-                            child: MapsStops(location: snapshot.data.suggestedLocations)
+                            child: MapsStops(location: snapshot.data)
                         )
                     ),
                   ),
@@ -132,12 +152,31 @@ class LocationShow extends StatelessWidget {
     );
   }
 
-  Future<LocationModel> fetchNearby() async {
+  Future<List<Location>> fetchNearby() async {
+    List<Location> locations = [];
+
     final response = await CoreService.getLocationNearby(
         PrefService.getBool("datasave_mode") == false ? 3.toString() : 1.toString(),
         'DB'
     );
 
-    return response;
+    if (response.locations != null) {
+      for (var i in response.locations) {
+        locations.add(i);
+      }
+    }
+
+    final fuzzyResponse = await CoreService.getLocationNearbyAlternative(
+        PrefService.getBool("datasave_mode") == false ? 3.toString() : 1.toString(),
+        'DB'
+    );
+
+    if (fuzzyResponse.locations != null) {
+      for (var i in fuzzyResponse.locations) {
+        locations.add(i);
+      }
+    }
+
+    return locations;
   }
 }

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:thepublictransport_app/backend/models/core/TripModel.dart';
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
@@ -12,7 +11,6 @@ import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
-import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
 
 import 'ResultDetailed.dart';
 
@@ -59,6 +57,7 @@ class _ResultState extends State<Result> {
           backgroundColor: theme.floatingActionButtonColor,
           child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,

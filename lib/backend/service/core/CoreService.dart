@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 import 'package:thepublictransport_app/backend/constants/TrainAPIConstants.dart';
 import 'package:thepublictransport_app/backend/models/core/DepartureModel.dart';
-import 'package:http/http.dart' as http;
 import 'package:thepublictransport_app/backend/models/core/LocationModel.dart';
 import 'package:thepublictransport_app/backend/models/core/TripModel.dart';
 import 'package:thepublictransport_app/backend/service/geocode/Geocode.dart';
@@ -110,6 +111,7 @@ class CoreService {
             TrainAPIConstants.API_ENDPOINT_LOCATION_SUGGEST +
             "?q=" + query +
             "&maxLocations=" + maxLocations +
+            "&maxDistance=" + "10000" +
             "&source=" + source
     ).then((res) {
 
@@ -121,6 +123,31 @@ class CoreService {
   }
 
   static Future<LocationModel> getLocationNearby(
+      String maxLocations,
+      String source) async {
+
+    var coordinates = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+
+
+    return http.get(
+            TrainAPIConstants.API_URL +
+            TrainAPIConstants.API_ENDPOINT_LOCATION +
+            TrainAPIConstants.API_ENDPOINT_LOCATION_NEARBY +
+            "?lat=" + coordinates.latitude.toString() +
+            "&lon=" + coordinates.longitude.toString() +
+            "&types=" + "STATION"+
+            "&maxLocations=" + maxLocations +
+            "&source=" + source
+    ).then((res) {
+
+      var decode = json.decode(res.body);
+
+      return LocationModel.fromJson(decode);
+
+    });
+  }
+
+  static Future<LocationModel> getLocationNearbyAlternative(
       String maxLocations,
       String source) async {
 

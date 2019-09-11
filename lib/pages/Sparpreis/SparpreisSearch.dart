@@ -206,6 +206,7 @@ class _SparpreisSearchState extends State<SparpreisSearch> {
               height: MediaQuery.of(context).size.height * 0.05,
             ),
             Card(
+              color: theme.cardColor,
               elevation: 8,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(24.0)
@@ -242,6 +243,7 @@ class _SparpreisSearchState extends State<SparpreisSearch> {
                                   showSuggestions()[index],
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
+                                    color: theme.textColor,
                                     fontFamily: 'NunitoSansBold',
                                   ),
                               )

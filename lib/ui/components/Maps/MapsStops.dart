@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
+import 'package:thepublictransport_app/backend/models/main/Location.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 
 class MapsStops extends StatefulWidget {
-  final List<SuggestedLocation> location;
+  final List<Location> location;
 
   MapsStops({Key key, this.location}) : super(key: key);
 
@@ -16,7 +16,7 @@ class MapsStops extends StatefulWidget {
 }
 
 class MapsStopsState extends State<MapsStops> {
-  final List<SuggestedLocation> location;
+  final List<Location> location;
 
   Completer<GoogleMapController> _controller = Completer();
   Geolocator geolocator = Geolocator();
@@ -27,11 +27,11 @@ class MapsStopsState extends State<MapsStops> {
   MapsStopsState(this.location) {
     for (var i in location) {
       markers.add(Marker(
-        markerId: MarkerId(i.location.id),
+        markerId: MarkerId(i.id),
         infoWindow: InfoWindow(
-            title: i.location.name,
+            title: i.name,
         ),
-        position: LatLng(i.location.latAsDouble, i.location.lonAsDouble),
+        position: LatLng(i.latAsDouble, i.lonAsDouble),
       ));
     }
   }

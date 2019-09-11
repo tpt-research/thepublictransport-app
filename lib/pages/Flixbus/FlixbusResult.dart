@@ -2,16 +2,14 @@ import 'dart:async';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:thepublictransport_app/backend/models/core/FlixbusJourneyModel.dart';
-import 'package:thepublictransport_app/backend/models/flixbus/QueryResult.dart';
 import 'package:thepublictransport_app/backend/models/flixbus/Message.dart';
+import 'package:thepublictransport_app/backend/models/flixbus/QueryResult.dart';
 import 'package:thepublictransport_app/backend/service/flixbus/FlixbusService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
-import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
 
 import 'FlixbusResultDetailed.dart';
 

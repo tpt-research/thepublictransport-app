@@ -1,13 +1,11 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/core/FluxDelayStream.dart';
 import 'package:thepublictransport_app/backend/models/fluxfail/Report.dart';
 import 'package:thepublictransport_app/backend/service/fluxfail/FluxFailService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
-import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Delay extends StatefulWidget {

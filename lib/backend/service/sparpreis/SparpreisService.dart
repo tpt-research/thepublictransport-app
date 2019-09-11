@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:thepublictransport_app/backend/constants/SparpreisConstants.dart';
 import 'package:thepublictransport_app/backend/models/core/SparpreisFinderModel.dart';
-import 'package:http/http.dart' as http;
 
 class SparpreisService {
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
-import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
 import 'package:thepublictransport_app/pages/Home/HomeLocationShow.dart';
+import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
 
 class HomeCollapsed extends StatefulWidget {
   @override

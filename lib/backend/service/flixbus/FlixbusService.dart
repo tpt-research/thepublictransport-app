@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:thepublictransport_app/backend/constants/FlixConstants.dart';
-import 'package:thepublictransport_app/backend/models/core/FlixbusJourneyModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:thepublictransport_app/backend/constants/FlixConstants.dart';
+import 'package:thepublictransport_app/backend/models/core/DB2FlixModel.dart';
+import 'package:thepublictransport_app/backend/models/core/FlixbusJourneyModel.dart';
 import 'package:thepublictransport_app/backend/models/core/FlixbusQueryModel.dart';
 
 class FlixbusService {
@@ -34,6 +35,18 @@ class FlixbusService {
       var decode = json.decode(res.body);
 
       return FlixbusQueryModel.fromJson(decode);
+
+    });
+  }
+  static Future<DB2FlixModel> getDBToFlix(String id) {
+
+    return http.get(
+        FlixConstants.API_URL + FlixConstants.API_ENDPOINT_FLIX + FlixConstants.API_ENDPOINT_CONVERT + FlixConstants.API_ENDPOINT_DBTOFLIX + "/" + id
+    ).then((res) {
+
+      var decode = json.decode(res.body);
+
+      return DB2FlixModel.fromJson(decode);
 
     });
   }

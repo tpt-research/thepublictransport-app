@@ -10,6 +10,7 @@ import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/Delay/Delay.dart';
 import 'package:thepublictransport_app/pages/Flixbus/FlixbusSearch.dart';
 import 'package:thepublictransport_app/pages/ICEPortal/ICEPortal.dart';
+import 'package:thepublictransport_app/pages/SavedTrips/SavedTrips.dart';
 import 'package:thepublictransport_app/pages/Settings/Settings.dart';
 import 'package:thepublictransport_app/pages/Sparpreis/SparpreisSearch.dart';
 import 'package:thepublictransport_app/ui/components/SelectionButtons.dart';
@@ -127,19 +128,19 @@ class _HomeBackgroundState extends State<HomeBackground> {
           SelectionButtons(
             gradient: Gradients.jShine,
             description: Text(
-              "Haltestellen",
+              "Gespeichert",
               style: TextStyle(
                   fontSize: 12,
                   color: theme.textColor
               ),
             ),
             icon: Icon(
-              Icons.location_on,
+              Icons.save,
               color: theme.titleColorInverted,
               size: 30,
             ),
             callback: () {
-              controller.open();
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SavedTrips()));
             },
           ),
           SelectionButtons(

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:thepublictransport_app/backend/models/core/SparpreisFinderModel.dart';
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
 import 'package:thepublictransport_app/backend/models/sparpreis/Message.dart';
@@ -11,7 +10,7 @@ import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
-import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SparpreisResult extends StatefulWidget {
 
@@ -220,7 +219,7 @@ class _SparpreisResultState extends State<SparpreisResult> {
       color: theme.cardColor,
       child: InkWell(
         onTap: () {
-
+          getDBPage(message);
         },
         child: Container(
           height: MediaQuery.of(context).size.height * 0.15,
@@ -311,5 +310,15 @@ class _SparpreisResultState extends State<SparpreisResult> {
 
   Future<SparpreisFinderModel> getSparpreise() async {
     return SparpreisService.getSparpreise(from_search.location.id, to_search.location.id, DateParser.getRFCDate(date, time));
+  }
+
+  getDBPage(Message message) async {
+    var url = 'https://link.bahn.guru/?journey=' + message.toRawJson() + '&bc=0&class=2';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

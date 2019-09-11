@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:thepublictransport_app/backend/models/geolocation/Geolocation.dart';
 

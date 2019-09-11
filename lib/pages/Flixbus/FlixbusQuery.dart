@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/flixbus/QueryResult.dart';
-import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
-import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
 import 'package:thepublictransport_app/backend/service/flixbus/FlixbusService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/ui/components/Maps/MapsOverlay.dart';

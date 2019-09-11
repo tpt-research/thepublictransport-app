@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/pages/Home/Home.dart';
 import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
 import 'package:thepublictransport_app/ui/animations/showup.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
-import 'package:geolocator/geolocator.dart';
 
 class Start extends StatefulWidget {
   Start({Key key}) : super(key: key) {
