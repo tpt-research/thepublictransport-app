@@ -74,3 +74,4 @@ build/
 android/tpt.jks
 android/key.properties
 android/api.keys
+android/app/google-services.json

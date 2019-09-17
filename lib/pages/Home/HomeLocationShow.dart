@@ -1,6 +1,7 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/main/Location.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
@@ -9,23 +10,26 @@ import 'package:thepublictransport_app/pages/Station/Station.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
 import 'package:thepublictransport_app/ui/animations/ShowUp.dart';
 import 'package:thepublictransport_app/ui/components/Maps/MapsStops.dart';
+import 'package:toast/toast.dart';
 
 class LocationShow extends StatelessWidget {
 
   var theme = ThemeEngine.getCurrentTheme();
 
+  bool runAgain = true;
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchNearby(),
+      future: fetchNearby(context),
       builder: (BuildContext context, AsyncSnapshot<List<Location>> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.active:
           case ConnectionState.waiting:
           case ConnectionState.none:
             return SizedBox(
-              width: 300,
-              height: 300,
+              width: 250,
+              height: 250,
               child: FlareActor(
                 'anim/cloud_loading.flr',
                 alignment: Alignment.center,
@@ -37,21 +41,26 @@ class LocationShow extends StatelessWidget {
             if (snapshot.hasError) {
               return Column(
                 children: <Widget>[
-                  SizedBox(
-                    width: 150,
-                    height: 150,
-                    child: FlareActor(
-                        'anim/error.flr',
-                        alignment: Alignment.center,
-                        fit: BoxFit.contain,
-                        animation: 'Top-down',
-                    ),
+                  ShowUp(
+                    duration: Duration(seconds: 1),
+                    delay: 100,
+                    child: Text("Keine Haltestellen in der Nähe gefunden."),
                   ),
-                  Text(
-                      "Service kurzzeitig nicht verfügbar. Versuchen sie es gleich erneut !",
-                      style: TextStyle(
-                        color: theme.textColor
-                      ),
+                  ShowUp(
+                    duration: Duration(seconds: 1),
+                    delay: 500,
+                    child: Container(
+                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.025),
+                        height: MediaQuery.of(context).size.height * 0.22,
+                        child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black
+                              ),
+                            ),
+                            child: MapsStops(location: snapshot.data)
+                        )
+                    ),
                   ),
                 ],
               );
@@ -60,7 +69,9 @@ class LocationShow extends StatelessWidget {
               List<Widget> generated = [];
               List<Location> locations = Set<Location>.from(snapshot.data).toList();
 
-              if (snapshot.data == null)
+              if (snapshot.data == null) {
+                if (runAgain) {
+                }
                 return Column(
                   children: <Widget>[
                     ShowUp(
@@ -86,6 +97,7 @@ class LocationShow extends StatelessWidget {
                     ),
                   ],
                 );
+              }
 
               for (var i in locations) {
                 generated.add(InkWell(
@@ -152,7 +164,7 @@ class LocationShow extends StatelessWidget {
     );
   }
 
-  Future<List<Location>> fetchNearby() async {
+  Future<List<Location>> fetchNearby(BuildContext context) async {
     List<Location> locations = [];
 
     final response = await CoreService.getLocationNearby(

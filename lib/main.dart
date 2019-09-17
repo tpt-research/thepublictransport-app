@@ -1,3 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:preferences/preferences.dart';
@@ -6,6 +10,11 @@ import 'package:thepublictransport_app/pages/Start/Start.dart';
 
 void main() async {
   await PrefService.init(prefix: 'pref_settings_');
+
+  if (PrefService.getBool("crashlytics_mode") ?? false) {
+    FlutterError.onError = Crashlytics.instance.recordFlutterError;
+  }
+
   runApp(Boot());
 }
 
@@ -16,6 +25,15 @@ class Boot extends StatefulWidget {
 }
 
 class _BootState extends State<Boot> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  FirebaseAnalytics _analytics = FirebaseAnalytics();
+
+  @override
+  void initState() {
+    _analytics.setAnalyticsCollectionEnabled(PrefService.getBool("analytics_mode") ?? false);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,6 +48,9 @@ class _BootState extends State<Boot> {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+      ],
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: _analytics),
       ],
       supportedLocales: [
         const Locale('de'), // Deutsch

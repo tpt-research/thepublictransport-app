@@ -78,10 +78,10 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () async {
                 await _databaseHelper.delete(trip).then((res) {
-                  Toast.show("Entfernen abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                  Toast.show("Entfernen abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
                   Navigator.of(context).pop();
                 }).catchError((err) {
-                  Toast.show("Entfernen fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                  Toast.show("Entfernen fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
                 });
               },
             ),

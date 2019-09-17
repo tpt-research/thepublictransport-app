@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/About/About.dart';
 import 'package:thepublictransport_app/pages/Start/Start.dart';
@@ -88,6 +89,38 @@ class _SettingsState extends State<Settings> {
                   SizedBox(
                     height: 20.5,
                   ),
+                  new OptionSwitch(
+                    title: "Firebase Analytics",
+                    subtitle: "Sammelt Anonyme Daten über Nutzerverhalten an uns, die uns dabei helfen unsere App zu verbessern. Firebase Analytics ist ein Service von Google LLC.",
+                    icon: MaterialCommunityIcons.google_analytics,
+                    id: "analytics_mode",
+                    default_bool: false,
+                  ),
+                  SizedBox(
+                    height: 20.5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 20.5,
+                  ),
+                  new OptionSwitch(
+                    title: "Firebase Crashlytics",
+                    subtitle: "Sammelt Abstürze der App und gibt sie an uns weiter, damit wir die App verbessern können. Firebase Crashlytics ist ein Service von Fabric.io (Alphabet Inc.).",
+                    icon: MaterialCommunityIcons.home_analytics,
+                    id: "crashlytics_mode",
+                    default_bool: false,
+                  ),
+                  SizedBox(
+                    height: 20.5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 20.5,
+                  ),
                   ListTile(
                     leading: new Icon(Icons.view_carousel, color: theme.iconColor),
                     title: new Text(
@@ -135,6 +168,9 @@ class _SettingsState extends State<Settings> {
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => About()));
                     },
                   ),
+                  SizedBox(
+                    height: 100,
+                  )
                 ],
               )
           )

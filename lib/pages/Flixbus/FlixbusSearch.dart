@@ -202,7 +202,7 @@ class _FlixbusSearchState extends State<FlixbusSearch> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
+              height: Scaler.heightDeScalingCustom(context, 0.05, 0.03),
             ),
             Card(
               color: theme.cardColor,

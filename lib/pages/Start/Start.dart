@@ -85,7 +85,7 @@ class Welcome extends StatelessWidget {
                               child: new Icon(
                                 images[info.index][0],
                                 color: Colors.black,
-                                size: 100,
+                                size: MediaQuery.of(context).size.width * 0.18,
                               ),
                             ),
                             ShowUp(
@@ -93,7 +93,7 @@ class Welcome extends StatelessWidget {
                               child: new Icon(
                                 images[info.index][1],
                                 color: Colors.black,
-                                size: 100,
+                                size: MediaQuery.of(context).size.width * 0.18,
                               ),
                             ),
                             ShowUp(
@@ -101,7 +101,7 @@ class Welcome extends StatelessWidget {
                               child: new Icon(
                                 images[info.index][2],
                                 color: Colors.black,
-                                size: 100,
+                                size: MediaQuery.of(context).size.width * 0.18,
                               ),
                             ),
                             ShowUp(
@@ -109,7 +109,7 @@ class Welcome extends StatelessWidget {
                               child: new Icon(
                                 images[info.index][3],
                                 color: Colors.black,
-                                size: 100,
+                                size: MediaQuery.of(context).size.width * 0.18,
                               ),
                             ),
                           ],
@@ -188,13 +188,45 @@ class _StartState extends State<Start> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new Column(
-        children: <Widget>[
-          new Expanded(
-            child: new Welcome(index),
-          ),
-        ],
+      body: FutureBuilder(
+        future: checkPermission(),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          switch(snapshot.connectionState) {
+            case ConnectionState.active:
+            case ConnectionState.waiting:
+            case ConnectionState.none:
+              return Container();
+            case ConnectionState.done:
+              if (snapshot.data != null) {
+                return Column(
+                  children: <Widget>[
+                    new Expanded(
+                      child: new Welcome(index),
+                    ),
+                  ],
+                );
+              } else {
+                return Center(
+                  child: Text('Diese App benötigt Ihren Standort um zu funktionieren. Bitte starten sie die App neu und gewähren sie den Zugang zum Standort'),
+                );
+              }
+          }
+          return Container();
+        },
       ),
     );
+  }
+
+  Future<bool> checkPermission() async {
+    Geolocator locator = new Geolocator();
+
+    await locator.getCurrentPosition();
+
+    GeolocationStatus status = await locator.checkGeolocationPermissionStatus(locationPermission: GeolocationPermission.location);
+
+    if (status == GeolocationStatus.denied)
+      return false;
+
+    return true;
   }
 }

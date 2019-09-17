@@ -30,7 +30,7 @@ class _SavedTripsState extends State<SavedTrips> {
     return Scaffold(
       backgroundColor: theme.backgroundColor,
       floatingActionButton: FloatingActionButton(
-          heroTag: "HEROOOO2",
+          heroTag: "HEROOOO",
           onPressed: () {
             Navigator.of(context).pop();
           },

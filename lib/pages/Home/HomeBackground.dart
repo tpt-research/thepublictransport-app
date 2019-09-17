@@ -5,6 +5,7 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:thepublictransport_app/backend/service/geocode/Geocode.dart';
 import 'package:thepublictransport_app/backend/service/nominatim/NominatimRequest.dart';
+import 'package:thepublictransport_app/framework/scale/Scaler.dart';
 import 'package:thepublictransport_app/framework/theme/PredefinedColors.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/Delay/Delay.dart';
@@ -78,7 +79,7 @@ class _HomeBackgroundState extends State<HomeBackground> {
           ],
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.09,
+          height: Scaler.heightDeScaling(context, 0.09),
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.17,
