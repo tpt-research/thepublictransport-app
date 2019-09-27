@@ -1,3 +1,4 @@
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -218,6 +219,13 @@ class _StartState extends State<Start> {
   }
 
   Future<bool> checkPermission() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+
+    // Permission Request without permission handler let this app fail on Nougat etc.
+    if (androidInfo.version.sdkInt > 27)
+      return true;
+
     Geolocator locator = new Geolocator();
 
     await locator.getCurrentPosition();

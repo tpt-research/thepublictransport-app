@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/core/TripModel.dart';
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
@@ -17,34 +16,55 @@ import 'package:share/share.dart';
 
 import 'ResultDetailed.dart';
 
-class Result extends StatefulWidget {
+class ResultDeeplink extends StatefulWidget {
 
-  final SuggestedLocation from_search;
-  final SuggestedLocation to_search;
-  final TimeOfDay time;
-  final DateTime date;
-  final bool barrier;
-  final bool slowwalk;
-  final bool fastroute;
+  final String fromName;
+  final String toName;
+  final String fromID;
+  final String toID;
+  final String time;
+  final String date;
+  final String barrier;
+  final String slowwalk;
+  final String fastroute;
+  final String source;
 
-  const Result({Key key, this.from_search, this.to_search, this.time, this.date, this.barrier, this.slowwalk, this.fastroute}) : super(key: key);
+  toBool(String bool) {
+    if (bool == "true")
+      return true;
+
+    return false;
+  }
+
+  toDateTime(String date) {
+    return DateTime.parse(date);
+  }
+
+  toTimeOfDay(String time) {
+    return TimeOfDay(hour: int.parse(time.split(":")[0]), minute: int.parse(time.split(":")[1]));
+  }
+
+  const ResultDeeplink({Key key, this.fromName, this.toName, this.fromID, this.toID, this.time, this.date, this.barrier, this.slowwalk, this.fastroute, this.source}) : super(key: key);
 
 
   @override
-  _ResultState createState() => _ResultState(from_search, to_search, time, date, barrier, slowwalk, fastroute);
+  _ResultDeeplinkState createState() => _ResultDeeplinkState(this.fromName, this.toName, this.fromID, this.toID, toTimeOfDay(time), toDateTime(date), toBool(barrier), toBool(slowwalk), toBool(fastroute), source);
 }
 
-class _ResultState extends State<Result> {
+class _ResultDeeplinkState extends State<ResultDeeplink> {
 
-  final SuggestedLocation from_search;
-  final SuggestedLocation to_search;
+  final String fromName;
+  final String toName;
+  final String fromID;
+  final String toID;
   final TimeOfDay time;
   final DateTime date;
   final bool barrier;
   final bool slowwalk;
   final bool fastroute;
+  final String source;
 
-  _ResultState(this.from_search, this.to_search, this.time, this.date, this.barrier, this.slowwalk, this.fastroute);
+  _ResultDeeplinkState(this.fromName, this.toName, this.fromID, this.toID, this.time, this.date, this.barrier, this.slowwalk, this.fastroute, this.source);
 
   var theme = ThemeEngine.getCurrentTheme();
 
@@ -70,16 +90,15 @@ class _ResultState extends State<Result> {
             heroTag: "NOHERO",
             onPressed: () {
               var prepared = 'https://thepublictransport.de/share?fromName='
-                  + from_search.location.name + (from_search.location.place != null ? ", " + from_search.location.place : "") +
-                  '&fromID=' + from_search.location.id +
-                  '&toName=' + to_search.location.name + (to_search.location.place != null ? ", " + to_search.location.place : "") +
-                  '&toID=' + to_search.location.id +
+                  + fromName +
+                  '&fromID=' + fromID +
+                  '&toName=' + toName +
+                  '&toID=' + toID +
                   '&date=' + date.toString() +
                   '&time=' + time.hour.toString() + ":" + time.minute.toString().padLeft(2, '0') +
                   '&barrier=' + barrier.toString() +
                   '&slowwalk=' + slowwalk.toString() +
-                  '&fastroute=' + fastroute.toString() +
-                  '&source=' + PrefService.getString('public_transport_data');
+                  '&fastroute=' + fastroute.toString();
 
               Share.share(Uri.encodeFull(prepared).toString());
             },
@@ -136,7 +155,7 @@ class _ResultState extends State<Result> {
                                 child: Marquee(
                                   direction: Axis.horizontal,
                                   child: Text(
-                                    from_search.location.name + (from_search.location.place != null ? ", " + from_search.location.place : ""),
+                                    fromName,
                                     style: TextStyle(
                                       fontFamily: 'NunitoSansBold',
                                         color: theme.textColor
@@ -149,7 +168,7 @@ class _ResultState extends State<Result> {
                                 child: Marquee(
                                   direction: Axis.horizontal,
                                   child: Text(
-                                    to_search.location.name + (to_search.location.place != null ? ", " + to_search.location.place : ""),
+                                    toName,
                                     style: TextStyle(
                                         fontFamily: 'NunitoSansBold',
                                         color: theme.textColor
@@ -325,13 +344,13 @@ class _ResultState extends State<Result> {
     String fastroute_mode = fastroute == true ? "LEAST_DURATION" : "LEAST_CHANGES";
 
     return CoreService.getTripById(
-        from_search.location.id,
-        to_search.location.id,
+        fromID,
+        toID,
         DateParser.getTPTDate(date, time),
         barrier_mode,
         fastroute_mode,
         slowwalk_mode,
-        PrefService.getString('public_transport_data')
+        source
     );
   }
 }

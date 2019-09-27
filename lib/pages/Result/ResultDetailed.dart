@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:preferences/preferences.dart';
 import 'package:sprung/next.dart';
 import 'package:thepublictransport_app/backend/database/TripDatabaseHelper.dart';
 import 'package:thepublictransport_app/backend/models/main/From.dart';
@@ -56,35 +57,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
         curve: Sprung.overDamped(),
         heroTag: "HEROOOO2",
         animatedIconTheme: IconThemeData(size: 22.0, color: theme.titleColorInverted),
-          children: [
-            SpeedDialChild(
-                child: Icon(Icons.arrow_back),
-                backgroundColor: Colors.red,
-                label: 'Zurück',
-                labelStyle: TextStyle(fontSize: 18.0),
-                onTap: () => Navigator.of(context).pop()
-            ),
-            SpeedDialChild(
-              child: Icon(Icons.monetization_on),
-              backgroundColor: Colors.blue,
-              label: 'Günstige Alternative finden',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlternativeTrip(trip: trip))),
-            ),
-            SpeedDialChild(
-              child: Icon(Icons.save),
-              backgroundColor: Colors.green,
-              label: 'Speichern',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () async {
-                await _databaseHelper.insert(trip).then((res) {
-                  Toast.show("Speichern abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-                }).catchError((err) {
-                  Toast.show("Speichern fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-                });
-              },
-            ),
-          ]
+          children: getPreferencedSelectMenu()
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Column(
@@ -491,6 +464,9 @@ class _ResultDetailedState extends State<ResultDetailed> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0)
+          ),
           backgroundColor: theme.backgroundColor,
           title: new Text("Meldungen", style: TextStyle(color: theme.textColor)),
           content: new Text(message != null ? message : "Keine Meldungen", style: TextStyle(color: theme.textColor)),
@@ -515,6 +491,9 @@ class _ResultDetailedState extends State<ResultDetailed> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0)
+          ),
           backgroundColor: theme.backgroundColor,
           title: new Text("Zwischenhalte", style: TextStyle(color: theme.textColor)),
           content: SizedBox(
@@ -566,6 +545,63 @@ class _ResultDetailedState extends State<ResultDetailed> {
         );
       },
     );
+  }
+
+  List<SpeedDialChild> getPreferencedSelectMenu() {
+    if (PrefService.getString('public_transport_data') == 'DB') {
+      return [
+        SpeedDialChild(
+            child: Icon(Icons.arrow_back),
+            backgroundColor: Colors.red,
+            label: 'Zurück',
+            labelStyle: TextStyle(fontSize: 18.0),
+            onTap: () => Navigator.of(context).pop()
+        ),
+        SpeedDialChild(
+          child: Icon(Icons.monetization_on),
+          backgroundColor: Colors.blue,
+          label: 'Günstige Alternative finden',
+          labelStyle: TextStyle(fontSize: 18.0),
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlternativeTrip(trip: trip))),
+        ),
+        SpeedDialChild(
+          child: Icon(Icons.save),
+          backgroundColor: Colors.green,
+          label: 'Speichern',
+          labelStyle: TextStyle(fontSize: 18.0),
+          onTap: () async {
+            await _databaseHelper.insert(trip).then((res) {
+              Toast.show("Speichern abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+            }).catchError((err) {
+              Toast.show("Speichern fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+            });
+          },
+        ),
+      ];
+    } else {
+      return [
+        SpeedDialChild(
+            child: Icon(Icons.arrow_back),
+            backgroundColor: Colors.red,
+            label: 'Zurück',
+            labelStyle: TextStyle(fontSize: 18.0),
+            onTap: () => Navigator.of(context).pop()
+        ),
+        SpeedDialChild(
+          child: Icon(Icons.save),
+          backgroundColor: Colors.green,
+          label: 'Speichern',
+          labelStyle: TextStyle(fontSize: 18.0),
+          onTap: () async {
+            await _databaseHelper.insert(trip).then((res) {
+              Toast.show("Speichern abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+            }).catchError((err) {
+              Toast.show("Speichern fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+            });
+          },
+        ),
+      ];
+    }
   }
 
   getIntermediateDelay(int currentTime, int currentDelay) {

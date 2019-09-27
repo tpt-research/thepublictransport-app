@@ -9,8 +9,10 @@ import 'package:thepublictransport_app/pages/Home/Home.dart';
 import 'package:thepublictransport_app/pages/Start/Start.dart';
 
 void main() async {
+  // Preference Service Init
   await PrefService.init(prefix: 'pref_settings_');
 
+  // Enable / Disable Crashlytics on start
   if (PrefService.getBool("crashlytics_mode") ?? false) {
     FlutterError.onError = Crashlytics.instance.recordFlutterError;
   }
@@ -30,7 +32,12 @@ class _BootState extends State<Boot> {
 
   @override
   void initState() {
+    // Set Firebase Analytics on start
     _analytics.setAnalyticsCollectionEnabled(PrefService.getBool("analytics_mode") ?? false);
+
+    if (PrefService.getString('public_transport_data') == null) {
+      PrefService.setString('public_transport_data', 'DB');
+    }
     super.initState();
   }
 

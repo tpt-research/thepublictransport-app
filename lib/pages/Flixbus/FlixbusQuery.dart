@@ -87,7 +87,7 @@ class _FlixbusQueryState extends State<FlixbusQuery> {
   }
 
   Future<List<QueryResult>> getResults(String query) async {
-    var result = await FlixbusService.getQuery(query, PrefService.getBool("datasave_mode") == false ? 5 : 2);
+    var result = await FlixbusService.getQuery(query, PrefService.getBool("datasave_mode") == false ? 8 : 4);
 
     return result.queryResult;
   }

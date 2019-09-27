@@ -168,7 +168,7 @@ class LocationShow extends StatelessWidget {
     List<Location> locations = [];
 
     final response = await CoreService.getLocationNearby(
-        PrefService.getBool("datasave_mode") == false ? 3.toString() : 1.toString(),
+        PrefService.getBool("datasave_mode") == false ? 2.toString() : 1.toString(),
         'DB'
     );
 
@@ -178,14 +178,17 @@ class LocationShow extends StatelessWidget {
       }
     }
 
-    final fuzzyResponse = await CoreService.getLocationNearbyAlternative(
-        PrefService.getBool("datasave_mode") == false ? 3.toString() : 1.toString(),
-        'DB'
-    );
+    if (PrefService.getString('public_transport_data') == 'DB') {
+      final fuzzyResponse = await CoreService.getLocationNearbyAlternative(
+          PrefService.getBool("datasave_mode") == false ? 2.toString() : 1
+              .toString(),
+          PrefService.getString('public_transport_data')
+      );
 
-    if (fuzzyResponse.locations != null) {
-      for (var i in fuzzyResponse.locations) {
-        locations.add(i);
+      if (fuzzyResponse.locations != null) {
+        for (var i in fuzzyResponse.locations) {
+          locations.add(i);
+        }
       }
     }
 

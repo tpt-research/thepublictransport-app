@@ -341,6 +341,9 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0)
+          ),
           backgroundColor: theme.backgroundColor,
           title: new Text("Meldungen", style: TextStyle(color: theme.textColor)),
           content: new Text(message != null ? message : "Keine Meldungen", style: TextStyle(color: theme.textColor)),

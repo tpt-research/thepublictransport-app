@@ -1,5 +1,6 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/core/DepartureModel.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
@@ -83,8 +84,7 @@ class _StationDepartureState extends State<StationDeparture> {
 
   Future<DepartureModel> fetchDeparture() async {
     final response = await CoreService.getDeparture(
-      stationId,
-      "DB"
+      stationId, PrefService.getString('public_transport_data')
     );
 
     return response;

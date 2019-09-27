@@ -80,7 +80,7 @@ class _SearchState extends State<Search> {
   }
 
   Future<List<SuggestedLocation>> getResults(String query) async {
-    var result = await CoreService.getLocationQuery(query, "STATION", PrefService.getBool("datasave_mode") == false ? 7.toString() : 3.toString(), "DB");
+    var result = await CoreService.getLocationQuery(query, "STATION", PrefService.getBool("datasave_mode") == false ? 10.toString() : 5.toString(), PrefService.getString('public_transport_data'));
 
     return result.suggestedLocations;
   }
