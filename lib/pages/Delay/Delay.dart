@@ -219,6 +219,9 @@ class _DelayState extends State<Delay> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0)
+          ),
           backgroundColor: theme.backgroundColor,
           title: SizedBox(
               height: 40,

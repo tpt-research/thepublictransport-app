@@ -1,19 +1,19 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:preferences/preferences.dart';
+import 'package:share/share.dart';
 import 'package:thepublictransport_app/backend/models/core/TripModel.dart';
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
+import 'package:thepublictransport_app/backend/service/shortener/ShortenerService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
-import 'package:share/share.dart';
 
 import 'ResultDetailed.dart';
 
@@ -68,7 +68,7 @@ class _ResultState extends State<Result> {
           ),
           FloatingActionButton(
             heroTag: "NOHERO",
-            onPressed: () {
+            onPressed: () async {
               var prepared = 'https://thepublictransport.de/share?fromName='
                   + from_search.location.name + (from_search.location.place != null ? ", " + from_search.location.place : "") +
                   '&fromID=' + from_search.location.id +
@@ -81,7 +81,9 @@ class _ResultState extends State<Result> {
                   '&fastroute=' + fastroute.toString() +
                   '&source=' + PrefService.getString('public_transport_data');
 
-              Share.share(Uri.encodeFull(prepared).toString());
+              var shortened = await ShortenerService.createLink(Uri.encodeFull(prepared).toString());
+
+              Share.share(shortened);
             },
             backgroundColor: theme.floatingActionButtonColor,
             child: Icon(Icons.share, color: theme.floatingActionButtonIconColor),

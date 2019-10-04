@@ -50,6 +50,7 @@ class MapsStopsState extends State<MapsStops> {
       rotateGesturesEnabled: false,
       scrollGesturesEnabled: false,
       tiltGesturesEnabled: false,
+      trafficEnabled: true,
       mapType: theme.status == "light" ? MapType.normal : MapType.hybrid,
       markers: markers,
     );

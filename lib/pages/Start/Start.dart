@@ -5,16 +5,16 @@ import 'package:geolocator/geolocator.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/pages/Home/Home.dart';
 import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
-import 'package:thepublictransport_app/ui/animations/showup.dart';
+import 'package:thepublictransport_app/ui/animations/ShowUp.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
 
 class Start extends StatefulWidget {
   Start({Key key}) : super(key: key) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-        statusBarIconBrightness: Brightness.light,
-        statusBarColor: Colors.black.withAlpha(30),
-        systemNavigationBarColor: Colors.black,
-        systemNavigationBarIconBrightness: Brightness.light));
+        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.white.withAlpha(30),
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarIconBrightness: Brightness.dark));
   }
 
   @override
@@ -81,32 +81,36 @@ class Welcome extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            ShowUp(
-                              delay: 100,
+                            ScaleUp(
+                              delay: 300,
+                              duration: Duration(seconds: 1),
                               child: new Icon(
                                 images[info.index][0],
                                 color: Colors.black,
                                 size: MediaQuery.of(context).size.width * 0.18,
                               ),
                             ),
-                            ShowUp(
-                              delay: 200,
+                            ScaleUp(
+                              delay: 400,
+                              duration: Duration(seconds: 1),
                               child: new Icon(
                                 images[info.index][1],
                                 color: Colors.black,
                                 size: MediaQuery.of(context).size.width * 0.18,
                               ),
                             ),
-                            ShowUp(
-                              delay: 300,
+                            ScaleUp(
+                              delay: 500,
+                              duration: Duration(seconds: 1),
                               child: new Icon(
                                 images[info.index][2],
                                 color: Colors.black,
                                 size: MediaQuery.of(context).size.width * 0.18,
                               ),
                             ),
-                            ShowUp(
-                              delay: 400,
+                            ScaleUp(
+                              delay: 600,
+                              duration: Duration(seconds: 1),
                               child: new Icon(
                                 images[info.index][3],
                                 color: Colors.black,
@@ -120,13 +124,16 @@ class Welcome extends StatelessWidget {
                         translationFactor: 400.0,
                       )),
                   new ParallaxContainer(
-                    child: ScaleUp(
-                      delay: 300,
+                    child: ShowUp(
+                      delay: 100,
                       duration: Duration(seconds: 1),
-                      child: new Text(
-                        titles[info.index],
-                        style: new TextStyle(fontSize: 30.0, color: Colors.black),
-                        textAlign: TextAlign.center,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.90,
+                        child: new Text(
+                          titles[info.index],
+                          style: new TextStyle(fontSize: 30.0, color: Colors.black),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                     position: info.position,
@@ -135,13 +142,16 @@ class Welcome extends StatelessWidget {
                   new ParallaxContainer(
                     child: new Padding(
                         padding: new EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0),
-                        child: ScaleUp(
-                          delay: 400,
+                        child: ShowUp(
+                          delay: 200,
                           duration: Duration(seconds: 1),
-                          child: new Text(subtitles[info.index],
-                              textAlign: TextAlign.center,
-                              style: new TextStyle(
-                                  fontSize: 13.0, color: Colors.black)),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.90,
+                            child: new Text(subtitles[info.index],
+                                textAlign: TextAlign.center,
+                                style: new TextStyle(
+                                    fontSize: 13.0, color: Colors.black)),
+                          ),
                         )),
                     position: info.position,
                     translationFactor: 50.0,
@@ -163,8 +173,8 @@ class Welcome extends StatelessWidget {
                                     fontStyle: FontStyle.normal,
                                     fontSize: 17,
                                     color: Colors.black)),
-                            onPressed: () {
-                              PrefService.setBool("firstrun", true);
+                            onPressed: () async {
+                              await _showMessage(context);
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) => Home()));
@@ -179,6 +189,70 @@ class Welcome extends StatelessWidget {
             );
           }),
       itemCount: 5,
+    );
+  }
+
+  void _showMessage(BuildContext context) async {
+    // flutter defined function
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0)
+          ),
+          backgroundColor: Colors.white,
+          title: SizedBox(
+              height: 50,
+              width: 50,
+              child: Image.network('https://avatars3.githubusercontent.com/u/44241397')
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                "Diese App ist erst gerade entstanden, und wird wahrscheinlich noch diverse Bugs beinhalten.",
+                style: TextStyle(
+                    color: Colors.black
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Wir bitten euch dabei uns diese Bugs zu melden damit wir diese beheben können.",
+                style: TextStyle(
+                    color: Colors.black
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Wir bedanken uns an alle Tester und Mitwirkende von The Public Transport. Ohne euch wären wir nicht wo wir heute sind!',
+                style: TextStyle(
+                    color: Colors.black
+                ),
+              )
+            ],
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                "Let's Go!",
+                style: TextStyle(
+                    color: Colors.black
+                ),
+              ),
+              onPressed: () {
+                PrefService.setBool("firstrun", true);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

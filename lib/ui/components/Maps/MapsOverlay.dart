@@ -35,6 +35,7 @@ class MapsOverlayState extends State<MapsOverlay> {
       scrollGesturesEnabled: false,
       tiltGesturesEnabled: false,
       zoomGesturesEnabled: false,
+      trafficEnabled: true,
       mapType: theme.status == "light" ? MapType.normal : MapType.hybrid,
     );
   }

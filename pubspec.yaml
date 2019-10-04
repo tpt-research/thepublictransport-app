@@ -1,6 +1,6 @@
 name: thepublictransport_app
-description: Die ÖPV App für Deutschland
-version: 1.5.0+15
+description: Die erste moderne App für den öffentlichen Verkehr
+version: 2.0.0+20
 author: Tristan Marsell, The Public Transport
 
 environment:
@@ -78,6 +78,8 @@ flutter:
     - anim/cloud_loading.flr
     - anim/dark_background.flr
     - anim/light_background.flr
+    - anim/hey_minion.flr
+    - anim/route.flr
 
   fonts:
     - family: Nunito

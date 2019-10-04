@@ -1,7 +1,6 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/main/Location.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
@@ -10,7 +9,6 @@ import 'package:thepublictransport_app/pages/Station/Station.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
 import 'package:thepublictransport_app/ui/animations/ShowUp.dart';
 import 'package:thepublictransport_app/ui/components/Maps/MapsStops.dart';
-import 'package:toast/toast.dart';
 
 class LocationShow extends StatelessWidget {
 
@@ -31,10 +29,10 @@ class LocationShow extends StatelessWidget {
               width: 250,
               height: 250,
               child: FlareActor(
-                'anim/cloud_loading.flr',
+                'anim/route.flr',
                 alignment: Alignment.center,
                 fit: BoxFit.contain,
-                animation: 'Sync',
+                animation: 'play',
               ),
             );
           case ConnectionState.done:
@@ -125,33 +123,25 @@ class LocationShow extends StatelessWidget {
 
               return Column(
                 children: <Widget>[
-                  ShowUp(
-                    duration: Duration(seconds: 1),
-                    delay: 100,
-                    child: Marquee(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: generated,
-                      ),
+                  Marquee(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: generated,
                     ),
                   ),
-                  ShowUp(
-                    duration: Duration(seconds: 1),
-                    delay: 500,
-                    child: Container(
-                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.025),
-                        height: MediaQuery.of(context).size.height * 0.22,
-                        child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.black
-                              ),
+                  Container(
+                      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.025),
+                      height: MediaQuery.of(context).size.height * 0.22,
+                      child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.black
                             ),
-                            child: MapsStops(location: snapshot.data)
-                        )
-                    ),
+                          ),
+                          child: MapsStops(location: snapshot.data)
+                      )
                   ),
                 ],
               );

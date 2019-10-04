@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:thepublictransport_app/backend/models/core/AlertModel.dart';
 import 'package:thepublictransport_app/backend/constants/TrainAPIConstants.dart';
+import 'package:thepublictransport_app/backend/models/core/AlertModel.dart';
 
 class AlertService {
   static Future<AlertModel> getAlert() {

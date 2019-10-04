@@ -4,6 +4,7 @@ import 'package:preferences/preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:thepublictransport_app/backend/models/core/AlertModel.dart';
 import 'package:thepublictransport_app/backend/service/alert/AlertService.dart';
+import 'package:thepublictransport_app/backend/service/shortener/ShortenerService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/Result/ResultDeeplink.dart';
 import 'package:thepublictransport_app/ui/scaffold/FlareScaffoldBackground.dart';
@@ -41,7 +42,7 @@ class _HomeState extends State<Home> {
   Future<Null> initUniLinks() async {
     try {
       if (await getInitialLink() != null) {
-        Uri initialLink = await getInitialUri();
+        Uri initialLink = await ShortenerService.getLink(await getInitialLink());
         Map<String, String> parsed = initialLink.queryParameters;
 
         if (initialLink.path != "/share")
@@ -73,13 +74,16 @@ class _HomeState extends State<Home> {
     if (PrefService.getBool('show_alert_dialog') == null)
       PrefService.setBool('show_alert_dialog', true);
 
+    if (PrefService.getInt('show_alert_dialog_id') == null)
+      PrefService.setInt('show_alert_dialog_id', 0);
+
+    if (PrefService.getInt('show_alert_dialog_id') != alert.message.messageId && alert.message.messageId != 0) {
+      _showAlert(alert);
+      PrefService.setInt('show_alert_dialog_id', alert.message.messageId);
+    }
+
     if (alert.message.messageId == 0) {
-      PrefService.setBool('show_alert_dialog', true);
-    } else {
-      if (PrefService.getBool('show_alert_dialog')) {
-        _showAlert(alert);
-        PrefService.setBool('show_alert_dialog', false);
-      }
+      PrefService.setInt('show_alert_dialog_id', 0);
     }
   }
 
@@ -94,7 +98,7 @@ class _HomeState extends State<Home> {
               borderRadius: BorderRadius.circular(24.0)
           ),
           backgroundColor: theme.backgroundColor,
-          title: new Text("Alarm: " + message.message.translations.de.title, style: TextStyle(color: theme.textColor)),
+          title: new Text(message.message.translations.de.title, style: TextStyle(color: theme.textColor, fontFamily: 'NunitoSansBold')),
           content: new Text(message.message.translations.de.message),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
