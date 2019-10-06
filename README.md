@@ -1,19 +1,18 @@
-# thepublictransport_app
+# The Public Transport
 
-Die ÖPNV App für Deutschland
+Modern public transport for Germany - Written in Flutter
 
-## Getting Started
+[<img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="194" height="75"/>](https://play.google.com/store/apps/details?id=de.pdesire.thepublictransportapp&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 
-This project is a starting point for a Flutter application.
+## About
 
-A few resources to get you started if this is your first Flutter project:
+This is an app for the public transport, which should be modern & human-oriented.
+Of course we like your contributions, and we don't want to limit that much with contributing guidelines.
+But please take care about our Code of Conduct.
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+[Webpage](https://thepublictransport.de)
+[Blog](https://thepublictransport.de/blog)
+[Service Status](https://thepublictransport.de/status)
 
 ## License
 
