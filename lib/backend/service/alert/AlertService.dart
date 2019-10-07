@@ -3,17 +3,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:thepublictransport_app/backend/constants/TrainAPIConstants.dart';
 import 'package:thepublictransport_app/backend/models/core/AlertModel.dart';
+import 'package:thepublictransport_app/framework/http/SuperchargedHttp.dart';
 
 class AlertService {
-  static Future<AlertModel> getAlert() {
-    return http.get(
-        TrainAPIConstants.API_URL + TrainAPIConstants.API_ENDPOINT_ALERT
-    ).then((res) {
+  static Future<AlertModel> getAlert() async {
+    var result = await SuperchargedHTTP.request(
+        URL:  TrainAPIConstants.API_URL + TrainAPIConstants.API_ENDPOINT_ALERT,
+        timeout: 5000
+    );
 
-      var decode = json.decode(res.body);
-
-      return AlertModel.fromJson(decode);
-
-    });
+    return AlertModel.fromJson(result);
   }
 }

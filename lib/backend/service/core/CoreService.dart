@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
+import 'package:thepublictransport_app/framework/http/SuperchargedHttp.dart';
 import 'package:thepublictransport_app/backend/constants/TrainAPIConstants.dart';
 import 'package:thepublictransport_app/backend/models/core/DepartureModel.dart';
 import 'package:thepublictransport_app/backend/models/core/LocationModel.dart';
@@ -13,21 +11,19 @@ class CoreService {
 
   static Future<DepartureModel> getDeparture(
       String stationId,
-      String source) {
-    return http.get(
-        TrainAPIConstants.API_URL +
-            TrainAPIConstants.API_ENDPOINT_DEPARTURE +
-            "?stationId=" + stationId +
-            "&source=" + source +
-            "&hourshift=" + "2" +
-            "&equiv=" + "true"
-    ).then((res) {
+      String source) async {
 
-      var decode = json.decode(res.body);
+    var result = await SuperchargedHTTP.request(
+        URL:  TrainAPIConstants.API_URL +
+              TrainAPIConstants.API_ENDPOINT_DEPARTURE +
+              "?stationId=" + stationId +
+              "&source=" + source +
+              "&hourshift=" + "2" +
+              "&equiv=" + "true",
+        timeout: 5000
+    );
 
-      return DepartureModel.fromJson(decode);
-
-    });
+    return DepartureModel.fromJson(result);
   }
 
   static Future<TripModel> getTripByName(
@@ -37,26 +33,23 @@ class CoreService {
       String accessibility,
       String optimization,
       String walkspeed,
-      String source) {
+      String source) async {
 
-    return http.get(
-            TrainAPIConstants.API_URL +
-            TrainAPIConstants.API_ENDPOINT_TRIP +
-            TrainAPIConstants.API_ENDPOINT_TRIP_SEARCH_NAME +
-                "?from=" + from +
-                "&to=" + to +
-                "&when=" + when +
-                "&accessibility=" + accessibility +
-                "&optimization=" + optimization +
-                "&walkspeed=" + walkspeed +
-                "&source=" + source
-    ).then((res) {
+    var result = await SuperchargedHTTP.request(
+        URL:  TrainAPIConstants.API_URL +
+              TrainAPIConstants.API_ENDPOINT_TRIP +
+              TrainAPIConstants.API_ENDPOINT_TRIP_SEARCH_NAME +
+              "?from=" + from +
+              "&to=" + to +
+              "&when=" + when +
+              "&accessibility=" + accessibility +
+              "&optimization=" + optimization +
+              "&walkspeed=" + walkspeed +
+              "&source=" + source,
+        timeout: 5000
+    );
 
-      var decode = json.decode(res.body);
-
-      return TripModel.fromJson(decode);
-
-    });
+    return TripModel.fromJson(result);
   }
 
   static Future<TripModel> getTripById(
@@ -66,60 +59,43 @@ class CoreService {
       String accessibility,
       String optimization,
       String walkspeed,
-      String source) {
+      String source) async {
 
-    print(TrainAPIConstants.API_URL +
-        TrainAPIConstants.API_ENDPOINT_TRIP +
-        TrainAPIConstants.API_ENDPOINT_TRIP_SEARCH_ID +
-        "?from=" + from +
-        "&to=" + to +
-        "&when=" + when +
-        "&accessibility=" + accessibility +
-        "&optimization=" + optimization +
-        "&walkspeed=" + walkspeed +
-        "&source=" + source);
+    var result = await SuperchargedHTTP.request(
+        URL:  TrainAPIConstants.API_URL +
+              TrainAPIConstants.API_ENDPOINT_TRIP +
+              TrainAPIConstants.API_ENDPOINT_TRIP_SEARCH_ID +
+              "?from=" + from +
+              "&to=" + to +
+              "&when=" + when +
+              "&accessibility=" + accessibility +
+              "&optimization=" + optimization +
+              "&walkspeed=" + walkspeed +
+              "&source=" + source,
+        timeout: 5000
+    );
 
-    return http.get(
-            TrainAPIConstants.API_URL +
-            TrainAPIConstants.API_ENDPOINT_TRIP +
-            TrainAPIConstants.API_ENDPOINT_TRIP_SEARCH_ID +
-                "?from=" + from +
-                "&to=" + to +
-                "&when=" + when +
-                "&accessibility=" + accessibility +
-                "&optimization=" + optimization +
-                "&walkspeed=" + walkspeed +
-                "&source=" + source
-    ).then((res) {
-
-      var decode = json.decode(res.body);
-
-      return TripModel.fromJson(decode);
-
-    });
+    return TripModel.fromJson(result);
   }
 
   static Future<LocationModel> getLocationQuery(
       String query,
       String types,
       String maxLocations,
-      String source) {
+      String source) async {
 
-    return http.get(
-        TrainAPIConstants.API_URL +
-            TrainAPIConstants.API_ENDPOINT_LOCATION +
-            TrainAPIConstants.API_ENDPOINT_LOCATION_SUGGEST +
-            "?q=" + query +
-            "&maxLocations=" + maxLocations +
-            "&maxDistance=" + "10000" +
-            "&source=" + source
-    ).then((res) {
+    var result = await SuperchargedHTTP.request(
+        URL:  TrainAPIConstants.API_URL +
+              TrainAPIConstants.API_ENDPOINT_LOCATION +
+              TrainAPIConstants.API_ENDPOINT_LOCATION_SUGGEST +
+              "?q=" + query +
+              "&maxLocations=" + maxLocations +
+              "&maxDistance=" + "10000" +
+              "&source=" + source,
+        timeout: 5000
+    );
 
-      var decode = json.decode(res.body);
-
-      return LocationModel.fromJson(decode);
-
-    });
+    return LocationModel.fromJson(result);
   }
 
   static Future<LocationModel> getLocationNearby(
@@ -128,23 +104,19 @@ class CoreService {
 
     var coordinates = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
 
+    var result = await SuperchargedHTTP.request(
+        URL:  TrainAPIConstants.API_URL +
+              TrainAPIConstants.API_ENDPOINT_LOCATION +
+              TrainAPIConstants.API_ENDPOINT_LOCATION_NEARBY +
+              "?lat=" + coordinates.latitude.toString() +
+              "&lon=" + coordinates.longitude.toString() +
+              "&types=" + "STATION"+
+              "&maxLocations=" + maxLocations +
+              "&source=" + source,
+        timeout: 5000
+    );
 
-    return http.get(
-            TrainAPIConstants.API_URL +
-            TrainAPIConstants.API_ENDPOINT_LOCATION +
-            TrainAPIConstants.API_ENDPOINT_LOCATION_NEARBY +
-            "?lat=" + coordinates.latitude.toString() +
-            "&lon=" + coordinates.longitude.toString() +
-            "&types=" + "STATION"+
-            "&maxLocations=" + maxLocations +
-            "&source=" + source
-    ).then((res) {
-
-      var decode = json.decode(res.body);
-
-      return LocationModel.fromJson(decode);
-
-    });
+    return LocationModel.fromJson(result);
   }
 
   static Future<LocationModel> getLocationNearbyAlternative(
@@ -154,21 +126,17 @@ class CoreService {
     var coordinates = await Geocode.location();
     var nominatim = await NominatimRequest.getPlace(coordinates.latitude, coordinates.longitude);
 
+    var result = await SuperchargedHTTP.request(
+        URL:  TrainAPIConstants.API_URL +
+              TrainAPIConstants.API_ENDPOINT_LOCATION +
+              TrainAPIConstants.API_ENDPOINT_LOCATION_SUGGEST +
+              "?q=" + nominatim.address.road + "," + nominatim.address.city +
+              "&types=" + "STATION"+
+              "&maxLocations=" + maxLocations +
+              "&source=" + source,
+        timeout: 5000
+    );
 
-    return http.get(
-        TrainAPIConstants.API_URL +
-            TrainAPIConstants.API_ENDPOINT_LOCATION +
-            TrainAPIConstants.API_ENDPOINT_LOCATION_SUGGEST +
-            "?q=" + nominatim.address.road + "," + nominatim.address.city +
-            "&types=" + "STATION"+
-            "&maxLocations=" + maxLocations +
-            "&source=" + source
-    ).then((res) {
-
-      var decode = json.decode(res.body);
-
-      return LocationModel.fromJson(decode);
-
-    });
+    return LocationModel.fromJson(result);
   }
 }
