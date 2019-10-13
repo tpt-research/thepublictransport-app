@@ -86,6 +86,9 @@ class _AlternativeFlixbusState extends State<AlternativeFlixbus> {
 
 
     return Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0)
+      ),
       color: theme.cardColor,
       child: InkWell(
         onTap: () {

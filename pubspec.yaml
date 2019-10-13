@@ -1,6 +1,6 @@
 name: thepublictransport_app
 description: Die erste moderne App für den öffentlichen Verkehr
-version: 2.0.0+20
+version: 2.1.0+21
 author: Tristan Marsell, The Public Transport
 
 environment:
@@ -24,11 +24,12 @@ dependencies:
   sliding_up_panel: ^0.3.6
   flutter_spinkit: 3.1.0
   flutter_typeahead: 1.6.1
+  fancy_bottom_navigation: 0.3.2
 
   # Tools
   http: ^0.12.0+2
   sprung: 1.1.0+11
-  geolocator: ^5.1.4
+  geolocator: ^5.1.4+1
   gradient_widgets: ^0.5.0
   url_launcher: 5.1.2
   uni_links: 0.2.0
@@ -77,6 +78,7 @@ flutter:
   assets:
     - icons/fluxfail.png
     - icons/anja.png
+    - icons/marker.png
     - anim/error.flr
     - anim/loader.flr
     - anim/cloud_loading.flr

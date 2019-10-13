@@ -13,7 +13,6 @@ import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
-import 'package:thepublictransport_app/ui/animations/Marquee.dart';
 
 import 'ResultDetailed.dart';
 
@@ -35,6 +34,10 @@ class Result extends StatefulWidget {
 }
 
 class _ResultState extends State<Result> {
+  BorderRadiusGeometry radius = BorderRadius.only(
+    topLeft: Radius.circular(36.0),
+    topRight: Radius.circular(36.0),
+  );
 
   final SuggestedLocation from_search;
   final SuggestedLocation to_search;
@@ -49,9 +52,14 @@ class _ResultState extends State<Result> {
   var theme = ThemeEngine.getCurrentTheme();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.status == "light" ? Colors.black : theme.cardColor,
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -96,93 +104,67 @@ class _ResultState extends State<Result> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * 0.20,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: theme.status == "light" ? Colors.black : theme.cardColor,
+            ),
+            height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
+            child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 20),
                   Text(
                     "Suche",
                     style: TextStyle(
-                        color: theme.titleColor,
-                        fontSize: 30,
-                        fontFamily: 'NunitoSansBold'
+                      fontFamily: 'NunitoSansBold',
+                      fontSize: 40,
+                      color: Colors.white
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("Von:", style: TextStyle(color: theme.textColor)),
-                              Text("Nach:", style: TextStyle(color: theme.textColor))
-                            ],
-                          ),
-                          SizedBox(width: 10),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Marquee(
-                                  direction: Axis.horizontal,
-                                  child: Text(
-                                    from_search.location.name + (from_search.location.place != null ? ", " + from_search.location.place : ""),
-                                    style: TextStyle(
-                                      fontFamily: 'NunitoSansBold',
-                                        color: theme.textColor
-                                    ),
-                                  ),
-                                ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              from_search.location.name + (from_search.location.place != null ? ", " + from_search.location.place : ""),
+                              style: TextStyle(
+                                color: Colors.white
                               ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Marquee(
-                                  direction: Axis.horizontal,
-                                  child: Text(
-                                    to_search.location.name + (to_search.location.place != null ? ", " + to_search.location.place : ""),
-                                    style: TextStyle(
-                                        fontFamily: 'NunitoSansBold',
-                                        color: theme.textColor
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            time.hour.toString() + ":" + time.minute.toString().padLeft(2, '0'),
-                            style: TextStyle(
-                                color: theme.textColor
                             ),
-                          ),
-                          Text(
+                            Text(
+                              to_search.location.name + (to_search.location.place != null ? ", " + to_search.location.place : ""),
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              time.hour.toString() + ":" + time.minute.toString().padLeft(2, '0'),
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                            Text(
                               date.day.toString().padLeft(2, '0') + "." + date.month.toString().padLeft(2, '0') + "." + date.year.toString().padLeft(4, '0'),
-                            style: TextStyle(
-                                color: theme.textColor
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
                             ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -195,15 +177,22 @@ class _ResultState extends State<Result> {
                     case ConnectionState.active:
                     case ConnectionState.waiting:
                     case ConnectionState.none:
-                      return Center(
-                        child: SizedBox(
-                          width: 500,
-                          height: 500,
-                          child: FlareActor(
-                            'anim/cloud_loading.flr',
-                            alignment: Alignment.center,
-                            fit: BoxFit.contain,
-                            animation: 'Sync',
+                      return ClipRRect(
+                        borderRadius: radius,
+                        child: Container(
+                          height: double.infinity,
+                          color: theme.backgroundColor,
+                          child: Center(
+                            child: SizedBox(
+                              width: 500,
+                              height: 500,
+                              child: FlareActor(
+                                'anim/cloud_loading.flr',
+                                alignment: Alignment.center,
+                                fit: BoxFit.contain,
+                                animation: 'Sync',
+                              ),
+                            ),
                           ),
                         ),
                       );
@@ -212,15 +201,27 @@ class _ResultState extends State<Result> {
                         return Text(snapshot.error);
                       } else {
                         if (snapshot.data.trips == null) {
-                          return Center(
-                            child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
+                          return ClipRRect(
+                            borderRadius: radius,
+                            child: Container(
+                              color: theme.backgroundColor,
+                              child: Center(
+                                child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
+                              ),
+                            ),
                           );
                         }
-                        return ListView.builder(
-                            itemCount: snapshot.data.trips.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return createCard(snapshot.data.trips[index]);
-                            }
+                        return ClipRRect(
+                          borderRadius: radius,
+                          child: Container(
+                            color: theme.backgroundColor,
+                            child: ListView.builder(
+                                itemCount: snapshot.data.trips.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return createCard(snapshot.data.trips[index]);
+                                }
+                            ),
+                          ),
                         );
                       }
                   }
@@ -250,6 +251,9 @@ class _ResultState extends State<Result> {
 
 
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0)
+      ),
       color: theme.cardColor,
       child: InkWell(
         onTap: () {

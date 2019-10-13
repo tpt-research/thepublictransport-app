@@ -9,7 +9,6 @@ import 'package:thepublictransport_app/backend/service/flixbus/FlixbusService.da
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
-import 'package:thepublictransport_app/ui/animations/Marquee.dart';
 
 import 'FlixbusResultDetailed.dart';
 
@@ -28,6 +27,10 @@ class FlixbusResult extends StatefulWidget {
 }
 
 class _FlixbusResultState extends State<FlixbusResult> {
+  BorderRadiusGeometry radius = BorderRadius.only(
+    topLeft: Radius.circular(36.0),
+    topRight: Radius.circular(36.0),
+  );
 
   final QueryResult from_search;
   final QueryResult to_search;
@@ -41,7 +44,7 @@ class _FlixbusResultState extends State<FlixbusResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: Colors.lightGreen,
       floatingActionButton: FloatingActionButton(
           heroTag: "HEROOOO",
           onPressed: () {
@@ -55,93 +58,67 @@ class _FlixbusResultState extends State<FlixbusResult> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * 0.20,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: Colors.lightGreen,
+            ),
+            height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
+            child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 20),
                   Text(
-                    "Flixbus Suche",
+                    "Flixbus",
                     style: TextStyle(
-                        color: theme.titleColor,
-                        fontSize: 30,
-                        fontFamily: 'NunitoSansBold'
+                        fontFamily: 'NunitoSansBold',
+                        fontSize: 40,
+                        color: Colors.white
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("Von:", style: TextStyle(color: theme.textColor)),
-                              Text("Nach:", style: TextStyle(color: theme.textColor))
-                            ],
-                          ),
-                          SizedBox(width: 10),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Marquee(
-                                  direction: Axis.horizontal,
-                                  child: Text(
-                                    from_search.name,
-                                    style: TextStyle(
-                                      fontFamily: 'NunitoSansBold',
-                                        color: theme.textColor
-                                    ),
-                                  ),
-                                ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              from_search.name,
+                              style: TextStyle(
+                                  color: Colors.white
                               ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Marquee(
-                                  direction: Axis.horizontal,
-                                  child: Text(
-                                    to_search.name,
-                                    style: TextStyle(
-                                        fontFamily: 'NunitoSansBold',
-                                        color: theme.textColor
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            time.hour.toString() + ":" + time.minute.toString().padLeft(2, '0'),
-                            style: TextStyle(
-                                color: theme.textColor
                             ),
-                          ),
-                          Text(
+                            Text(
+                              to_search.name,
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              time.hour.toString() + ":" + time.minute.toString().padLeft(2, '0'),
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                            Text(
                               date.day.toString().padLeft(2, '0') + "." + date.month.toString().padLeft(2, '0') + "." + date.year.toString().padLeft(4, '0'),
-                            style: TextStyle(
-                                color: theme.textColor
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
                             ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -154,40 +131,52 @@ class _FlixbusResultState extends State<FlixbusResult> {
                     case ConnectionState.active:
                     case ConnectionState.waiting:
                     case ConnectionState.none:
-                      return Center(
-                        child: SizedBox(
-                          width: 500,
-                          height: 500,
-                          child: FlareActor(
-                            'anim/cloud_loading.flr',
-                            alignment: Alignment.center,
-                            fit: BoxFit.contain,
-                            animation: 'Sync',
+                    return ClipRRect(
+                      borderRadius: radius,
+                      child: Container(
+                        height: double.infinity,
+                        color: theme.backgroundColor,
+                        child: Center(
+                          child: SizedBox(
+                            width: 500,
+                            height: 500,
+                            child: FlareActor(
+                              'anim/cloud_loading.flr',
+                              alignment: Alignment.center,
+                              fit: BoxFit.contain,
+                              animation: 'Sync',
+                            ),
                           ),
                         ),
-                      );
+                      ),
+                    );
                     case ConnectionState.done:
                       if (snapshot.hasError) {
                         return Text(snapshot.error);
                       } else {
-                        if (snapshot.data.message == null) {
-                          return Center(
-                            child: Column(
-                              children: <Widget>[
-                                Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text("Beachten sie, dass die Suche am besten mit Bahnhöfen funktioniert, und nicht mit Bushaltestellen, weil es für diese keinen Sparpreis gibt.")
-                              ],
+                        if (snapshot.data == null) {
+                          return ClipRRect(
+                            borderRadius: radius,
+                            child: Container(
+                              color: theme.backgroundColor,
+                              child: Center(
+                                child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
+                              ),
                             ),
                           );
                         }
-                        return ListView.builder(
-                            itemCount: snapshot.data.message.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return createCard(snapshot.data.message[index]);
-                            }
+                        return ClipRRect(
+                          borderRadius: radius,
+                          child: Container(
+                            height: double.infinity,
+                            color: theme.backgroundColor,
+                            child: ListView.builder(
+                                itemCount: snapshot.data.message.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return createCard(snapshot.data.message[index]);
+                                }
+                            ),
+                          ),
                         );
                       }
                   }
@@ -208,6 +197,9 @@ class _FlixbusResultState extends State<FlixbusResult> {
 
     return Card(
       color: theme.cardColor,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0)
+      ),
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlixbusResultDetailed(trip: message)));
@@ -265,11 +257,11 @@ class _FlixbusResultState extends State<FlixbusResult> {
                     ],
                   ),
                   Text(
-                    message.price.amount.toString() + " " + message.price.currency.toString(),
+                    message.price.amount != null ? (message.price.amount.toString() + " " + message.price.currency.toString()) : "Kein Preis angegeben",
                     style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'NunitoSansBold',
-                        color: expensiveColor(message.price.amount)
+                        color: message.price.amount != null ? expensiveColor(message.price.amount) : Colors.red
                     ),
                   )
                 ],
@@ -330,6 +322,8 @@ class _FlixbusResultState extends State<FlixbusResult> {
   }
 
   Future<FlixbusJourneyModel> getJourney() async {
-    return FlixbusService.getJourney(from_search.id, from_search.type, to_search.id, to_search.type, DateParser.getRFCDate(date, time));
+    var result = await FlixbusService.getJourney(from_search.id, from_search.type, to_search.id, to_search.type, DateParser.getRFCDate(date, time));
+
+    return result;
   }
 }

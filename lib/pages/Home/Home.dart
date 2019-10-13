@@ -1,20 +1,18 @@
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:preferences/preferences.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:preferences/preference_service.dart';
 import 'package:thepublictransport_app/backend/models/core/AlertModel.dart';
 import 'package:thepublictransport_app/backend/service/alert/AlertService.dart';
 import 'package:thepublictransport_app/backend/service/shortener/ShortenerService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
+import 'package:thepublictransport_app/pages/Home/HomeNearby.dart';
 import 'package:thepublictransport_app/pages/Result/ResultDeeplink.dart';
-import 'package:thepublictransport_app/ui/scaffold/FlareScaffoldBackground.dart';
+import 'package:thepublictransport_app/pages/Search/SearchTrip.dart';
+import 'package:thepublictransport_app/pages/Settings/Settings.dart';
 import 'package:toast/toast.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'HomeBackground.dart';
-import 'HomeCollapsed.dart';
-import 'HomeSlider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -22,21 +20,65 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   var theme = ThemeEngine.getCurrentTheme();
+  int currentPage = 0;
+  PageController _pageController = new PageController();
+  GlobalKey<FancyBottomNavigationState> bottombarKey = GlobalKey<FancyBottomNavigationState>();
 
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarColor: theme.backgroundColor, // navigation bar color
         statusBarColor: Colors.transparent, // status bar color
-        statusBarBrightness: theme.statusbarBrightness,
-        statusBarIconBrightness: theme.statusbarIconBrightness,
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: theme.navbarIconBrightness
     ));
     initUniLinks();
     fetchAlert();
     super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      bottomNavigationBar: FancyBottomNavigation(
+        key: bottombarKey,
+        barBackgroundColor: theme.cardColor,
+        textColor: theme.textColor,
+        activeIconColor: theme.titleColorInverted,
+        inactiveIconColor: Colors.grey,
+        circleColor: theme.iconColor,
+        tabs: [
+          TabData(iconData: Icons.home, title: "Home"),
+          TabData(iconData: Icons.search, title: "Suche"),
+          TabData(iconData: Icons.settings, title: "Einstellungen")
+        ],
+        onTabChangedListener: (position) {
+          setState(() {
+            currentPage = position;
+            _pageController.animateToPage(position,
+                duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+          });
+        },
+      ),
+      body: PageView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        scrollDirection: Axis.horizontal,
+        onPageChanged: (index) {
+          setState(() {
+            currentPage = index;
+          });
+        },
+        children: <Widget>[
+          HomeNearby(),
+          SearchTrip(),
+          Settings()
+        ],
+      ),
+    );
   }
 
   Future<Null> initUniLinks() async {
@@ -120,75 +162,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-
-  @override
-  Widget build(BuildContext context) {
-    BorderRadiusGeometry radius = BorderRadius.only(
-      topLeft: Radius.circular(36.0),
-      topRight: Radius.circular(36.0),
-    );
-
-    PanelController _pc = new PanelController();
-
-    var theme = ThemeEngine.getCurrentTheme();
-
-    
-    return Scaffold(
-      backgroundColor: theme.backgroundColor,
-      body: SlidingUpPanel(
-        // Config
-        borderRadius: radius,
-        minHeight: MediaQuery.of(context).size.height * 0.50,
-        maxHeight: MediaQuery.of(context).size.height * 0.95,
-        parallaxEnabled: true,
-        parallaxOffset: 0.5,
-        controller: _pc,
-
-        // Main Widgets
-        collapsed: Container(
-          padding: EdgeInsets.fromLTRB(
-              MediaQuery.of(context).size.width * 0.05,
-              10,
-              MediaQuery.of(context).size.width * 0.05,
-              0
-          ),
-          child: HomeCollapsed(),
-          decoration: BoxDecoration(
-              color: theme.cardColor,
-              borderRadius: radius
-          ),
-        ),
-        panel: Container(
-          padding: EdgeInsets.fromLTRB(
-              MediaQuery.of(context).size.width * 0.05,
-              10,
-              MediaQuery.of(context).size.width * 0.05,
-              0
-          ),
-          child: HomeSlider(),
-          decoration: BoxDecoration(
-              color: theme.cardColor,
-              borderRadius: radius
-          ),
-        ),
-        body: Stack(
-          children: <Widget>[
-            FlareScaffoldBackground(),
-            Container(
-                padding: EdgeInsets.fromLTRB(
-                    MediaQuery.of(context).size.width * 0.05,
-                    MediaQuery.of(context).size.height * 0.09,
-                    MediaQuery.of(context).size.width * 0.05,
-                    0
-                ),
-                child: HomeBackground(_pc)
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   getAlertPage(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -197,7 +170,4 @@ class _HomeState extends State<Home> {
     }
   }
 }
-
-
-
 

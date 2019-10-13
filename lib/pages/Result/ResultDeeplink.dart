@@ -11,7 +11,6 @@ import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
-import 'package:thepublictransport_app/ui/animations/Marquee.dart';
 
 import 'ResultDetailed.dart';
 
@@ -51,6 +50,10 @@ class ResultDeeplink extends StatefulWidget {
 }
 
 class _ResultDeeplinkState extends State<ResultDeeplink> {
+  BorderRadiusGeometry radius = BorderRadius.only(
+    topLeft: Radius.circular(36.0),
+    topRight: Radius.circular(36.0),
+  );
 
   final String fromName;
   final String toName;
@@ -70,17 +73,17 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.status == "light" ? Colors.black : theme.cardColor,
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FloatingActionButton(
-              heroTag: "HEROOOO2",
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              backgroundColor: theme.floatingActionButtonColor,
-              child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
+            heroTag: "HEROOOO2",
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            backgroundColor: theme.floatingActionButtonColor,
+            child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
           ),
           SizedBox(
             width: 10,
@@ -97,7 +100,8 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
                   '&time=' + time.hour.toString() + ":" + time.minute.toString().padLeft(2, '0') +
                   '&barrier=' + barrier.toString() +
                   '&slowwalk=' + slowwalk.toString() +
-                  '&fastroute=' + fastroute.toString();
+                  '&fastroute=' + fastroute.toString() +
+                  '&source=' + source;
 
               var shortened = await ShortenerService.createLink(Uri.encodeFull(prepared).toString());
 
@@ -114,93 +118,67 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * 0.20,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: theme.status == "light" ? Colors.black : theme.cardColor,
+            ),
+            height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
+            child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 20),
                   Text(
                     "Suche",
                     style: TextStyle(
-                        color: theme.titleColor,
-                        fontSize: 30,
-                        fontFamily: 'NunitoSansBold'
+                        fontFamily: 'NunitoSansBold',
+                        fontSize: 40,
+                        color: Colors.white
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("Von:", style: TextStyle(color: theme.textColor)),
-                              Text("Nach:", style: TextStyle(color: theme.textColor))
-                            ],
-                          ),
-                          SizedBox(width: 10),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Marquee(
-                                  direction: Axis.horizontal,
-                                  child: Text(
-                                    fromName,
-                                    style: TextStyle(
-                                      fontFamily: 'NunitoSansBold',
-                                        color: theme.textColor
-                                    ),
-                                  ),
-                                ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              fromName,
+                              style: TextStyle(
+                                  color: Colors.white
                               ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Marquee(
-                                  direction: Axis.horizontal,
-                                  child: Text(
-                                    toName,
-                                    style: TextStyle(
-                                        fontFamily: 'NunitoSansBold',
-                                        color: theme.textColor
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            time.hour.toString() + ":" + time.minute.toString().padLeft(2, '0'),
-                            style: TextStyle(
-                                color: theme.textColor
                             ),
-                          ),
-                          Text(
+                            Text(
+                              toName,
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              time.hour.toString() + ":" + time.minute.toString().padLeft(2, '0'),
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                            Text(
                               date.day.toString().padLeft(2, '0') + "." + date.month.toString().padLeft(2, '0') + "." + date.year.toString().padLeft(4, '0'),
-                            style: TextStyle(
-                                color: theme.textColor
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
                             ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -213,15 +191,21 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
                     case ConnectionState.active:
                     case ConnectionState.waiting:
                     case ConnectionState.none:
-                      return Center(
-                        child: SizedBox(
-                          width: 500,
-                          height: 500,
-                          child: FlareActor(
-                            'anim/cloud_loading.flr',
-                            alignment: Alignment.center,
-                            fit: BoxFit.contain,
-                            animation: 'Sync',
+                      return ClipRRect(
+                        borderRadius: radius,
+                        child: Container(
+                          color: theme.backgroundColor,
+                          child: Center(
+                            child: SizedBox(
+                              width: 500,
+                              height: 500,
+                              child: FlareActor(
+                                'anim/cloud_loading.flr',
+                                alignment: Alignment.center,
+                                fit: BoxFit.contain,
+                                animation: 'Sync',
+                              ),
+                            ),
                           ),
                         ),
                       );
@@ -230,15 +214,28 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
                         return Text(snapshot.error);
                       } else {
                         if (snapshot.data.trips == null) {
-                          return Center(
-                            child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
+                          return ClipRRect(
+                            borderRadius: radius,
+                            child: Container(
+                              color: theme.backgroundColor,
+                              child: Center(
+                                child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
+                              ),
+                            ),
                           );
                         }
-                        return ListView.builder(
-                            itemCount: snapshot.data.trips.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return createCard(snapshot.data.trips[index]);
-                            }
+                        return ClipRRect(
+                          borderRadius: radius,
+                          child: Container(
+                            height: double.infinity,
+                            color: theme.backgroundColor,
+                            child: ListView.builder(
+                                itemCount: snapshot.data.trips.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return createCard(snapshot.data.trips[index]);
+                                }
+                            ),
+                          ),
                         );
                       }
                   }

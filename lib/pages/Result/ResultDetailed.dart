@@ -26,6 +26,10 @@ class ResultDetailed extends StatefulWidget {
 }
 
 class _ResultDetailedState extends State<ResultDetailed> {
+  BorderRadiusGeometry radius = BorderRadius.only(
+    topLeft: Radius.circular(36.0),
+    topRight: Radius.circular(36.0),
+  );
 
   final Trip trip;
 
@@ -33,6 +37,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
 
   DateTime begin;
   DateTime end;
+  Duration diff;
+  String diffString;
 
   var theme = ThemeEngine.getCurrentTheme();
 
@@ -42,6 +48,8 @@ class _ResultDetailedState extends State<ResultDetailed> {
   void initState() {
     begin = UnixTimeParser.parse(trip.firstDepartureTime);
     end = UnixTimeParser.parse(trip.lastArrivalTime);
+    diff = difference(begin, end);
+    diffString ="${diff.inHours}:${diff.inMinutes.remainder(60)}";
   }
 
 
@@ -49,7 +57,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.status == "light" ? Colors.black : theme.cardColor,
       floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_close,
         backgroundColor: theme.titleColor,
@@ -61,109 +69,90 @@ class _ResultDetailedState extends State<ResultDetailed> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * 0.20,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: theme.status == "light" ? Colors.black : theme.cardColor,
+            ),
+            height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
+            child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 20),
                   Text(
                     "Suche",
                     style: TextStyle(
-                        color: theme.titleColor,
-                        fontSize: 30,
-                        fontFamily: 'NunitoSansBold'
+                        fontFamily: 'NunitoSansBold',
+                        fontSize: 40,
+                        color: Colors.white
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("Von:", style: TextStyle(color: theme.textColor)),
-                              Text("Nach:", style: TextStyle(color: theme.textColor))
-                            ],
-                          ),
-                          SizedBox(width: 10),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Marquee(
-                                  direction: Axis.horizontal,
-                                  child: Text(
-                                    trip.from.name + (trip.from.place != null ? ", " + trip.from.place : ""),
-                                    style: TextStyle(
-                                        fontFamily: 'NunitoSansBold',
-                                        color: theme.textColor
-                                    ),
-                                  ),
-                                ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              trip.from.name + (trip.from.place != null ? ", " + trip.from.place : ""),
+                              style: TextStyle(
+                                  color: Colors.white
                               ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Marquee(
-                                  direction: Axis.horizontal,
-                                  child: Text(
-                                    trip.to.name + (trip.to.place != null ? ", " + trip.to.place : ""),
-                                    style: TextStyle(
-                                        fontFamily: 'NunitoSansBold',
-                                        color: theme.textColor
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            begin.hour.toString() + ":" + begin.minute.toString().padLeft(2, '0'),
-                            style: TextStyle(
-                                fontFamily: 'NunitoSansBold',
-                                color: theme.textColor
                             ),
-                          ),
-                          Text(
-                            end.hour.toString() + ":" + end.minute.toString().padLeft(2, '0'),
-                            style: TextStyle(
-                                fontFamily: 'NunitoSansBold',
-                                color: theme.textColor
+                            Text(
+                              trip.to.name + (trip.to.place != null ? ", " + trip.to.place : ""),
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              diffString,
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                            Text(
+                              begin.day.toString().padLeft(2, '0') + "." + begin.month.toString().padLeft(2, '0') + "." + begin.year.toString().padLeft(4, '0'),
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
           ),
           Flexible(
-            child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: trip.legs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return createCard(trip.legs[index], index + 1 != trip.legs.length ? trip.legs[index + 1] :  null);
-                }
+            child: ClipRRect(
+              borderRadius: radius,
+              child: Container(
+                height: double.infinity,
+                color: theme.backgroundColor,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: trip.legs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return createCard(trip.legs[index], index + 1 != trip.legs.length ? trip.legs[index + 1] :  null);
+                    }
+                ),
+              ),
             ),
           )
         ],
@@ -202,6 +191,9 @@ class _ResultDetailedState extends State<ResultDetailed> {
     return Column(
       children: <Widget>[
         Card(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0)
+          ),
           color: theme.cardColor,
           child: Container(
             padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -428,7 +420,6 @@ class _ResultDetailedState extends State<ResultDetailed> {
     if (futureLeg == null)
       return Container();
 
-
     var begin = UnixTimeParser.parse(leg.arrivalTime + (leg.arrivalDelay != null ? leg.arrivalDelay : 0));
     var end = UnixTimeParser.parse(futureLeg.departureTime + (futureLeg.departureDelay != null ? futureLeg.departureDelay : 0));
     var difference = end.difference(begin);
@@ -650,5 +641,9 @@ class _ResultDetailedState extends State<ResultDetailed> {
         ),
       ],
     );
+  }
+
+  Duration difference(DateTime begin, DateTime end) {
+    return end.difference(begin);
   }
 }

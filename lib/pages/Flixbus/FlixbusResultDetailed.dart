@@ -15,6 +15,10 @@ class FlixbusResultDetailed extends StatefulWidget {
 }
 
 class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
+  BorderRadiusGeometry radius = BorderRadius.only(
+    topLeft: Radius.circular(36.0),
+    topRight: Radius.circular(36.0),
+  );
 
   final Message trip;
 
@@ -22,6 +26,8 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
 
   DateTime begin;
   DateTime end;
+  Duration diff;
+  String diffString;
 
   var theme = ThemeEngine.getCurrentTheme();
 
@@ -29,16 +35,16 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
   void initState() {
     begin = trip.legs.first.departure;
     end = trip.legs.last.arrival;
+    diff = difference(begin, end);
+    diffString ="${diff.inHours}:${diff.inMinutes.remainder(60)}";
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: Colors.lightGreen,
       floatingActionButton: FloatingActionButton(
-        heroTag: "HEROOOO2",
+        heroTag: "HEROOOO",
         onPressed: () {
           Navigator.of(context).pop();
         },
@@ -49,107 +55,86 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
       body: Column(
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * 0.20,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: Colors.lightGreen,
+            ),
+            height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
+            child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 20),
                   Text(
-                    "Suche",
+                    "Flixbus",
                     style: TextStyle(
-                        color: theme.titleColor,
-                        fontSize: 30,
-                        fontFamily: 'NunitoSansBold'
+                        fontFamily: 'NunitoSansBold',
+                        fontSize: 40,
+                        color: Colors.white
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("Von:", style: TextStyle(color: theme.textColor)),
-                              Text("Nach:", style: TextStyle(color: theme.textColor))
-                            ],
-                          ),
-                          SizedBox(width: 10),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Marquee(
-                                  direction: Axis.horizontal,
-                                  child: Text(
-                                    trip.legs.first.origin.name,
-                                    style: TextStyle(
-                                        fontFamily: 'NunitoSansBold',
-                                        color: theme.textColor
-                                    ),
-                                  ),
-                                ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              trip.legs.first.origin.name,
+                              style: TextStyle(
+                                  color: Colors.white
                               ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Marquee(
-                                  direction: Axis.horizontal,
-                                  child: Text(
-                                    trip.legs.last.destination.name,
-                                    style: TextStyle(
-                                        fontFamily: 'NunitoSansBold',
-                                        color: theme.textColor
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            begin.hour.toString() + ":" + begin.minute.toString().padLeft(2, '0'),
-                            style: TextStyle(
-                                fontFamily: 'NunitoSansBold',
-                                color: theme.textColor
                             ),
-                          ),
-                          Text(
-                            end.hour.toString() + ":" + end.minute.toString().padLeft(2, '0'),
-                            style: TextStyle(
-                                fontFamily: 'NunitoSansBold',
-                                color: theme.textColor
+                            Text(
+                              trip.legs.last.destination.name,
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              diffString,
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                            Text(
+                              begin.day.toString().padLeft(2, '0') + "." + begin.month.toString().padLeft(2, '0') + "." + begin.year.toString().padLeft(4, '0'),
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
           ),
           Flexible(
-            child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: trip.legs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return createCard(trip.legs[index], index + 1 != trip.legs.length ? trip.legs[index + 1] :  null);
-                }
+            child: ClipRRect(
+              borderRadius: radius,
+              child: Container(
+                height: double.infinity,
+                color: theme.backgroundColor,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: trip.legs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return createCard(trip.legs[index], index + 1 != trip.legs.length ? trip.legs[index + 1] :  null);
+                    }
+                ),
+              ),
             ),
           )
         ],
@@ -188,6 +173,9 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
     return Column(
       children: <Widget>[
         Card(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0)
+          ),
           color: theme.cardColor,
           child: Container(
             padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -201,7 +189,7 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        getTime(leg.arrival),
+                        getTime(leg.departure),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.50,
                           child: Marquee(
@@ -359,5 +347,9 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
         );
       },
     );
+  }
+
+  Duration difference(DateTime begin, DateTime end) {
+    return end.difference(begin);
   }
 }

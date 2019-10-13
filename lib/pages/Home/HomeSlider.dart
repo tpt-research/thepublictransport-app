@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:preferences/preferences.dart';
-import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
-import 'package:thepublictransport_app/framework/scale/Scaler.dart';
+import 'package:thepublictransport_app/backend/service/geocode/Geocode.dart';
+import 'package:thepublictransport_app/backend/service/nominatim/NominatimRequest.dart';
+import 'package:thepublictransport_app/framework/theme/PredefinedColors.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
-import 'package:thepublictransport_app/pages/Result/Result.dart';
-import 'package:thepublictransport_app/pages/Search/Search.dart';
-import 'package:thepublictransport_app/pages/Station/Station.dart';
-import 'package:thepublictransport_app/ui/animations/ShowUp.dart';
-import 'package:thepublictransport_app/ui/components/OptionSwitch.dart';
-import 'package:thepublictransport_app/ui/components/Searchbar.dart';
+import 'package:thepublictransport_app/pages/Delay/Delay.dart';
+import 'package:thepublictransport_app/pages/Flixbus/FlixbusSearch.dart';
+import 'package:thepublictransport_app/pages/ICEPortal/ICEPortal.dart';
+import 'package:thepublictransport_app/pages/SavedTrips/SavedTrips.dart';
+import 'package:thepublictransport_app/pages/Sparpreis/SparpreisSearch.dart';
+import 'package:thepublictransport_app/ui/components/SelectionButtons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeSlider extends StatefulWidget {
   @override
@@ -18,354 +19,176 @@ class HomeSlider extends StatefulWidget {
 }
 
 class _HomeSliderState extends State<HomeSlider> {
-
   var theme = ThemeEngine.getCurrentTheme();
-
-  TimeOfDay setup_time = new TimeOfDay.now();
-  DateTime setup_date = new DateTime.now();
-
-  bool accessibility = false;
-
-  SuggestedLocation stop_search;
-
-  SuggestedLocation from_search;
-  SuggestedLocation to_search;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(top: 10),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            width: 80,
-            height: 5,
-            decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(50)
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Container(
+              width: 80,
+              height: 5,
+              decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(50)
+              ),
             ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.04,
-          ),
-          Text(
-            "Menü",
-            style: TextStyle(
-                color: theme.textColor,
-                fontSize: 30,
-                fontFamily: 'NunitoSansBold'
+            SizedBox(
+              height: 20,
             ),
-          ),
-          Flexible(
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
+            Text(
+              "Erkunden Sie die Welt!",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: theme.textColor
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  child: GradientCard(
-                    gradient: Gradients.cosmicFusion,
-                    shadowColor: Gradients.cosmicFusion.colors.last.withOpacity(0.25),
-                    elevation: 8,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24.0)
-                    ),
-                    child: SizedBox(
-                      height: Scaler.heightScaling(context, 0.43),
-                      width: double.infinity,
-                      child: Container(
-                        padding: EdgeInsets.all(15),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.search, color: theme.titleColorInverted, size: 30),
-                                SizedBox(width: 5),
-                                Text(
-                                  "Suche",
-                                  style: TextStyle(
-                                      color: theme.titleColorInverted,
-                                      fontSize: 30,
-                                      fontFamily: 'NunitoSansBold'
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Searchbar(
-                              text: from_search != null ? from_search.location.name : "Start",
-                              onTap: () async {
-                                var result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => Search()));
-
-                                if (result != null) {
-                                  setState(() {
-                                    from_search = result;
-                                  });
-                                }
-                              },
-                            ),
-                            Searchbar(
-                              text: to_search != null ? to_search.location.name : "Ziel",
-                              onTap: () async {
-                                var result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => Search()));
-
-                                if (result != null) {
-                                  setState(() {
-                                    to_search = result;
-                                  });
-                                }
-                              },
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                InkWell(
-                                  onTap: _selectTime,
-                                  child: Chip(
-                                    avatar: CircleAvatar(
-                                      backgroundColor: Colors.transparent,
-                                      foregroundColor: theme.iconColor,
-                                      child: Icon(Icons.access_time, size: 20, color: theme.iconColor),
-                                    ),
-                                    label: Text(
-                                      setup_time.hour.toString() + ":" + setup_time.minute.toString().padLeft(2, '0'),
-                                      style: TextStyle(
-                                          color: theme.textColor
-                                      ),
-                                    ),
-                                    backgroundColor: theme.backgroundColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                InkWell(
-                                  onTap: _selectDate,
-                                  child: Chip(
-                                    avatar: CircleAvatar(
-                                      backgroundColor: Colors.transparent,
-                                      foregroundColor: theme.iconColor,
-                                      child: Icon(MaterialCommunityIcons.calendar_search, size: 20, color: theme.iconColor),
-                                    ),
-                                    label: Text(
-                                      setup_date.day.toString().padLeft(2, '0') + "." + setup_date.month.toString().padLeft(2, '0') + "." + setup_date.year.toString().padLeft(4, '0'),
-                                      style: TextStyle(
-                                          color: theme.textColor
-                                      ),
-                                    ),
-                                    backgroundColor: theme.backgroundColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                OutlineButton(
-                                  onPressed: () {
-                                    showOptionsModal();
-                                  },
-                                  borderSide: BorderSide(color: theme.foregroundColor, width: 1.0),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  color: Colors.transparent,
-                                  child: Text(
-                                    "Optionen",
-                                    style: TextStyle(
-                                        color: theme.foregroundColor
-                                    ),
-                                  ),
-                                ),
-                                FloatingActionButton(
-                                  onPressed: () {
-                                    if (from_search == null) return;
-                                    if (to_search == null) return;
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Result(
-                                      from_search: from_search,
-                                      to_search: to_search,
-                                      time: setup_time,
-                                      date: setup_date,
-                                      barrier: PrefService.getBool("wheelchair_mode") ?? false,
-                                      fastroute: PrefService.getBool("fast_mode") ?? false,
-                                      slowwalk: PrefService.getBool("walk_mode") ?? false,
-                                    )));
-                                  },
-                                  heroTag: "HEROOOO2",
-                                  backgroundColor: theme.foregroundColor,
-                                  child: Icon(Icons.search, color: theme.iconColor),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                SelectionButtons(
+                  gradient: Gradients.jShine,
+                  description: Text(
+                    "Gespeichert",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: theme.textColor
                     ),
                   ),
+                  icon: Icon(
+                    Icons.save,
+                    color: theme.titleColorInverted,
+                    size: 30,
+                  ),
+                  callback: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SavedTrips()));
+                  },
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.04),
-                  child: GradientCard(
-                    gradient: Gradients.jShine,
-                    shadowColor: Gradients.jShine.colors.last.withOpacity(0.25),
-                    elevation: 8,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24.0)
-                    ),
-                    child: SizedBox(
-                      height: Scaler.heightScaling(context, 0.30),
-                      width: double.infinity,
-                      child: Container(
-                        padding: EdgeInsets.all(15),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.location_on, color: theme.titleColorInverted, size: 30),
-                                SizedBox(width: 5),
-                                Text(
-                                  "Haltestellensuche",
-                                  style: TextStyle(
-                                      color: theme.titleColorInverted,
-                                      fontSize: 30,
-                                      fontFamily: 'NunitoSansBold'
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Searchbar(
-                              text: stop_search != null ? stop_search.location.name : "Suche",
-                              onTap: () async {
-                                var result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => Search()));
-
-                                if (result != null) {
-                                  setState(() {
-                                    stop_search = result;
-                                  });
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                FloatingActionButton(
-                                  onPressed: () {
-                                    if (stop_search == null) return;
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Station(stop_search.location)));
-                                  },
-                                  heroTag: "HEROOOO3",
-                                  backgroundColor: theme.foregroundColor,
-                                  child: Icon(Icons.location_on, color: theme.iconColor),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                SelectionButtons(
+                  gradient: Gradients.rainbowBlue,
+                  description: Text(
+                    "Verspätungen",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: theme.textColor
                     ),
                   ),
+                  icon: Icon(
+                    MaterialCommunityIcons.bus_alert,
+                    color: theme.titleColorInverted,
+                    size: 30,
+                  ),
+                  callback: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Delay()));
+                  },
+                ),
+                SelectionButtons(
+                  gradient: PredefinedColors.getDBGradient(),
+                  description: Text(
+                    "Sparpreise",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: theme.textColor
+                    ),
+                  ),
+                  icon: Icon(
+                    Icons.monetization_on,
+                    color: theme.titleColorInverted,
+                    size: 30,
+                  ),
+                  callback: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SparpreisSearch()));
+                  },
                 ),
               ],
             ),
-          ),
-        ],
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SelectionButtons(
+                  gradient: PredefinedColors.getFlixbusGradient(),
+                  description: Text(
+                    "Flixbus Suche",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: theme.textColor
+                    ),
+                  ),
+                  icon: Icon(
+                    Icons.directions_bus,
+                    color: theme.titleColorInverted,
+                    size: 30,
+                  ),
+                  callback: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlixbusSearch()));
+                  },
+                ),
+                SelectionButtons(
+                  gradient: PredefinedColors.getICEGradient(),
+                  description: Text(
+                    "ICEPortal",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: theme.textColor
+                    ),
+                  ),
+                  icon: Icon(
+                    Icons.train,
+                    color: theme.titleColorInverted,
+                    size: 30,
+                  ),
+                  callback: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ICEPortal()));
+                  },
+                ),
+                SelectionButtons(
+                  gradient: Gradients.backToFuture,
+                  description: Text(
+                    "Sightseeing",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: theme.textColor
+                    ),
+                  ),
+                  icon: Icon(
+                    MaterialCommunityIcons.city,
+                    color: theme.titleColorInverted,
+                    size: 30,
+                  ),
+                  callback: () async {
+                    await sightseeingGMaps();
+                  },
+                ),
+              ],
+            )
+          ]
       ),
     );
   }
 
+  sightseeingGMaps() async {
+    var coordinates = await Geocode.location();
+    var nominatim = await NominatimRequest.getPlace(coordinates.latitude, coordinates.longitude);
 
-  showOptionsModal() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Scaffold(
-          backgroundColor: theme.backgroundColor,
-          body: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              new OptionSwitch(
-                title: "Barrierefreiheit",
-                icon: Icons.accessible,
-                id: "wheelchair_mode",
-                default_bool: false,
-              ),
-              new OptionSwitch(
-                title: "Schnellste Route",
-                icon: Icons.fast_forward,
-                id: "fast_mode",
-                default_bool: true,
-              ),
-              new OptionSwitch(
-                title: "Längere Laufzeit",
-                icon: Icons.directions_walk,
-                id: "walk_mode",
-                default_bool: false,
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+    var url = 'https://www.google.com/maps/search/'+ nominatim.address.city + '+point+of+interest';
 
-  Future _selectTime() async {
-    TimeOfDay selectedTime24Hour = await showTimePicker(
-      context: context,
-      initialTime: setup_time,
-      builder: (BuildContext context, Widget child) {
-        return ShowUp(
-          child: MediaQuery(
-            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-            child: child,
-          ),
-        );
-      },
-    );
-
-    if (selectedTime24Hour != null)
-      setState(() {
-        setup_time = selectedTime24Hour;
-      });
-  }
-
-  Future _selectDate() async {
-    DateTime picked = await showDatePicker(
-      context: context,
-      initialDate: setup_date,
-      firstDate: new DateTime(2019),
-      lastDate: new DateTime(2020),
-      builder: (BuildContext context, Widget child) {
-        return ShowUp(
-          child: MediaQuery(
-            data: MediaQuery.of(context),
-            child: child,
-          ),
-        );
-      },
-    );
-
-    if (picked != null)
-      setState(() {
-        setup_date = picked;
-      });
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
-

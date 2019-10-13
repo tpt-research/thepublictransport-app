@@ -6,6 +6,7 @@ import 'package:thepublictransport_app/backend/service/sparpreis/SparpreisServic
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AlternativeSparpreis extends StatefulWidget {
   final String fromID;
@@ -95,10 +96,13 @@ class _AlternativeSparpreisState extends State<AlternativeSparpreis> {
 
 
     return Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0)
+      ),
       color: theme.cardColor,
       child: InkWell(
         onTap: () {
-
+          getDBPage(message);
         },
         child: Container(
           height: MediaQuery.of(context).size.height * 0.15,
@@ -189,5 +193,15 @@ class _AlternativeSparpreisState extends State<AlternativeSparpreis> {
 
   Future<SparpreisFinderModel> getSparpreise() async {
     return SparpreisService.getSparpreise(fromID, toID, DateParser.getPureRFCDate(dateTime));
+  }
+
+  getDBPage(Message message) async {
+    var url = 'https://link.bahn.guru/?journey=' + message.toRawJson() + '&bc=0&class=2';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

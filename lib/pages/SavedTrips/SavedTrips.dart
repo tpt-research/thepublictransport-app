@@ -14,21 +14,22 @@ class SavedTrips extends StatefulWidget {
 
   const SavedTrips({Key key}) : super(key: key);
 
-
   @override
   _SavedTripsState createState() => _SavedTripsState();
 }
 
 class _SavedTripsState extends State<SavedTrips> {
-
-  _SavedTripsState();
+  BorderRadiusGeometry radius = BorderRadius.only(
+    topLeft: Radius.circular(36.0),
+    topRight: Radius.circular(36.0),
+  );
 
   var theme = ThemeEngine.getCurrentTheme();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: Color(0xfff64f59),
       floatingActionButton: FloatingActionButton(
           heroTag: "HEROOOO",
           onPressed: () {
@@ -43,24 +44,18 @@ class _SavedTripsState extends State<SavedTrips> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * 0.20,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Center(
-                    child: Text(
-                      "Gespeicherte Fahrten",
-                      style: TextStyle(
-                          color: theme.titleColor,
-                          fontSize: 30,
-                          fontFamily: 'NunitoSansBold'
-                      ),
-                    ),
-                  ),
-                ],
+            decoration: BoxDecoration(
+              color: Color(0xfff64f59),
+            ),
+            height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
+            child: Center(
+              child: Text(
+                "Gespeicherte Fahrten",
+                style: TextStyle(
+                    fontFamily: 'NunitoSansBold',
+                    fontSize: 40,
+                    color: Colors.white
+                ),
               ),
             ),
           ),
@@ -72,42 +67,91 @@ class _SavedTripsState extends State<SavedTrips> {
                     case ConnectionState.active:
                     case ConnectionState.waiting:
                     case ConnectionState.none:
-                      return Center(
-                        child: SizedBox(
-                          width: 500,
-                          height: 500,
-                          child: FlareActor(
-                            'anim/cloud_loading.flr',
-                            alignment: Alignment.center,
-                            fit: BoxFit.contain,
-                            animation: 'Sync',
+                    return ClipRRect(
+                      borderRadius: radius,
+                      child: Container(
+                        height: double.infinity,
+                        color: theme.backgroundColor,
+                        child: Center(
+                          child: SizedBox(
+                            width: 500,
+                            height: 500,
+                            child: FlareActor(
+                              'anim/cloud_loading.flr',
+                              alignment: Alignment.center,
+                              fit: BoxFit.contain,
+                              animation: 'Sync',
+                            ),
                           ),
                         ),
-                      );
+                      ),
+                    );
                     case ConnectionState.done:
                       if (snapshot.hasError) {
-                        return Text(snapshot.error);
+                        return ClipRRect(
+                          borderRadius: radius,
+                          child: Container(
+                              color: theme.backgroundColor,
+                              height: double.infinity,
+                              child: Center(
+                                  child: Text(
+                                      snapshot.error,
+                                      style: TextStyle(
+                                          color: theme.subtitleColor
+                                      )
+                                )
+                              )
+                          ),
+                        );
                       } else {
                         if (snapshot.data == null) {
-                          return Center(
-                            child: Text("Keine Trips gespeichert", style: TextStyle(color: theme.subtitleColor)),
+                          return ClipRRect(
+                            borderRadius: radius,
+                            child: Container(
+                              height: double.infinity,
+                              color: theme.backgroundColor,
+                              child: Center(
+                                child: Text("Keine Trips gespeichert", style: TextStyle(color: theme.subtitleColor)),
+                              ),
+                            ),
                           );
                         }
                         if (snapshot.data.length == 0) {
-                          return Center(
-                            child: Text("Keine Trips gespeichert", style: TextStyle(color: theme.subtitleColor)),
+                          return ClipRRect(
+                            borderRadius: radius,
+                            child: Container(
+                              height: double.infinity,
+                              color: theme.backgroundColor,
+                              child: Center(
+                                child: Text("Keine Trips gespeichert", style: TextStyle(color: theme.subtitleColor)),
+                              ),
+                            ),
                           );
                         }
-                        return ListView.builder(
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return createCard(snapshot.data[index]);
-                            }
+                        return ClipRRect(
+                          borderRadius: radius,
+                          child: Container(
+                            height: double.infinity,
+                            color: theme.backgroundColor,
+                            child: ListView.builder(
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return createCard(snapshot.data[index]);
+                                }
+                            ),
+                          ),
                         );
                       }
                   }
-                  return Center(
-                    child: Text("Keine Trips gespeichert", style: TextStyle(color: theme.subtitleColor)),
+                  return ClipRRect(
+                    borderRadius: radius,
+                    child: Container(
+                      height: double.infinity,
+                      color: theme.backgroundColor,
+                      child: Center(
+                        child: Text("Keine Trips gespeichert", style: TextStyle(color: theme.subtitleColor)),
+                      ),
+                    ),
                   );
                 }
             ),
@@ -134,6 +178,9 @@ class _SavedTripsState extends State<SavedTrips> {
 
 
     return Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0)
+      ),
       color: theme.cardColor,
       child: InkWell(
         onTap: () async {

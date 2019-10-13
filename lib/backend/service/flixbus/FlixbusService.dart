@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
 import 'package:thepublictransport_app/backend/constants/FlixConstants.dart';
 import 'package:thepublictransport_app/backend/models/core/DB2FlixModel.dart';
 import 'package:thepublictransport_app/backend/models/core/FlixbusJourneyModel.dart';
@@ -28,6 +25,16 @@ class FlixbusService {
               "/de",
         timeout: 5000
     );
+
+    print(FlixConstants.API_URL +
+        FlixConstants.API_ENDPOINT_FLIX +
+        FlixConstants.API_ENDPOINT_JOURNEY +
+        "/" + from +
+        "/" + fromType +
+        "/" + to +
+        "/" + toType +
+        "/" + when +
+        "/de");
 
     return FlixbusJourneyModel.fromJson(result);
   }
