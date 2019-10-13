@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:preferences/preferences.dart';
-import 'package:sprung/next.dart';
 import 'package:thepublictransport_app/backend/database/TripDatabaseHelper.dart';
 import 'package:thepublictransport_app/backend/models/main/From.dart';
 import 'package:thepublictransport_app/backend/models/main/Leg.dart';

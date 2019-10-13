@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/pages/Home/Home.dart';
 import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
