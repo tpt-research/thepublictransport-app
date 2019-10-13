@@ -11,6 +11,7 @@ import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 import 'package:thepublictransport_app/pages/Alternative/Alternative.dart';
 import 'package:thepublictransport_app/pages/Alternative/AlternativeTrip.dart';
+import 'package:thepublictransport_app/pages/Result/ResultMap.dart';
 import 'package:thepublictransport_app/pages/Station/Station.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
 import 'package:toast/toast.dart';
@@ -58,14 +59,13 @@ class _ResultDetailedState extends State<ResultDetailed> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: theme.status == "light" ? Colors.black : theme.cardColor,
-      floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.menu_close,
-        backgroundColor: theme.titleColor,
-        overlayColor: theme.backgroundColor,
-        curve: Sprung.overDamped(),
+      floatingActionButton: FloatingActionButton(
         heroTag: "HEROOOO2",
-        animatedIconTheme: IconThemeData(size: 22.0, color: theme.titleColorInverted),
-          children: getPreferencedSelectMenu()
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        backgroundColor: theme.floatingActionButtonColor,
+        child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Column(
@@ -130,6 +130,54 @@ class _ResultDetailedState extends State<ResultDetailed> {
                               ),
                             ),
                           ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ClipOval(
+                          child: Material(
+                            color: Colors.white, // button color
+                            child: InkWell(
+                              splashColor: Colors.white, // inkwell color
+                              child: SizedBox(width: 40, height: 40, child: Icon(Icons.map, color: Colors.black)),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResultMap(trip: trip)));
+                              },
+                            ),
+                          ),
+                        ),
+                        ClipOval(
+                          child: Material(
+                            color: Colors.white, // button color
+                            child: InkWell(
+                              splashColor: Colors.white, // inkwell color
+                              child: SizedBox(width: 40, height: 40, child: Icon(Icons.save, color: Colors.black)),
+                              onTap: () async {
+                                await _databaseHelper.insert(trip).then((res) {
+                                  Toast.show("Speichern abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                                }).catchError((err) {
+                                  Toast.show("Speichern fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        ClipOval(
+                          child: Material(
+                            color: Colors.white, // button color
+                            child: InkWell(
+                              splashColor: Colors.white, // inkwell color
+                              child: SizedBox(width: 40, height: 40, child: Icon(Icons.monetization_on, color: Colors.black)),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlternativeTrip(trip: trip)));
+                              },
+                            ),
+                          ),
                         ),
                       ],
                     ),
