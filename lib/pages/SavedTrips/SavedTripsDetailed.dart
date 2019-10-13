@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:sprung/next.dart';
 import 'package:thepublictransport_app/backend/database/TripDatabaseHelper.dart';
 import 'package:thepublictransport_app/backend/models/main/From.dart';
 import 'package:thepublictransport_app/backend/models/main/Leg.dart';
@@ -10,6 +8,7 @@ import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 import 'package:thepublictransport_app/pages/Alternative/Alternative.dart';
 import 'package:thepublictransport_app/pages/Alternative/AlternativeTrip.dart';
+import 'package:thepublictransport_app/pages/Result/ResultMap.dart';
 import 'package:thepublictransport_app/pages/Station/Station.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
 import 'package:toast/toast.dart';
@@ -57,43 +56,13 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff64f59),
-      floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.menu_close,
-        backgroundColor: theme.titleColor,
-        overlayColor: theme.backgroundColor,
-        curve: Sprung.overDamped(),
+      floatingActionButton: FloatingActionButton(
         heroTag: "HEROOOO2",
-        animatedIconTheme: IconThemeData(size: 22.0, color: theme.titleColorInverted),
-          children: [
-            SpeedDialChild(
-                child: Icon(Icons.arrow_back),
-                backgroundColor: Colors.red,
-                label: 'Zurück',
-                labelStyle: TextStyle(fontSize: 18.0),
-                onTap: () => Navigator.of(context).pop()
-            ),
-            SpeedDialChild(
-              child: Icon(Icons.monetization_on),
-              backgroundColor: Colors.blue,
-              label: 'Günstige Alternative finden',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlternativeTrip(trip: trip))),
-            ),
-            SpeedDialChild(
-              child: Icon(Icons.close),
-              backgroundColor: Colors.green,
-              label: 'Entfernen',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () async {
-                await _databaseHelper.delete(trip).then((res) {
-                  Toast.show("Entfernen abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
-                  Navigator.of(context).pop();
-                }).catchError((err) {
-                  Toast.show("Entfernen fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
-                });
-              },
-            ),
-          ]
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        backgroundColor: theme.floatingActionButtonColor,
+        child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Column(
@@ -156,6 +125,58 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
                               ),
                             ),
                           ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ClipOval(
+                          child: Material(
+                            color: Colors.white, // button color
+                            child: InkWell(
+                              splashColor: Colors.white, // inkwell color
+                              child: SizedBox(width: 40, height: 40, child: Icon(Icons.map, color: Colors.black)),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResultMap(trip: trip)));
+                              },
+                            ),
+                          ),
+                        ),
+                        ClipOval(
+                          child: Material(
+                            color: Colors.white, // button color
+                            child: InkWell(
+                              splashColor: Colors.white, // inkwell color
+                              child: SizedBox(width: 40, height: 40, child: Icon(Icons.delete_forever, color: Colors.black)),
+                              onTap: () async {
+                                await _databaseHelper.delete(trip).then((res) {
+                                  Toast.show("Speichern abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                                  Navigator.of(context).pop();
+                                  setState(() {
+
+                                  });
+                                }).catchError((err) {
+                                  Toast.show("Speichern fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        ClipOval(
+                          child: Material(
+                            color: Colors.white, // button color
+                            child: InkWell(
+                              splashColor: Colors.white, // inkwell color
+                              child: SizedBox(width: 40, height: 40, child: Icon(Icons.monetization_on, color: Colors.black)),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlternativeTrip(trip: trip)));
+                              },
+                            ),
+                          ),
                         ),
                       ],
                     ),
