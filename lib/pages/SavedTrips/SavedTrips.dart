@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:thepublictransport_app/backend/database/TripDatabaseHelper.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
@@ -25,6 +26,17 @@ class _SavedTripsState extends State<SavedTrips> {
   );
 
   var theme = ThemeEngine.getCurrentTheme();
+
+  @override
+  void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: theme.backgroundColor,
+      statusBarColor: Colors.transparent, // status bar color
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

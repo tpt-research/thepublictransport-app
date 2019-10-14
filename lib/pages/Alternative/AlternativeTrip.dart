@@ -1,5 +1,6 @@
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sprung/next.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
@@ -32,10 +33,22 @@ class _AlternativeTripState extends State<AlternativeTrip> {
   var theme = ThemeEngine.getCurrentTheme();
 
   @override
+  void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: theme.backgroundColor,
+      statusBarColor: Colors.transparent, // status bar color
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var time = UnixTimeParser.parse(trip.firstDepartureTime);
 
     return Scaffold(
+      extendBody: true,
       backgroundColor: Colors.blueAccent,
       floatingActionButton: FloatingActionButton(
         heroTag: "HEROOOO2",
@@ -46,47 +59,43 @@ class _AlternativeTripState extends State<AlternativeTrip> {
         child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BubbleBottomBar(
-        backgroundColor: theme.backgroundColor,
-        opacity: .2,
-        currentIndex: _selectedIndex,
-        onTap: (index) => setState(() {
-          _selectedIndex = index;
-          _pageController.animateToPage(index,
-              duration: Duration(milliseconds: 300), curve: Sprung.overDamped());
-        }),
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-        elevation: 8,
-        fabLocation: BubbleBottomBarFabLocation.center, //new
-        hasNotch: true, //new
-        hasInk: true,
-        inkColor: Colors.black12,
-        items: <BubbleBottomBarItem>[
-          BubbleBottomBarItem(
-              backgroundColor: Colors.red,
-              icon: Icon(
-                Icons.train,
-                color: theme.iconColor,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 40),
+          height: 75,
+          color: theme.backgroundColor,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                iconSize: 30.0,
+                padding: EdgeInsets.only(left: 28.0),
+                icon: Icon(Icons.train, color: _selectedIndex == 0 ? Colors.red : Colors.grey),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                    _pageController.animateToPage(0,
+                        duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                  });
+                },
               ),
-              activeIcon: Icon(
-                Icons.train,
-                color: Colors.red,
+              IconButton(
+                iconSize: 30.0,
+                padding: EdgeInsets.only(right: 28.0),
+                icon: Icon(Icons.directions_bus, color: _selectedIndex == 1 ? Colors.lightGreen : Colors.grey),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                    _pageController.animateToPage(1,
+                        duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                  });
+                },
               ),
-              title: Text("Deutsche Bahn")
+            ],
           ),
-          BubbleBottomBarItem(
-              backgroundColor: Colors.lightGreen,
-              icon: Icon(
-                Icons.directions_bus,
-                color: theme.iconColor,
-              ),
-              activeIcon: Icon(
-                Icons.directions_bus,
-                color: Colors.lightGreen,
-              ),
-              title: Text("Flixbus")
-          ),
-        ],
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,

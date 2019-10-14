@@ -5,6 +5,7 @@
 | Version  | Supported          |
 | -------  | ------------------ |
 | master   | :white_check_mark: |
+| beta     | :white_check_mark: |
 | latest   | :white_check_mark: |
 | old-vers | :x:                |
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:preferences/preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -118,8 +119,14 @@ class _HomeNearbyState extends State<HomeNearby> {
                           ),
                         );
                       },
-                      onSuggestionSelected: (suggestion) {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Station(suggestion.location)));
+                      onSuggestionSelected: (suggestion) async {
+                        await Navigator.of(context).push(MaterialPageRoute(builder: (context) => Station(suggestion.location)));
+                        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                          systemNavigationBarColor: Colors.blueAccent,
+                          statusBarColor: Colors.transparent, // status bar color
+                          statusBarBrightness: Brightness.light,
+                          statusBarIconBrightness: Brightness.light,
+                        ));
                       },
                     ),
                   ),
@@ -129,7 +136,7 @@ class _HomeNearbyState extends State<HomeNearby> {
           ),
           Container(
             height: MediaQuery.of(context).padding.top,
-            color: Colors.grey.withAlpha(120),
+            color: Colors.black.withAlpha(120),
           ),
         ],
       ),

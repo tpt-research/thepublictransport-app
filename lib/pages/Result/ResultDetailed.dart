@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/database/TripDatabaseHelper.dart';
@@ -51,8 +52,6 @@ class _ResultDetailedState extends State<ResultDetailed> {
     diff = difference(begin, end);
     diffString ="${diff.inHours}:${diff.inMinutes.remainder(60)}";
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -172,8 +171,15 @@ class _ResultDetailedState extends State<ResultDetailed> {
                             child: InkWell(
                               splashColor: Colors.white, // inkwell color
                               child: SizedBox(width: 40, height: 40, child: Icon(Icons.monetization_on, color: Colors.black)),
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlternativeTrip(trip: trip)));
+                              onTap: () async {
+                                await Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlternativeTrip(trip: trip)));
+
+                                SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                                  systemNavigationBarColor: Colors.black,
+                                  statusBarColor: Colors.transparent, // status bar color
+                                  statusBarBrightness: Brightness.light,
+                                  statusBarIconBrightness: Brightness.light,
+                                ));
                               },
                             ),
                           ),
@@ -342,8 +348,15 @@ class _ResultDetailedState extends State<ResultDetailed> {
                               Icons.monetization_on,
                               color: theme.iconColor,
                             ),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Alternative(leg: leg)));
+                            onPressed: () async {
+                              await Navigator.of(context).push(MaterialPageRoute(builder: (context) => Alternative(leg: leg)));
+
+                              SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                                systemNavigationBarColor: Colors.black,
+                                statusBarColor: Colors.transparent, // status bar color
+                                statusBarBrightness: Brightness.light,
+                                statusBarIconBrightness: Brightness.light,
+                              ));
                             }
                         ),
                       ],
@@ -583,63 +596,6 @@ class _ResultDetailedState extends State<ResultDetailed> {
         );
       },
     );
-  }
-
-  List<SpeedDialChild> getPreferencedSelectMenu() {
-    if (PrefService.getString('public_transport_data') == 'DB') {
-      return [
-        SpeedDialChild(
-            child: Icon(Icons.arrow_back),
-            backgroundColor: Colors.red,
-            label: 'Zurück',
-            labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => Navigator.of(context).pop()
-        ),
-        SpeedDialChild(
-          child: Icon(Icons.monetization_on),
-          backgroundColor: Colors.blue,
-          label: 'Günstige Alternative finden',
-          labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlternativeTrip(trip: trip))),
-        ),
-        SpeedDialChild(
-          child: Icon(Icons.save),
-          backgroundColor: Colors.green,
-          label: 'Speichern',
-          labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () async {
-            await _databaseHelper.insert(trip).then((res) {
-              Toast.show("Speichern abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-            }).catchError((err) {
-              Toast.show("Speichern fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-            });
-          },
-        ),
-      ];
-    } else {
-      return [
-        SpeedDialChild(
-            child: Icon(Icons.arrow_back),
-            backgroundColor: Colors.red,
-            label: 'Zurück',
-            labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => Navigator.of(context).pop()
-        ),
-        SpeedDialChild(
-          child: Icon(Icons.save),
-          backgroundColor: Colors.green,
-          label: 'Speichern',
-          labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () async {
-            await _databaseHelper.insert(trip).then((res) {
-              Toast.show("Speichern abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-            }).catchError((err) {
-              Toast.show("Speichern fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-            });
-          },
-        ),
-      ];
-    }
   }
 
   getIntermediateDelay(int currentTime, int currentDelay) {

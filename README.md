@@ -11,8 +11,14 @@ Of course we like your contributions, and we don't want to limit that much with 
 But please take care about our Code of Conduct.
 
 [Webpage](https://thepublictransport.de)
+
 [Blog](https://thepublictransport.de/blog)
+
 [Service Status](https://thepublictransport.de/status)
+
+## Contributing
+
+Please read our contributing guidelines to contribute to The Public Transport.
 
 ## License
 

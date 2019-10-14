@@ -71,7 +71,7 @@ class _ResultMapState extends State<ResultMap> {
           ),
           Container(
             height: MediaQuery.of(context).padding.top,
-            color: Colors.grey.withAlpha(120),
+            color: Colors.black.withAlpha(120),
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:preferences/preference_service.dart';
@@ -119,8 +120,14 @@ class MapsStopsState extends State<MapsStops> {
 
         infoWindow: InfoWindow(
           title: i.name,
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Station(i)));
+          onTap: () async {
+            await Navigator.of(context).push(MaterialPageRoute(builder: (context) => Station(i)));
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              systemNavigationBarColor: theme.iconColor,
+              statusBarColor: Colors.transparent, // status bar color
+              statusBarBrightness: Brightness.light,
+              statusBarIconBrightness: Brightness.light,
+            ));
           },
         ),
       ));

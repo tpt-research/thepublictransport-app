@@ -1,4 +1,4 @@
-import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:preferences/preference_service.dart';
@@ -23,16 +23,14 @@ class _HomeState extends State<Home> {
   var theme = ThemeEngine.getCurrentTheme();
   int currentPage = 0;
   PageController _pageController = new PageController();
-  GlobalKey<FancyBottomNavigationState> bottombarKey = GlobalKey<FancyBottomNavigationState>();
 
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: theme.backgroundColor, // navigation bar color
+        systemNavigationBarColor: Colors.blueAccent,
         statusBarColor: Colors.transparent, // status bar color
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.light,
-        systemNavigationBarIconBrightness: theme.navbarIconBrightness
     ));
     initUniLinks();
     fetchAlert();
@@ -43,24 +41,20 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: FancyBottomNavigation(
-        key: bottombarKey,
-        barBackgroundColor: theme.cardColor,
-        textColor: theme.textColor,
-        activeIconColor: theme.titleColorInverted,
-        inactiveIconColor: Colors.grey,
-        circleColor: theme.iconColor,
-        tabs: [
-          TabData(iconData: Icons.home, title: "Home"),
-          TabData(iconData: Icons.search, title: "Suche"),
-          TabData(iconData: Icons.settings, title: "Einstellungen")
+      extendBody: true,
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.transparent,
+        buttonBackgroundColor: Colors.blueAccent,
+        color: Colors.blueAccent,
+        items: <Widget>[
+          Icon(Icons.home, size: 30, color: Colors.white),
+          Icon(Icons.search, size: 30, color: Colors.white),
+          Icon(Icons.settings, size: 30, color: Colors.white),
         ],
-        onTabChangedListener: (position) {
-          setState(() {
-            currentPage = position;
-            _pageController.animateToPage(position,
-                duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
-          });
+        onTap: (index) {
+          currentPage = index;
+          _pageController.animateToPage(index,
+              duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
         },
       ),
       body: PageView(

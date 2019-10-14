@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gradient_widgets/gradient_widgets.dart';
 
 class SelectionButtons extends StatelessWidget {
-  final Gradient gradient;
+  final Color color;
   final Icon icon;
   final Text description;
   final Function callback;
 
-  SelectionButtons({this.gradient, this.icon, this.description, this.callback});
+  SelectionButtons({this.color, this.icon, this.description, this.callback});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +17,8 @@ class SelectionButtons extends StatelessWidget {
           child: Container(
             height: MediaQuery.of(context).size.height * 0.09,
             width: MediaQuery.of(context).size.height * 0.09,
-            child: GradientCard(
-              gradient: gradient,
-              shadowColor: gradient.colors.last.withOpacity(0.25),
+            child: Card(
+              color: color,
               elevation: 8,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24.0)
