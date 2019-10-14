@@ -1,10 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:thepublictransport_app/backend/models/main/Location.dart';
 import 'package:thepublictransport_app/backend/service/geocode/Geocode.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
-import 'package:thepublictransport_app/ui/components/Maps/MapsShow.dart';
+import 'package:thepublictransport_app/pages/Station/StationInfo.dart';
 
 import 'StationDeparture.dart';
 
@@ -18,55 +19,123 @@ class Station extends StatefulWidget {
 }
 
 class _StationState extends State<Station> {
+  BorderRadiusGeometry radius = BorderRadius.only(
+    topLeft: Radius.circular(36.0),
+    topRight: Radius.circular(36.0),
+  );
+
   final Location location;
 
   var theme = ThemeEngine.getCurrentTheme();
 
+  PageController _pageController = new PageController();
+  int _selectedIndex = 0;
+
   _StationState(this.location);
+
+  void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: theme.backgroundColor,
+      statusBarColor: Colors.transparent, // status bar color
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      extendBody: true,
+        backgroundColor: Color(0xff339955),
+        floatingActionButton: FloatingActionButton(
+          heroTag: "HEROOOO2",
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          backgroundColor: theme.floatingActionButtonColor,
+          child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            height: 75,
+            color: theme.backgroundColor,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  iconSize: 30.0,
+                  padding: EdgeInsets.only(left: 28.0),
+                  icon: Icon(Icons.info, color: _selectedIndex == 0 ? Color(0xff339955) : Colors.grey),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 0;
+                      _pageController.animateToPage(0,
+                          duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                    });
+                  },
+                ),
+                IconButton(
+                  iconSize: 30.0,
+                  padding: EdgeInsets.only(right: 28.0),
+                  icon: Icon(Icons.location_on, color: _selectedIndex == 1 ? Color(0xff339955) : Colors.grey),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 1;
+                      _pageController.animateToPage(1,
+                          duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.35,
-            child: Container(
-                child: Stack(
-                  children: <Widget>[
-                    MapsShow(location: location),
-                    Container(
-                        alignment: Alignment.topLeft,
-                        padding: EdgeInsets.fromLTRB(
-                            MediaQuery.of(context).size.width * 0.04,
-                            MediaQuery.of(context).size.height * 0.04,
-                            0,
-                            0
-                        ),
-                        child: SizedBox(
-                          height: 45,
-                          width: 45,
-                          child: FloatingActionButton(
-                            elevation: 0,
-                            backgroundColor: Colors.grey.withAlpha(90),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            heroTag: "HEROOOO",
-                            child: Icon(Icons.arrow_back, color: theme.floatingActionButtonIconColor),
-                          ),
-                        )
-                    )
-                  ],
-                )
-            )
+            decoration: BoxDecoration(
+              color: Color(0xff339955),
+            ),
+            height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
+            child: Center(
+              child: Text(
+                "Station",
+                style: TextStyle(
+                    fontFamily: 'NunitoSansBold',
+                    fontSize: 40,
+                    color: Colors.white
+                ),
+              ),
+            ),
           ),
-          showMainData(),
-          Flexible(child: StationDeparture(location.id))
+          Flexible(
+            child: ClipRRect(
+              borderRadius: radius,
+              child: Container(
+                height: double.infinity,
+                color: theme.backgroundColor,
+                child: PageView(
+                  onPageChanged: (index) {
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                  },
+                  controller: _pageController,
+                  children: <Widget>[
+                    StationInfo(location: location),
+                    StationDeparture(location.id)
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       )
     );

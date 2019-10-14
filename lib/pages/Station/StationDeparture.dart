@@ -49,14 +49,31 @@ class _StationDepartureState extends State<StationDeparture> {
                   scrollDirection: Axis.vertical,
                   itemCount: snapshot.data.stationDepartures.first.departures.length,
                     itemBuilder: (BuildContext context, int index) {
-                      DateTime dateTime = DateTime.parse(
+                      DateTime time = DateTime.parse(
                           snapshot.data.stationDepartures.first.departures[index].time
                       );
+
+                      if (snapshot.data.stationDepartures.first.departures[index].predictedTime != null) {
+                        time = DateTime.parse(
+                            snapshot.data.stationDepartures.first.departures[index].predictedTime
+                        );
+                      }
+
+                      DateTime planned = DateTime.parse(
+                          snapshot.data.stationDepartures.first.departures[index].plannedTime
+                      );
+
+                      Duration delay = time.difference(planned);
                       return ListTile(
+                        leading: Icon(
+                          getIcon(snapshot.data.stationDepartures.first.departures[index].line.product),
+                          color: theme.iconColor,
+                        ),
                         title: Text(
                             snapshot.data.stationDepartures.first.departures[index].line.name,
                             style: TextStyle(
-                                color: theme.titleColor
+                                color: theme.titleColor,
+                                fontFamily: 'NunitoSansBold'
                             ),
                         ),
                         subtitle: Text(
@@ -65,11 +82,25 @@ class _StationDepartureState extends State<StationDeparture> {
                                 color: theme.subtitleColor
                             ),
                         ),
-                        trailing: Text(
-                            dateTime.hour.toString() + ":" + dateTime.minute.toString().padLeft(2, '0'),
-                            style: TextStyle(
-                                color: theme.textColor
+                        trailing: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              planned.hour.toString() + ":" + planned.minute.toString().padLeft(2, '0'),
+                              style: TextStyle(
+                                  color: theme.textColor,
+                                  fontFamily: 'NunitoSansBold'
+                              ),
                             ),
+                            Text(
+                              "+" + delay.inMinutes.toString(),
+                              style: TextStyle(
+                                  color: delay.inMinutes > 3 ? Colors.red : Colors.green,
+                                  fontFamily: 'NunitoSansBold'
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     }
@@ -80,6 +111,22 @@ class _StationDepartureState extends State<StationDeparture> {
           return null;
         }
     );
+  }
+
+  IconData getIcon(String vehicle) {
+    print(vehicle);
+    switch (vehicle) {
+      case "HIGH_SPEED_TRAIN":
+      case "REGIONAL_TRAIN":
+      case "SUBURBAN_TRAIN":
+        return Icons.train;
+      case "BUS":
+        return Icons.directions_bus;
+      case "TRAM":
+        return Icons.tram;
+      default:
+        return Icons.train;
+    }
   }
 
   Future<DepartureModel> fetchDeparture() async {

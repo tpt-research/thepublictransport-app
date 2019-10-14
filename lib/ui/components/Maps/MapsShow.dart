@@ -22,25 +22,18 @@ class MapsShowState extends State<MapsShow> {
 
   var theme = ThemeEngine.getCurrentTheme();
 
-  MapsShowState(this.location) {
-    markers.add(Marker(
-      markerId: MarkerId(location.id),
-      infoWindow: InfoWindow(
-        title: location.name,
-      ),
-      position: LatLng(location.latAsDouble, location.lonAsDouble),
-    ));
-  }
-
   static final CameraPosition _kInitialPosition = CameraPosition(
     target: LatLng(37.422, -122.084),
     zoom: 17.0,
   );
 
+  MapsShowState(this.location);
+
   @override
   Widget build(BuildContext context) {
     return new GoogleMap(
       myLocationEnabled: false,
+      myLocationButtonEnabled: false,
       initialCameraPosition: _kInitialPosition,
       onMapCreated: _onMapCreated,
       rotateGesturesEnabled: false,
@@ -62,8 +55,39 @@ class MapsShowState extends State<MapsShow> {
       _controller.complete(controller);
     });
 
+    generateMarker();
+
     controller.moveCamera(CameraUpdate.newLatLng(
         LatLng(location.latAsDouble, location.lonAsDouble)
     ));
+  }
+
+  Future <BitmapDescriptor> _createMarkerImageFromAsset() async {
+    ImageConfiguration configuration = ImageConfiguration(
+        size: Size(170, 170),
+        devicePixelRatio: MediaQuery.of(context).devicePixelRatio
+    );
+    var bitmapImage = await BitmapDescriptor.fromAssetImage(
+        configuration,'icons/marker.png');
+    return bitmapImage;
+  }
+
+  void generateMarker() async {
+    Set<Marker> newMarker = Set();
+
+    BitmapDescriptor bitmap = await _createMarkerImageFromAsset();
+
+    newMarker.add(Marker(
+      markerId: MarkerId(location.id),
+      icon: bitmap,
+      infoWindow: InfoWindow(
+        title: location.name,
+      ),
+      position: LatLng(location.latAsDouble, location.lonAsDouble),
+    ));
+
+    setState(() {
+      markers = newMarker;
+    });
   }
 }

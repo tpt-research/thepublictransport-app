@@ -377,10 +377,10 @@ class _SearchTripState extends State<SearchTrip> {
             alignment: Alignment.topRight,
             padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.305, 25, 0),
             child: FloatingActionButton(
-              onPressed: () {
+              onPressed: () async {
                 if (from_search == null) return;
                 if (to_search == null) return;
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Result(
+                await Navigator.of(context).push(MaterialPageRoute(builder: (context) => Result(
                   from_search: from_search,
                   to_search: to_search,
                   time: setup_time,
@@ -389,6 +389,13 @@ class _SearchTripState extends State<SearchTrip> {
                   fastroute: PrefService.getBool("fast_mode") ?? false,
                   slowwalk: PrefService.getBool("walk_mode") ?? false,
                 )));
+
+                SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                  systemNavigationBarColor: Colors.blueAccent,
+                  statusBarColor: Colors.transparent, // status bar color
+                  statusBarBrightness: Brightness.light,
+                  statusBarIconBrightness: Brightness.light,
+                ));
               },
               heroTag: "HEROOOO2",
               backgroundColor: theme.foregroundColor,

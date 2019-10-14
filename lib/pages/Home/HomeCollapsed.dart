@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gradient_widgets/gradient_widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:thepublictransport_app/backend/service/geocode/Geocode.dart';
 import 'package:thepublictransport_app/backend/service/nominatim/NominatimRequest.dart';
-import 'package:thepublictransport_app/framework/theme/PredefinedColors.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/Flixbus/FlixbusSearch.dart';
 import 'package:thepublictransport_app/pages/SavedTrips/SavedTrips.dart';
@@ -53,7 +52,7 @@ class _HomeCollapsedState extends State<HomeCollapsed> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SelectionButtons(
-                  gradient: Gradients.jShine,
+                  color: Color(0xfff64f59),
                   description: Text(
                     "Gespeichert",
                     style: TextStyle(
@@ -66,12 +65,21 @@ class _HomeCollapsedState extends State<HomeCollapsed> {
                     color: theme.titleColorInverted,
                     size: 30,
                   ),
-                  callback: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SavedTrips()));
+                  callback: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(builder: (context) => SavedTrips()));
+
+                    setState(() {
+                      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                        systemNavigationBarColor: Colors.blueAccent,
+                        statusBarColor: Colors.transparent, // status bar color
+                        statusBarBrightness: Brightness.light,
+                        statusBarIconBrightness: Brightness.light,
+                      ));
+                    });
                   },
                 ),
                 SelectionButtons(
-                  gradient: PredefinedColors.getFlixbusGradient(),
+                  color: Colors.lightGreen,
                   description: Text(
                     "Flixbus",
                     style: TextStyle(
@@ -84,12 +92,20 @@ class _HomeCollapsedState extends State<HomeCollapsed> {
                     color: theme.titleColorInverted,
                     size: 30,
                   ),
-                  callback: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlixbusSearch()));
+                  callback: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlixbusSearch()));
+                    setState(() {
+                      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                        systemNavigationBarColor: Colors.blueAccent,
+                        statusBarColor: Colors.transparent, // status bar color
+                        statusBarBrightness: Brightness.light,
+                        statusBarIconBrightness: Brightness.light,
+                      ));
+                    });
                   },
                 ),
                 SelectionButtons(
-                  gradient: PredefinedColors.getDBGradient(),
+                  color: Colors.red,
                   description: Text(
                     "Sparpreise",
                     style: TextStyle(
@@ -102,8 +118,16 @@ class _HomeCollapsedState extends State<HomeCollapsed> {
                     color: theme.titleColorInverted,
                     size: 30,
                   ),
-                  callback: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SparpreisSearch()));
+                  callback: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(builder: (context) => SparpreisSearch()));
+                    setState(() {
+                      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                        systemNavigationBarColor: Colors.blueAccent,
+                        statusBarColor: Colors.transparent, // status bar color
+                        statusBarBrightness: Brightness.light,
+                        statusBarIconBrightness: Brightness.light,
+                      ));
+                    });
                   },
                 ),
               ],

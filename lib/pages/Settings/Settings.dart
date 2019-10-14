@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:preferences/preferences.dart';
@@ -189,8 +190,15 @@ class _SettingsState extends State<Settings> {
                               color: theme.subtitleColor
                             ),
                         ),
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => About()));
+                        onTap: () async {
+                          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => About()));
+
+                          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                            systemNavigationBarColor: Colors.blueAccent,
+                            statusBarColor: Colors.transparent, // status bar color
+                            statusBarBrightness: Brightness.light,
+                            statusBarIconBrightness: Brightness.light,
+                          ));
                         },
                       ),
                       SizedBox(

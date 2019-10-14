@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,9 +18,21 @@ class _AboutState extends State<About> {
   var theme = ThemeEngine.getCurrentTheme();
 
   @override
+  void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: theme.backgroundColor,
+      statusBarColor: Colors.transparent, // status bar color
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff333399),
+      backgroundColor: Color(0xff339999),
       floatingActionButton: FloatingActionButton(
         heroTag: "HEROOOO",
         onPressed: () {
@@ -35,7 +48,7 @@ class _AboutState extends State<About> {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              color: Color(0xff333399),
+              color: Color(0xff339999),
             ),
             height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
             child: Center(
