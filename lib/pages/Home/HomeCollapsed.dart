@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:thepublictransport_app/backend/service/geocode/Geocode.dart';
 import 'package:thepublictransport_app/backend/service/nominatim/NominatimRequest.dart';
 import 'package:thepublictransport_app/framework/theme/PredefinedColors.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
-import 'package:thepublictransport_app/pages/Delay/Delay.dart';
+import 'package:thepublictransport_app/pages/Flixbus/FlixbusSearch.dart';
 import 'package:thepublictransport_app/pages/SavedTrips/SavedTrips.dart';
 import 'package:thepublictransport_app/pages/Sparpreis/SparpreisSearch.dart';
 import 'package:thepublictransport_app/ui/components/SelectionButtons.dart';
@@ -72,21 +71,21 @@ class _HomeCollapsedState extends State<HomeCollapsed> {
                   },
                 ),
                 SelectionButtons(
-                  gradient: Gradients.rainbowBlue,
+                  gradient: PredefinedColors.getFlixbusGradient(),
                   description: Text(
-                    "Verspätungen",
+                    "Flixbus",
                     style: TextStyle(
                         fontSize: 12,
                         color: theme.textColor
                     ),
                   ),
                   icon: Icon(
-                    MaterialCommunityIcons.bus_alert,
+                    Icons.directions_bus,
                     color: theme.titleColorInverted,
                     size: 30,
                   ),
                   callback: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Delay()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlixbusSearch()));
                   },
                 ),
                 SelectionButtons(

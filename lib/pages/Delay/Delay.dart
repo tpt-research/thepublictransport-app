@@ -8,6 +8,8 @@ import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// WIP, Won't be implemented until finished
+
 class Delay extends StatefulWidget {
   @override
   _DelayState createState() => _DelayState();

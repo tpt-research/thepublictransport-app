@@ -1,7 +1,5 @@
-import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/pages/Home/Home.dart';
 import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
@@ -57,14 +55,10 @@ class Welcome extends StatelessWidget {
 
   final index;
 
-  final locator = Geolocator();
-
   Welcome(this.index);
 
   @override
   Widget build(BuildContext context) {
-    locator.checkGeolocationPermissionStatus();
-
     return new TransformerPageView(
       index: index,
       loop: false,
@@ -263,52 +257,13 @@ class _StartState extends State<Start> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: FutureBuilder(
-        future: checkPermission(),
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          switch(snapshot.connectionState) {
-            case ConnectionState.active:
-            case ConnectionState.waiting:
-            case ConnectionState.none:
-              return Container();
-            case ConnectionState.done:
-              if (snapshot.data != null) {
-                return Column(
-                  children: <Widget>[
-                    new Expanded(
-                      child: new Welcome(index),
-                    ),
-                  ],
-                );
-              } else {
-                return Center(
-                  child: Text('Diese App benötigt Ihren Standort um zu funktionieren. Bitte starten sie die App neu und gewähren sie den Zugang zum Standort'),
-                );
-              }
-          }
-          return Container();
-        },
+      body: Column(
+        children: <Widget>[
+          new Expanded(
+            child: new Welcome(index),
+          ),
+        ],
       ),
     );
-  }
-
-  Future<bool> checkPermission() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-
-    // Permission Request without permission handler let this app fail on Nougat etc.
-    if (androidInfo.version.sdkInt > 27)
-      return true;
-
-    Geolocator locator = new Geolocator();
-
-    await locator.getCurrentPosition();
-
-    GeolocationStatus status = await locator.checkGeolocationPermissionStatus(locationPermission: GeolocationPermission.location);
-
-    if (status == GeolocationStatus.denied)
-      return false;
-
-    return true;
   }
 }
