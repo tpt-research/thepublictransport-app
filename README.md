@@ -14,6 +14,10 @@ But please take care about our Code of Conduct.
 [Blog](https://thepublictransport.de/blog)
 [Service Status](https://thepublictransport.de/status)
 
+## Contributing
+
+Please read our contributing guidelines to contribute to The Public Transport.
+
 ## License
 
 This project is licensed by the BSD-3-Clause license. Copyright hold by the "The Public Transport" team.
