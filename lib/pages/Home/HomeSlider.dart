@@ -74,21 +74,21 @@ class _HomeSliderState extends State<HomeSlider> {
                   },
                 ),
                 SelectionButtons(
-                  gradient: Gradients.rainbowBlue,
+                  gradient: PredefinedColors.getFlixbusGradient(),
                   description: Text(
-                    "Verspätungen",
+                    "Flixbus",
                     style: TextStyle(
                         fontSize: 12,
                         color: theme.textColor
                     ),
                   ),
                   icon: Icon(
-                    MaterialCommunityIcons.bus_alert,
+                    Icons.directions_bus,
                     color: theme.titleColorInverted,
                     size: 30,
                   ),
                   callback: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Delay()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlixbusSearch()));
                   },
                 ),
                 SelectionButtons(
@@ -118,24 +118,6 @@ class _HomeSliderState extends State<HomeSlider> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SelectionButtons(
-                  gradient: PredefinedColors.getFlixbusGradient(),
-                  description: Text(
-                    "Flixbus Suche",
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: theme.textColor
-                    ),
-                  ),
-                  icon: Icon(
-                    Icons.directions_bus,
-                    color: theme.titleColorInverted,
-                    size: 30,
-                  ),
-                  callback: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlixbusSearch()));
-                  },
-                ),
                 SelectionButtons(
                   gradient: PredefinedColors.getICEGradient(),
                   description: Text(
