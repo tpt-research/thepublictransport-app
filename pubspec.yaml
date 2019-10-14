@@ -1,6 +1,6 @@
 name: thepublictransport_app
 description: Die erste moderne App für den öffentlichen Verkehr
-version: 2.3.0+23
+version: 2.4.0+24
 author: Tristan Marsell, The Public Transport
 
 environment:

@@ -25,6 +25,7 @@ class _StationInfoState extends State<StationInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       body: ListView(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,

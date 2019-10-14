@@ -33,7 +33,7 @@ class _HomeNearbyState extends State<HomeNearby> {
           SlidingUpPanel(
             parallaxEnabled: true,
             parallaxOffset: 0.5,
-            minHeight: MediaQuery.of(context).size.height * 0.30,
+            minHeight: MediaQuery.of(context).size.height * 0.34,
             maxHeight: MediaQuery.of(context).size.height * 0.50,
             borderRadius: radius,
             panel: Container(
