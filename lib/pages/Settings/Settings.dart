@@ -277,8 +277,168 @@ class _SettingsState extends State<Settings> {
                     height: 5,
                   ),
                   generateListTile(
-                      "Karlsruher Verkehrsbund",
-                      "(Experimentell) Beinhaltet Daten des KVV Nahverkehrs",
+                      "Nationale Gesellschaft der Belgischen Eisenbahnen",
+                      "Beinhaltet Daten der Belgischen Bahn",
+                      'https://upload.wikimedia.org/wikipedia/commons/9/9d/LogoBR.svg',
+                      'SNCB',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTile(
+                      "Ingolstädter Verkehrsgesellschaft",
+                      "Beinhaltet Daten des INVG Nahverkehrs",
+                      'https://upload.wikimedia.org/wikipedia/de/0/09/Ingolst%C3%A4dter_Verkehrsgesellschaft_Logo.svg',
+                      'INVG',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTilePNG(
+                      "INSA (Sachsen / Sachsen-Anhalt)",
+                      "Beinhaltet Daten des INSA Nahverkehrs",
+                      'https://www.starker-nahverkehr.de/fileadmin/templates/img/insa/insa-logo.png',
+                      'NASA',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTile(
+                      "Verkehrsmanagement-Gesellschaft Saar",
+                      "Beinhaltet Daten des VGS Nahverkehrs",
+                      'https://upload.wikimedia.org/wikipedia/commons/4/4e/VerkehrsmanagementGesellschaft_Saar_logo.svg',
+                      'VGS',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTile(
+                      "Verkehrsverbund Mittelthüringen",
+                      "Beinhaltet Daten des VMT Nahverkehrs",
+                      'https://upload.wikimedia.org/wikipedia/commons/5/56/Verkehrsverbund_Mittelth%C3%BCringen_logo.svg',
+                      'VMT',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTile(
+                      "Zürcher Verkehrsverbund",
+                      "Beinhaltet Daten des ZVV Nahverkehrs",
+                      'https://upload.wikimedia.org/wikipedia/commons/2/2b/Logo_ZVV.svg',
+                      'ZVV',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTile(
+                      "Verkéiersverbond Luxembourg",
+                      "Beinhaltet Daten des Luxemburger Nahverkehrs",
+                      'https://www.mobiliteit.lu/wp-content/themes/mobiliteit/assets/img/mobiliteit-logo.svg',
+                      'LU',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTilePNG(
+                      "Danske Statsbaner",
+                      "Beinhaltet Daten des Dänischen Nahverkehrs",
+                      'https://upload.wikimedia.org/wikipedia/commons/a/a3/Danske_Statsbaner_logo2014.png',
+                      'DSB',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTile(
+                      "Railteam",
+                      "Beinhaltet Daten des Railteam Netzwerkes",
+                      'https://upload.wikimedia.org/wikipedia/commons/3/32/Railteam_Logo.svg',
+                      'Rt',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTile(
+                      "Österreichische Bundesbahnen (Teils Stabil)",
+                      "Beinhaltet Daten der österreichischen Bundesbahn",
+                      'https://upload.wikimedia.org/wikipedia/commons/5/5e/Logo_%C3%96BB.svg',
+                      'OEBB',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTile(
+                      "Karlsruher Verkehrsbund (Experimentell)",
+                      "Beinhaltet Daten des KVV Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/e/e3/KVV_2010.svg',
                       'KVV',
                       context
@@ -293,8 +453,8 @@ class _SettingsState extends State<Settings> {
                     height: 5,
                   ),
                   generateListTile(
-                      "Verkehrsbund Rhein-Ruhr",
-                      "(Experimentell) Beinhaltet Daten des VRR Nahverkehrs",
+                      "Verkehrsbund Rhein-Ruhr (Experimentell)",
+                      "Beinhaltet Daten des VRR Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/9/9d/Verkehrsverbund_Rhein-Ruhr_2010_logo.svg',
                       'VRR',
                       context
@@ -309,7 +469,7 @@ class _SettingsState extends State<Settings> {
                     height: 5,
                   ),
                   generateListTile(
-                      "Wiener Linien",
+                      "Wiener Linien (Experimentell)",
                       "(Experimentell) Beinhaltet Daten der österreichischen Wiener Linien",
                       'https://upload.wikimedia.org/wikipedia/commons/5/59/Wiener_Linien_logo.svg',
                       'Wien',
@@ -325,24 +485,8 @@ class _SettingsState extends State<Settings> {
                     height: 5,
                   ),
                   generateListTile(
-                      "Österreichische Bundesbahnen",
-                      "(Teils Stabil) Beinhaltet Daten der österreichischen Bundesbahn",
-                      'https://upload.wikimedia.org/wikipedia/commons/5/5e/Logo_%C3%96BB.svg',
-                      'OEBB',
-                      context
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Divider(
-                    height: 2.0,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  generateListTile(
-                      "Schweizerische Bundesbahnen",
-                      "(Experimentell) Beinhaltet Daten der schweizerischen Bundesbahn",
+                      "Schweizerische Bundesbahnen (Experimentell) ",
+                      "Beinhaltet Daten der schweizerischen Bundesbahn",
                       'https://upload.wikimedia.org/wikipedia/commons/0/00/Sbb-logo.svg',
                       'SBB',
                       context
@@ -377,6 +521,31 @@ class _SettingsState extends State<Settings> {
         height: 50,
         width: 50,
         child: Center(child: SvgPicture.network(imageURL)),
+      ),
+      trailing: Icon(
+          PrefService.getString('public_transport_data') == ID ? Icons.radio_button_checked : Icons.radio_button_unchecked
+      ),
+      onTap: () {
+        PrefService.setString('public_transport_data', ID);
+        Navigator.of(context).pop();
+      },
+    );
+  }
+
+  ListTile generateListTilePNG(String title, String subtitle, String imageURL, String ID, BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: TextStyle(
+            color: theme.titleColor,
+            fontFamily: "NunitoSansBold"
+        ),
+      ),
+      subtitle: Text(subtitle),
+      leading: SizedBox(
+        height: 50,
+        width: 50,
+        child: Center(child: Image.network(imageURL)),
       ),
       trailing: Icon(
           PrefService.getString('public_transport_data') == ID ? Icons.radio_button_checked : Icons.radio_button_unchecked
