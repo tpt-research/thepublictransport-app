@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:morpheus/morpheus.dart';
 import 'package:share/share.dart';
 import 'package:thepublictransport_app/backend/models/core/TripModel.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
@@ -26,6 +27,7 @@ class ResultDeeplink extends StatefulWidget {
   final String slowwalk;
   final String fastroute;
   final String source;
+  final String products;
 
   toBool(String bool) {
     if (bool == "true")
@@ -42,11 +44,11 @@ class ResultDeeplink extends StatefulWidget {
     return TimeOfDay(hour: int.parse(time.split(":")[0]), minute: int.parse(time.split(":")[1]));
   }
 
-  const ResultDeeplink({Key key, this.fromName, this.toName, this.fromID, this.toID, this.time, this.date, this.barrier, this.slowwalk, this.fastroute, this.source}) : super(key: key);
+  const ResultDeeplink({Key key, this.fromName, this.toName, this.fromID, this.toID, this.time, this.date, this.barrier, this.slowwalk, this.fastroute, this.source, this.products}) : super(key: key);
 
 
   @override
-  _ResultDeeplinkState createState() => _ResultDeeplinkState(this.fromName, this.toName, this.fromID, this.toID, toTimeOfDay(time), toDateTime(date), toBool(barrier), toBool(slowwalk), toBool(fastroute), source);
+  _ResultDeeplinkState createState() => _ResultDeeplinkState(this.fromName, this.toName, this.fromID, this.toID, toTimeOfDay(time), toDateTime(date), toBool(barrier), toBool(slowwalk), toBool(fastroute), source, products);
 }
 
 class _ResultDeeplinkState extends State<ResultDeeplink> {
@@ -65,8 +67,9 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
   final bool slowwalk;
   final bool fastroute;
   final String source;
+  final String products;
 
-  _ResultDeeplinkState(this.fromName, this.toName, this.fromID, this.toID, this.time, this.date, this.barrier, this.slowwalk, this.fastroute, this.source);
+  _ResultDeeplinkState(this.fromName, this.toName, this.fromID, this.toID, this.time, this.date, this.barrier, this.slowwalk, this.fastroute, this.source, this.products);
 
   var theme = ThemeEngine.getCurrentTheme();
 
@@ -101,7 +104,8 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
                   '&barrier=' + barrier.toString() +
                   '&slowwalk=' + slowwalk.toString() +
                   '&fastroute=' + fastroute.toString() +
-                  '&source=' + source;
+                  '&source=' + source +
+                  '&products=' + products;
 
               var shortened = await ShortenerService.createLink(Uri.encodeFull(prepared).toString());
 
@@ -254,6 +258,7 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
     var difference = DurationParser.parse(end.difference(begin));
     var travels = [];
     var counter = 0;
+    final _parentKey = GlobalKey();
 
     for (var i in trip.legs) {
       if (i.line == null)
@@ -265,10 +270,11 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
 
 
     return Card(
+      key: _parentKey,
       color: theme.cardColor,
       child: InkWell(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResultDetailed(trip: trip)));
+          Navigator.of(context).push(MorpheusPageRoute(builder: (context) => ResultDetailed(trip: trip)));
         },
         child: Container(
           height: MediaQuery.of(context).size.height * 0.15,
@@ -348,7 +354,8 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
         barrier_mode,
         fastroute_mode,
         slowwalk_mode,
-        source
+        source,
+        products
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:morpheus/morpheus.dart';
 import 'package:preferences/preferences.dart';
 import 'package:share/share.dart';
 import 'package:thepublictransport_app/backend/models/core/TripModel.dart';
@@ -26,12 +27,13 @@ class Result extends StatefulWidget {
   final bool barrier;
   final bool slowwalk;
   final bool fastroute;
+  final String products;
 
-  const Result({Key key, this.from_search, this.to_search, this.time, this.date, this.barrier, this.slowwalk, this.fastroute}) : super(key: key);
+  const Result({Key key, this.from_search, this.to_search, this.time, this.date, this.barrier, this.slowwalk, this.fastroute, this.products}) : super(key: key);
 
 
   @override
-  _ResultState createState() => _ResultState(from_search, to_search, time, date, barrier, slowwalk, fastroute);
+  _ResultState createState() => _ResultState(from_search, to_search, time, date, barrier, slowwalk, fastroute, products);
 }
 
 class _ResultState extends State<Result> {
@@ -47,8 +49,9 @@ class _ResultState extends State<Result> {
   final bool barrier;
   final bool slowwalk;
   final bool fastroute;
+  final String products;
 
-  _ResultState(this.from_search, this.to_search, this.time, this.date, this.barrier, this.slowwalk, this.fastroute);
+  _ResultState(this.from_search, this.to_search, this.time, this.date, this.barrier, this.slowwalk, this.fastroute, this.products);
 
   var theme = ThemeEngine.getCurrentTheme();
 
@@ -95,7 +98,8 @@ class _ResultState extends State<Result> {
                   '&barrier=' + barrier.toString() +
                   '&slowwalk=' + slowwalk.toString() +
                   '&fastroute=' + fastroute.toString() +
-                  '&source=' + PrefService.getString('public_transport_data');
+                  '&source=' + PrefService.getString('public_transport_data') +
+                  '&products=' + products;
 
               var shortened = await ShortenerService.createLink(Uri.encodeFull(prepared).toString());
 
@@ -243,6 +247,7 @@ class _ResultState extends State<Result> {
   }
 
   Widget createCard(Trip trip) {
+    final _parentKey = GlobalKey();
     var begin = UnixTimeParser.parse(trip.firstDepartureTime);
     var end = UnixTimeParser.parse(trip.lastArrivalTime);
     var difference = DurationParser.parse(end.difference(begin));
@@ -259,13 +264,14 @@ class _ResultState extends State<Result> {
 
 
     return Card(
+      key: _parentKey,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0)
       ),
       color: theme.cardColor,
       child: InkWell(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResultDetailed(trip: trip)));
+          Navigator.of(context).push(MorpheusPageRoute(parentKey: _parentKey, builder: (context) => ResultDetailed(trip: trip)));
         },
         child: Container(
           height: MediaQuery.of(context).size.height * 0.15,
@@ -345,7 +351,8 @@ class _ResultState extends State<Result> {
         barrier_mode,
         fastroute_mode,
         slowwalk_mode,
-        PrefService.getString('public_transport_data')
+        PrefService.getString('public_transport_data'),
+        products
     );
   }
 }

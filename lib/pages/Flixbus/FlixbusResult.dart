@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:morpheus/morpheus.dart';
 import 'package:thepublictransport_app/backend/models/core/FlixbusJourneyModel.dart';
 import 'package:thepublictransport_app/backend/models/flixbus/Message.dart';
 import 'package:thepublictransport_app/backend/models/flixbus/QueryResult.dart';
@@ -193,16 +194,18 @@ class _FlixbusResultState extends State<FlixbusResult> {
     var begin = message.legs.first.departure;
     var end = message.legs.last.arrival;
     var difference = DurationParser.parse(end.difference(begin));
+    final _parentKey = GlobalKey();
 
 
     return Card(
+      key: _parentKey,
       color: theme.cardColor,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0)
       ),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlixbusResultDetailed(trip: message)));
+          Navigator.of(context).push(MorpheusPageRoute(parentKey: _parentKey, builder: (context) => FlixbusResultDetailed(trip: message)));
         },
         child: Container(
           height: MediaQuery.of(context).size.height * 0.15,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:morpheus/morpheus.dart';
 import 'package:thepublictransport_app/backend/database/TripDatabaseHelper.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
@@ -179,6 +180,7 @@ class _SavedTripsState extends State<SavedTrips> {
     var difference = DurationParser.parse(end.difference(begin));
     var travels = [];
     var counter = 0;
+    final _parentKey = GlobalKey();
 
     for (var i in trip.legs) {
       if (i.line == null)
@@ -190,13 +192,14 @@ class _SavedTripsState extends State<SavedTrips> {
 
 
     return Card(
+      key: _parentKey,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0)
       ),
       color: theme.cardColor,
       child: InkWell(
         onTap: () async {
-          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => SavedTripsDetailed(trip: trip)));
+          await Navigator.of(context).push(MorpheusPageRoute(parentKey: _parentKey, builder: (context) => SavedTripsDetailed(trip: trip)));
           setState(() {
 
           });

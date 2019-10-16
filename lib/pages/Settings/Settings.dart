@@ -228,6 +228,19 @@ class _SettingsState extends State<Settings> {
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 children: <Widget>[
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "Deutschland",
+                    style: TextStyle(
+                      fontFamily: 'NunitoSansBold',
+                      color: Colors.grey
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   generateListTile(
                       "Deutsche Bahn",
                       "Beinhaltet Daten des Deutschen Nah- und Fernverkehrs, inklusive Internationale Daten und von vielen Verkehrsbünden",
@@ -277,26 +290,10 @@ class _SettingsState extends State<Settings> {
                     height: 5,
                   ),
                   generateListTile(
-                      "Nationale Gesellschaft der Belgischen Eisenbahnen",
-                      "Beinhaltet Daten der Belgischen Bahn",
-                      'https://upload.wikimedia.org/wikipedia/commons/9/9d/LogoBR.svg',
-                      'SNCB',
-                      context
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Divider(
-                    height: 2.0,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  generateListTile(
-                      "Ingolstädter Verkehrsgesellschaft",
-                      "Beinhaltet Daten des INVG Nahverkehrs",
-                      'https://upload.wikimedia.org/wikipedia/de/0/09/Ingolst%C3%A4dter_Verkehrsgesellschaft_Logo.svg',
-                      'INVG',
+                      "Aachener Verkehrsverbund",
+                      "Beinhaltet Daten des AVV Nahverkehrs",
+                      'https://upload.wikimedia.org/wikipedia/commons/c/cf/AVV_Logo_neu.svg',
+                      'AVVAachen',
                       context
                   ),
                   SizedBox(
@@ -313,6 +310,22 @@ class _SettingsState extends State<Settings> {
                       "Beinhaltet Daten des INSA Nahverkehrs",
                       'https://www.starker-nahverkehr.de/fileadmin/templates/img/insa/insa-logo.png',
                       'NASA',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateListTile(
+                      "Verkehrsverbund Bremen/Niedersachsen",
+                      "Beinhaltet Daten des VBN Nahverkehrs",
+                      'https://upload.wikimedia.org/wikipedia/commons/b/b9/Logo_Verkehrsverbund_Bremen_Niedersachsen.svg',
+                      'VBN',
                       context
                   ),
                   SizedBox(
@@ -357,6 +370,26 @@ class _SettingsState extends State<Settings> {
                     height: 5,
                   ),
                   generateListTile(
+                      "Ingolstädter Verkehrsgesellschaft",
+                      "Beinhaltet Daten des INVG Nahverkehrs",
+                      'https://upload.wikimedia.org/wikipedia/de/0/09/Ingolst%C3%A4dter_Verkehrsgesellschaft_Logo.svg',
+                      'INVG',
+                      context
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Schweiz",
+                    style: TextStyle(
+                        fontFamily: 'NunitoSansBold',
+                        color: Colors.grey
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  generateListTile(
                       "Zürcher Verkehrsverbund",
                       "Beinhaltet Daten des ZVV Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/2/2b/Logo_ZVV.svg',
@@ -364,13 +397,17 @@ class _SettingsState extends State<Settings> {
                       context
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
-                  Divider(
-                    height: 2.0,
+                  Text(
+                    "Luxemburg",
+                    style: TextStyle(
+                        fontFamily: 'NunitoSansBold',
+                        color: Colors.grey
+                    ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
                   generateListTile(
                       "Verkéiersverbond Luxembourg",
@@ -380,13 +417,37 @@ class _SettingsState extends State<Settings> {
                       context
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
-                  Divider(
-                    height: 2.0,
+                  Text(
+                    "Belgien",
+                    style: TextStyle(
+                        fontFamily: 'NunitoSansBold',
+                        color: Colors.grey
+                    ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
+                  ),
+                  generateListTile(
+                      "Nationale Gesellschaft der Belgischen Eisenbahnen",
+                      "Beinhaltet Daten der Belgischen Bahn",
+                      'https://upload.wikimedia.org/wikipedia/commons/9/9d/LogoBR.svg',
+                      'SNCB',
+                      context
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Dänemark",
+                    style: TextStyle(
+                        fontFamily: 'NunitoSansBold',
+                        color: Colors.grey
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   generateListTilePNG(
                       "Danske Statsbaner",
@@ -396,29 +457,97 @@ class _SettingsState extends State<Settings> {
                       context
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
-                  Divider(
-                    height: 2.0,
+                  Text(
+                    "Österreich",
+                    style: TextStyle(
+                        fontFamily: 'NunitoSansBold',
+                        color: Colors.grey
+                    ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
-                  generateListTile(
-                      "Railteam",
-                      "Beinhaltet Daten des Railteam Netzwerkes",
-                      'https://upload.wikimedia.org/wikipedia/commons/3/32/Railteam_Logo.svg',
-                      'Rt',
+                  generateListTilePNG(
+                      "VOR AnachB (Österreich)",
+                      "Beinhaltet Daten des VOR AnachB Netzwerkes",
+                      'https://anachb.vor.at/hafas-res/img/vs_voranachb/logo_voranachb_small_new.png',
+                      'AnachB',
                       context
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
-                  Divider(
-                    height: 2.0,
+                  Text(
+                    "Großbritannien",
+                    style: TextStyle(
+                        fontFamily: 'NunitoSansBold',
+                        color: Colors.grey
+                    ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
+                  ),
+                  generateListTilePNG(
+                      "Arriva UK",
+                      "Beinhaltet Daten des Arriva UK Netzwerkes",
+                      'https://upload.wikimedia.org/wikipedia/commons/3/3f/New_Logo_Arriva.png',
+                      'ArrivaUK',
+                      context
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "USA / Kalifornien",
+                    style: TextStyle(
+                        fontFamily: 'NunitoSansBold',
+                        color: Colors.grey
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  generateListTile(
+                      "Bay Area Rapid Transit (San Francisco)",
+                      "Beinhaltet Daten des BART Netzwerkes",
+                      'https://upload.wikimedia.org/wikipedia/commons/2/26/Bart-logo.svg',
+                      'BART',
+                      context
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Irrland",
+                    style: TextStyle(
+                        fontFamily: 'NunitoSansBold',
+                        color: Colors.grey
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  generateListTilePNG(
+                      "Iarnród Éireann (Irrland)",
+                      "Beinhaltet Daten der Staatsbahn von Irrland",
+                      'https://upload.wikimedia.org/wikipedia/commons/2/2e/Iarnrod_Eireann_simple_logo_2013.png',
+                      'Irishrail',
+                      context
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Instabil",
+                    style: TextStyle(
+                        fontFamily: 'NunitoSansBold',
+                        color: Colors.grey
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   generateListTile(
                       "Österreichische Bundesbahnen (Teils Stabil)",

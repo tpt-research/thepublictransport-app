@@ -95,6 +95,7 @@ class _HomeState extends State<Home> {
           slowwalk: parsed['slowwalk'],
           fastroute: parsed['fastroute'],
           source: parsed['source'],
+          products: parsed['products'] != null ? parsed['products'] : generateAllVehicleString(),
         )));
       } else {
         // Do nothing
@@ -162,6 +163,19 @@ class _HomeState extends State<Home> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  String generateAllVehicleString() {
+    String generated = "";
+    generated += "HIGH_SPEED_TRAIN,";
+    generated += "REGIONAL_TRAIN,";
+    generated += "SUBURBAN_TRAIN,";
+    generated += "SUBWAY,";
+    generated += "BUS,";
+    generated += "TRAM,";
+    generated += "FERRY,";
+    generated += "ON_DEMAND";
+    return generated;
   }
 }
 

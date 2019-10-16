@@ -33,7 +33,8 @@ class CoreService {
       String accessibility,
       String optimization,
       String walkspeed,
-      String source) async {
+      String source,
+      String products) async {
 
     var result = await SuperchargedHTTP.request(
         URL:  TrainAPIConstants.API_URL +
@@ -45,7 +46,8 @@ class CoreService {
               "&accessibility=" + accessibility +
               "&optimization=" + optimization +
               "&walkspeed=" + walkspeed +
-              "&source=" + source,
+              "&source=" + source +
+              "&products=" + products,
         timeout: 5000
     );
 
@@ -59,7 +61,8 @@ class CoreService {
       String accessibility,
       String optimization,
       String walkspeed,
-      String source) async {
+      String source,
+      String products) async {
 
     var result = await SuperchargedHTTP.request(
         URL:  TrainAPIConstants.API_URL +
@@ -71,9 +74,22 @@ class CoreService {
               "&accessibility=" + accessibility +
               "&optimization=" + optimization +
               "&walkspeed=" + walkspeed +
-              "&source=" + source,
+              "&source=" + source +
+              "&products=" + products,
         timeout: 5000
     );
+
+    print(TrainAPIConstants.API_URL +
+        TrainAPIConstants.API_ENDPOINT_TRIP +
+        TrainAPIConstants.API_ENDPOINT_TRIP_SEARCH_ID +
+        "?from=" + from +
+        "&to=" + to +
+        "&when=" + when +
+        "&accessibility=" + accessibility +
+        "&optimization=" + optimization +
+        "&walkspeed=" + walkspeed +
+        "&source=" + source +
+        "&products=" + products);
 
     return TripModel.fromJson(result);
   }
