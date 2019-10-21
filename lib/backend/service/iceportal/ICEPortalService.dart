@@ -1,19 +1,14 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
 import 'package:thepublictransport_app/backend/models/core/ICEPortalModel.dart';
+import 'package:thepublictransport_app/framework/http/SuperchargedHttp.dart';
 
 
 class ICEPortalService {
-  static Future<IcePortalModel> getICEPortal() {
-    return http.get(
-        "https://iceportal.de/api1/rs/tripInfo/trip"
-    ).then((res) {
+  static Future<IcePortalModel> getICEPortal() async {
+    var result = await SuperchargedHTTP.request(
+        URL:  'https://iceportal.de/api1/rs/tripInfo/trip',
+        timeout: 5000
+    );
 
-      var decode = json.decode(res.body);
-
-      return IcePortalModel.fromJson(decode);
-
-    });
+    return IcePortalModel.fromJson(result);
   }
 }
