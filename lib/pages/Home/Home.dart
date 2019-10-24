@@ -76,6 +76,7 @@ class _HomeState extends State<Home> {
   }
 
   Future<Null> initUniLinks() async {
+    print(await getInitialLink());
     try {
       if (await getInitialLink() != null) {
         Uri initialLink = await ShortenerService.getLink(await getInitialLink());
@@ -97,6 +98,13 @@ class _HomeState extends State<Home> {
           source: parsed['source'],
           products: parsed['products'] != null ? parsed['products'] : generateAllVehicleString(),
         )));
+
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.blueAccent,
+          statusBarColor: Colors.transparent, // status bar color
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light,
+        ));
       } else {
         // Do nothing
       }

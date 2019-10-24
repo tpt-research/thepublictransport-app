@@ -11,5 +11,5 @@ class TrainAPIConstants {
   static String API_ENDPOINT_LOCATION_SUGGEST = "/suggest";
   static String API_ENDPOINT_DEPARTURE = "/departure";
   static String API_ENDPOINT_ALERT = "/alert";
-  static String API_ENDPOINT_SHORTENER = "/short";
+  static String API_ENDPOINT_SHORTENER = "/trip/shorten";
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:morpheus/morpheus.dart';
 import 'package:share/share.dart';
 import 'package:thepublictransport_app/backend/models/core/TripModel.dart';
@@ -72,6 +73,18 @@ class _ResultDeeplinkState extends State<ResultDeeplink> {
   _ResultDeeplinkState(this.fromName, this.toName, this.fromID, this.toID, this.time, this.date, this.barrier, this.slowwalk, this.fastroute, this.source, this.products);
 
   var theme = ThemeEngine.getCurrentTheme();
+
+  @override
+  void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: theme.backgroundColor,
+      statusBarColor: Colors.transparent, // status bar color
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -20,15 +20,15 @@ class ShortenerService {
   static Future<String> createLink(String url) {
     return http.post(
         TrainAPIConstants.API_URL + TrainAPIConstants.API_ENDPOINT_SHORTENER,
-        body: json.encode({'long_url': url})
+        headers: {"Content-Type": "application/json"},
+        body: '{"original": "$url"}'
     ).then((res) {
 
       var decode = json.decode(res.body);
 
-      String id = decode['short_url'];
-      id = id.replaceAll('localhost:80', '');
+      String id = decode['shortened'];
 
-      return TrainAPIConstants.API_URL + TrainAPIConstants.API_ENDPOINT_TRIP_LINK + id;
+      return TrainAPIConstants.API_URL + TrainAPIConstants.API_ENDPOINT_TRIP_LINK + "/" + id;
     });
   }
 }

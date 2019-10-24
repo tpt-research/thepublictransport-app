@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -20,6 +21,7 @@ import 'package:thepublictransport_app/backend/service/tier/TierService.dart';
 import 'package:thepublictransport_app/backend/service/voi/VoiService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/ui/components/OptionSwitch.dart';
+import 'package:thepublictransport_app/ui/components/OptionSwitchImage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VehicleMap extends StatefulWidget {
@@ -472,27 +474,36 @@ class _VehicleMapState extends State<VehicleMap> {
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          new OptionSwitch(
+          new OptionSwitchImage(
             title: "TIER Scooter",
-            icon: MaterialCommunityIcons.bike,
+            icon: 'icons/marker_tier.png',
             id: "tier_mode",
             default_bool: true,
           ),
-          new OptionSwitch(
+          SizedBox(
+            height: 5,
+          ),
+          new OptionSwitchImage(
             title: "Voi Scooter",
-            icon: MaterialCommunityIcons.bike,
+            icon: 'icons/marker_voi.png',
             id: "voi_mode",
             default_bool: true,
           ),
-          new OptionSwitch(
+          SizedBox(
+            height: 5,
+          ),
+          new OptionSwitchImage(
             title: "Circ Scooter",
-            icon: MaterialCommunityIcons.bike,
+            icon: 'icons/marker_circ.png',
             id: "circ_mode",
             default_bool: true,
           ),
-          new OptionSwitch(
+          SizedBox(
+            height: 5,
+          ),
+          new OptionSwitchImage(
             title: "Nextbike Fahrräder",
-            icon: MaterialCommunityIcons.bike,
+            icon: 'icons/marker_nextbike.png',
             id: "nextbike_mode",
             default_bool: true,
           ),

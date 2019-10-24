@@ -1,5 +1,6 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:thepublictransport_app/backend/models/core/ICEPortalModel.dart';
 import 'package:thepublictransport_app/backend/service/iceportal/ICEPortalService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
@@ -19,6 +20,18 @@ class _ICEPortalState extends State<ICEPortal> {
   );
 
   var theme = ThemeEngine.getCurrentTheme();
+
+  @override
+  void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: theme.backgroundColor,
+      statusBarColor: Colors.transparent, // status bar color
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +83,20 @@ class _ICEPortalState extends State<ICEPortal> {
                       height: double.infinity,
                       child: Center(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text("Keine Verbindung zum ICEPortal", style: TextStyle(color: theme.subtitleColor)),
                             SizedBox(
                               height: 10,
                             ),
-                            Text("Stellen sie sicher, dass sie im WifionICE WLAN sind und, dass der DNS der vom WifionICE WLAN ist.")
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.80,
+                              child: Text("Stellen sie sicher, dass sie im WifionICE WLAN sind und das sie dessen DNS Server benutzen.",
+                                  style: TextStyle(color: theme.textColor),
+                                  textAlign: TextAlign.center
+                              ),
+                            )
                           ],
                         ),
                       ),

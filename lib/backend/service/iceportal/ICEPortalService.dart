@@ -9,6 +9,10 @@ class ICEPortalService {
         timeout: 5000
     );
 
+    if (result.toString().endsWith('</html>')) {
+      return null;
+    }
+
     return IcePortalModel.fromJson(result);
   }
 }
