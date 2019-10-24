@@ -41,6 +41,7 @@ dependencies:
   dio_flutter_transformer: ^3.0.2
   dio_http2_adapter: 1.0.0
   dio_http_cache: ^0.2.0
+  device_apps: 1.0.8
 
   # Database
   sembast: 2.0.1+2
@@ -80,6 +81,10 @@ flutter:
     - icons/fluxfail.png
     - icons/anja.png
     - icons/marker.png
+    - icons/marker_tier.png
+    - icons/marker_voi.png
+    - icons/marker_circ.png
+    - icons/marker_nextbike.png
     - anim/error.flr
     - anim/loader.flr
     - anim/cloud_loading.flr

@@ -9,6 +9,7 @@ import 'package:thepublictransport_app/pages/Flixbus/FlixbusSearch.dart';
 import 'package:thepublictransport_app/pages/ICEPortal/ICEPortal.dart';
 import 'package:thepublictransport_app/pages/SavedTrips/SavedTrips.dart';
 import 'package:thepublictransport_app/pages/Sparpreis/SparpreisSearch.dart';
+import 'package:thepublictransport_app/pages/VehicleMap/VehicleMap.dart';
 import 'package:thepublictransport_app/ui/components/SelectionButtons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -176,6 +177,24 @@ class _HomeSliderState extends State<HomeSlider> {
                   ),
                   callback: () async {
                     await sightseeingGMaps();
+                  },
+                ),
+                SelectionButtons(
+                  color: Colors.blue,
+                  description: Text(
+                    "Scooter/Bikes",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: theme.textColor
+                    ),
+                  ),
+                  icon: Icon(
+                    MaterialCommunityIcons.bike,
+                    color: theme.titleColorInverted,
+                    size: 30,
+                  ),
+                  callback: () async {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => VehicleMap()));
                   },
                 ),
               ],

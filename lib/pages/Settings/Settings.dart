@@ -119,6 +119,22 @@ class _SettingsState extends State<Settings> {
                       SizedBox(
                         height: 20.5,
                       ),
+                      new OptionSwitch(
+                        title: "E-Scooter und Bikes anzeigen",
+                        subtitle: "Zeigt auf der Startseite E-Scooter (TIER, Circ, Voi), und Leihräder (Nextbike) auf der Startseite an.",
+                        icon: MaterialCommunityIcons.bike,
+                        id: "scooter_mode",
+                        default_bool: false,
+                      ),
+                      SizedBox(
+                        height: 20.5,
+                      ),
+                      Divider(
+                        height: 2.0,
+                      ),
+                      SizedBox(
+                        height: 20.5,
+                      ),
                       ListTile(
                         leading: new Icon(Icons.directions_bus, color: theme.iconColor),
                         title: new Text(
