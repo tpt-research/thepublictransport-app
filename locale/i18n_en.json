@@ -1,0 +1,197 @@
+{
+  "GENERAL" : {
+    "OK": "Okay",
+    "CANCEL": "Cancel",
+    "OPEN": "Open",
+    "CLOSE": "Close",
+    "CONTINUE": "Continue",
+    "MORE_INFO": "More Info"
+  },
+  "ABOUT": {
+    "TITLE": "About",
+    "DEVS": "Our Developers:",
+    "INITIATOR": "Initiator & Main Dev",
+    "DESIGN_HELP": "Design Advice",
+    "DEVOPS": "DevOps",
+    "THANKS_TO": "Thanks to:"
+  },
+  "ALTERNATIVE": {
+    "TITLE": "Cheap alternative",
+    "SPARPREIS": {
+      "FAILED": "Sorry, this search did not produce any results",
+      "FAILED_MESSAGE": "Note that the search works best with stations, not with bus stops, because there is no economy price for them."
+    },
+    "FLIXBUS": {
+      "FAILED": "Sorry, this search did not produce any results",
+      "FAILED_MESSAGE": "It is possible that there is no Flixbus line for your journey.",
+      "START": "Start: ",
+      "END": "Stop: "
+    }
+  },
+  "FLIXBUS": {
+    "TITLE": "Flixbus",
+    "START": "Start",
+    "END": "Stop",
+    "RESULT": {
+      "FAILED": "Sorry, this search did not produce any results",
+      "START": "Start: ",
+      "END": "Stop: "
+    },
+    "RESULT_DETAILED": {
+      "CHANGE_TIME": "minutes transfer time",
+      "ALERT": "Notifications",
+      "NO_ALERT": "No messages"
+    }
+  },
+  "ICEPORTAL": {
+    "TITLE": "ICEPortal",
+    "FAILED": "No connection to the ICEPortal",
+    "FAILED_MESSAGE": "Make sure you are connected with the WifionICE WLAN and that you are using its DNS server."
+  },
+  "NEARBY": {
+    "SEARCH": "Search by stop...",
+    "EXPLORE_WORLD": "Explore the world!",
+    "SAVED": "Saved Trips",
+    "FLIXBUS": "Flixbus",
+    "SPARPREIS": "Sparpreis (DB)",
+    "ICEPORTAL": "ICEPortal",
+    "SIGHTSEEING": "Sightseeing",
+    "SCOOTER": "Scooter/Bikes"
+  },
+  "RESULT": {
+    "TITLE": "Search",
+    "FAILED": "Sorry, this search did not produce any results",
+    "DETAILED": {
+      "SAVE_FINISHED": "Save completed",
+      "SAVE_FAILED": "Save failed",
+      "CHANGE_TIME": "minutes transfer time",
+      "LANE": "Tr.",
+      "ALERT": "Notifications",
+      "NO_ALERT": "No messages",
+      "STOPS": "Intermediate stops"
+    }
+  },
+  "SAVED_TRIPS": {
+    "TITLE": "Saved Trips",
+    "NO_TRIPS": "No trips saved",
+    "FROM": "From:",
+    "TO": "To:",
+    "DETAILED": {
+      "REMOVE_FINISHED": "Remove completed",
+      "REMOVE_FAILED": "Remove failed",
+      "CHANGE_TIME": "minutes transfer time",
+      "LANE": "Tr.",
+      "ALERT": "Notifications",
+      "NO_ALERT": "No messages",
+      "STOPS": "Intermediate stops"
+    }
+  },
+  "SEARCH": {
+    "START": "Start",
+    "END": "End",
+    "OPTIONS": "Options",
+    "SETTINGS": {
+      "ACCESSIBILITY": "Accessibility",
+      "FAST_TRAVEL": "Fastest route",
+      "LONG_WALK": "Longer walking time",
+      "VEHICLES": {
+        "TITLE": "Vehicles",
+        "HIGH_SPEED_TRAIN": "High speed train",
+        "REGIONAL_TRAIN": "Regional train",
+        "SUBURBAN_TRAIN": "Suburban traun",
+        "SUBWAY": "Subway",
+        "BUS": "Bus",
+        "TRAM": "Tram",
+        "FERRY": "Ferry",
+        "ONDEMAND": "On demand"
+      }
+    }
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "EXPERIMENTAL": "Experimental",
+    "COUNTRY": {
+      "GERMANY": "Germany",
+      "AUSTRIA": "Austria",
+      "BELGIUM": "Belgium",
+      "SWITZERLAND": "Switzerland",
+      "LUXEMBOURG": "Luxembourg",
+      "DENMARK": "Denmark",
+      "GREAT_BRITAIN": "Great Britain",
+      "USA_CALIFORNIA": "USA / California",
+      "IRELAND": "Ireland"
+    },
+    "DATA_SAVE": {
+      "TITLE": "Data-Saving mode",
+      "DESCRIPTION": "Only a few suggestions, search results and delay messages are loaded to reduce data consumption."
+    },
+    "DARK_THEME": {
+      "TITLE": "Dark mode",
+      "DESCRIPTION": "Saves energy especially with OLED displays and looks aesthetic for various users. To make the changes effective, restart the app."
+    },
+    "ANALYTICS": {
+      "TITLE": "Firebase Analytics",
+      "DESCRIPTION": "Collects anonymous information about user behavior that helps us improve our app. Firebase Analytics is a service provided by Google LLC."
+    },
+    "CRASHLYTICS": {
+      "TITLE": "Firebase Crashlytics",
+      "DESCRIPTION": "Collects crashes of the app and passes them on to us so we can improve the app. Firebase Crashlytics is a service from Fabric.io (Alphabet Inc.)."
+    },
+    "SCOOTER": {
+      "TITLE": "Show E-Scooters and Bikes",
+      "DESCRIPTION": "Displays e-scooters (TIER, Circ, Voi) on the start page, and rental bikes (Nextbike) on the start page."
+    },
+    "LANGUAGE": {
+      "TITLE": "Change language",
+      "DESCRIPTION": "Select your preferred language here."
+    },
+    "DATA_CHANGE": {
+      "TITLE": "Change data source",
+      "DESCRIPTION": "Here you can select from which traffic association the data should come. When changing the traffic association, various features are deactivated."
+    },
+    "PREVIEW": {
+      "TITLE": "View preview again",
+      "DESCRIPTION": "Take another look at the preview presented at the beginning."
+    },
+    "ABOUT": {
+      "TITLE": "About",
+      "DESCRIPTION": "Get to know the people who have given their best to create this app."
+    }
+  },
+  "SPARPREIS": {
+    "TITLE": "Sparpreis",
+    "START": "Start",
+    "END": "End",
+    "RESULT": {
+      "FAILED": "Sorry, this search did not produce any results",
+      "FAILED_MESSAGE": "Note that the search works best with stations, not with bus stops, because there is no economy price for them."
+    }
+  },
+  "START": {
+    "TITLE_1": "Hello",
+    "TITLE_2": "Who are we ?",
+    "TITLE_3": "Our claim",
+    "TITLE_4": "All in one app",
+    "TITLE_5": "Have fun",
+    "MESSAGE_1": "Welcome to The Public Transport. To continue, please swipe to the left.",
+    "MESSAGE_2": "We are The Public Transport. The first app for public transport in Flutter. But we are not just an app.",
+    "MESSAGE_3": "We want to change public transport. The era of delays and unreliability should finally end! That is why we are building this app, and what you hold in your hands is just the beginning!",
+    "MESSAGE_4": "We would like to integrate all means of transport into this app, and we will do so ! In as many countries as possible !",
+    "MESSAGE_5": "For united public transport! We are The Public Transport",
+    "POPUP_1": "This app has only just been released, and will probably contain some bugs.",
+    "POPUP_2": "We ask you to report these bugs to us so we can fix them.",
+    "POPUP_3": "We would like to thank all testers and contributors to The Public Transport. Without you we wouldn't be where we are today!"
+  },
+  "STATION": {
+    "TITLE": "Station",
+    "STOP": "Stop",
+    "VEHICLES": "Vehicles",
+    "COORDINATES": "Coordinates"
+  } ,
+  "VEHICLEMAP": {
+    "SEARCH": "Search by place...",
+    "OPTIONS": "Options",
+    "BIKE": "Bike",
+    "BIKES": "Bikes"
+  }
+}

@@ -6,6 +6,7 @@ import 'package:thepublictransport_app/backend/models/core/SparpreisFinderModel.
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
 import 'package:thepublictransport_app/backend/models/sparpreis/Message.dart';
 import 'package:thepublictransport_app/backend/service/sparpreis/SparpreisService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
@@ -67,7 +68,7 @@ class _SparpreisResultState extends State<SparpreisResult> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Sparpreis",
+                    allTranslations.text('SPARPREIS.TITLE'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         fontSize: 40,
@@ -169,11 +170,11 @@ class _SparpreisResultState extends State<SparpreisResult> {
                               child: Center(
                                 child: Column(
                                   children: <Widget>[
-                                    Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
+                                    Text(allTranslations.text('SPARPREIS.RESULT.FAILED'), style: TextStyle(color: theme.subtitleColor)),
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    Text("Beachten sie, dass die Suche am besten mit Bahnhöfen funktioniert, und nicht mit Bushaltestellen, weil es für diese keinen Sparpreis gibt.")
+                                    Text(allTranslations.text('SPARPREIS.RESULT.FAILED_MESSAGE'))
                                   ],
                                 ),
                               ),

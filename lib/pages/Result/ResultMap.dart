@@ -46,7 +46,7 @@ class _ResultMapState extends State<ResultMap> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        heroTag: "HEROOOO2",
+        heroTag: "HEROOOO",
         onPressed: () {
           Navigator.of(context).pop();
         },

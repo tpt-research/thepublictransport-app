@@ -6,8 +6,9 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:thepublictransport_app/backend/models/core/AlertModel.dart';
 import 'package:thepublictransport_app/backend/service/alert/AlertService.dart';
 import 'package:thepublictransport_app/backend/service/shortener/ShortenerService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
-import 'package:thepublictransport_app/pages/Home/HomeNearby.dart';
+import 'package:thepublictransport_app/pages/Nearby/Nearby.dart';
 import 'package:thepublictransport_app/pages/Result/ResultDeeplink.dart';
 import 'package:thepublictransport_app/pages/SavedTrips/SavedTrips.dart';
 import 'package:thepublictransport_app/pages/Search/SearchTrip.dart';
@@ -26,6 +27,7 @@ class _HomeState extends State<Home> {
   var theme = ThemeEngine.getCurrentTheme();
   int currentPage = 0;
   PageController _pageController = new PageController();
+  GlobalKey<CurvedNavigationBarState> curvedKey = GlobalKey();
 
   @override
   void initState() {
@@ -93,6 +95,7 @@ class _HomeState extends State<Home> {
       resizeToAvoidBottomInset: false,
       extendBody: true,
       bottomNavigationBar: CurvedNavigationBar(
+        key: curvedKey,
         backgroundColor: Colors.transparent,
         buttonBackgroundColor: Colors.blueAccent,
         color: Colors.blueAccent,
@@ -112,9 +115,9 @@ class _HomeState extends State<Home> {
         controller: _pageController,
         scrollDirection: Axis.horizontal,
         children: <Widget>[
-          HomeNearby(),
+          Nearby(),
           SearchTrip(),
-          Settings()
+          Settings(pageController: _pageController, curvedKey: curvedKey)
         ],
       ),
     );
@@ -153,7 +156,7 @@ class _HomeState extends State<Home> {
         // Do nothing
       }
     } on PlatformException {
-      Toast.show("Das hat leider nicht geklappt :(", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
+      Toast.show("This did not work. :(", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
     }
   }
 
@@ -192,13 +195,13 @@ class _HomeState extends State<Home> {
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text("Schließen", style: TextStyle(color: theme.textColor)),
+              child: new Text(allTranslations.text('GENERAL.CLOSE'), style: TextStyle(color: theme.textColor)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             new FlatButton(
-              child: new Text("Mehr Infos", style: TextStyle(color: theme.textColor)),
+              child: new Text(allTranslations.text('GENERAL.MORE_INFO'), style: TextStyle(color: theme.textColor)),
               onPressed: () {
                 getAlertPage(message.message.translations.de.link);
               },

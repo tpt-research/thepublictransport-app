@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:preferences/preferences.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/pages/Home/Home.dart';
 import 'package:thepublictransport_app/ui/animations/ScaleUp.dart';
 import 'package:thepublictransport_app/ui/animations/ShowUp.dart';
@@ -29,18 +30,18 @@ class Welcome extends StatelessWidget {
   ];
 
   final List<String> titles = [
-    "Hallo",
-    "Wer sind wir?",
-    "Unser Anspruch",
-    "Alles in einer App",
-    "Viel Spaß !"
+    allTranslations.text('START.TITLE_1'),
+    allTranslations.text('START.TITLE_2'),
+    allTranslations.text('START.TITLE_3'),
+    allTranslations.text('START.TITLE_4'),
+    allTranslations.text('START.TITLE_5')
   ];
   final List<String> subtitles = [
-    "Willkommen bei The Public Transport. Zum Fortfahren, wischen sie bitte nach links.",
-    "Wir sind The Public Transport. Die erste App für öffentlichen Verkehr in Flutter. Wir sind aber nicht nur eine App.",
-    "Wir möchten den öffentlichen Verkehr verändern. Die Ära der Verspätungen und Unzuverlässigkeiten soll endlich enden! Deswegen bauen wir diese App, und was du in deinen Händen hältst ist erst der Anfang!!",
-    "Wir möchten am liebsten alle Verkehrsmittel in diese App einbauen, und dies werden wir auch tun ! Und das in so vielen Ländern wie möglich !",
-    "Für einen gemeinsamen öffentlichen Verkehr! Wir sind The Public Transport"
+    allTranslations.text('START.MESSAGE_1'),
+    allTranslations.text('START.MESSAGE_2'),
+    allTranslations.text('START.MESSAGE_3'),
+    allTranslations.text('START.MESSAGE_4'),
+    allTranslations.text('START.MESSAGE_5')
   ];
 
   final List<Color> backgroundColors = [
@@ -162,7 +163,7 @@ class Welcome extends StatelessWidget {
                                 width: 2,
                                 color: Colors.black),
                             highlightedBorderColor: Colors.black,
-                            child: Text('Fortfahren',
+                            child: Text(allTranslations.text('GENERAL.CONTINUE'),
                                 style: new TextStyle(
                                     fontStyle: FontStyle.normal,
                                     fontSize: 17,
@@ -206,7 +207,7 @@ class Welcome extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                "Diese App ist erst gerade entstanden, und wird wahrscheinlich noch diverse Bugs beinhalten.",
+                allTranslations.text('START.POPUP_1'),
                 style: TextStyle(
                     color: Colors.black
                 ),
@@ -215,7 +216,7 @@ class Welcome extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "Wir bitten euch dabei uns diese Bugs zu melden damit wir diese beheben können.",
+                allTranslations.text('START.POPUP_2'),
                 style: TextStyle(
                     color: Colors.black
                 ),
@@ -224,7 +225,7 @@ class Welcome extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                'Wir bedanken uns an alle Tester und Mitwirkende von The Public Transport. Ohne euch wären wir nicht wo wir heute sind!',
+                allTranslations.text('START.POPUP_3'),
                 style: TextStyle(
                     color: Colors.black
                 ),

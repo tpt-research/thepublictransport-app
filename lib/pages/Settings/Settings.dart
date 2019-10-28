@@ -1,16 +1,24 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:preferences/preferences.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/About/About.dart';
 import 'package:thepublictransport_app/pages/Start/Start.dart';
 import 'package:thepublictransport_app/ui/components/OptionSwitch.dart';
 
 class Settings extends StatefulWidget {
+
+  final PageController pageController;
+  final GlobalKey<CurvedNavigationBarState> curvedKey;
+
+  const Settings({Key key, this.pageController, this.curvedKey}) : super(key: key);
+
   @override
-  _SettingsState createState() => _SettingsState();
+  _SettingsState createState() => _SettingsState(pageController, curvedKey);
 }
 
 class _SettingsState extends State<Settings> {
@@ -20,6 +28,11 @@ class _SettingsState extends State<Settings> {
   );
 
   var theme = ThemeEngine.getCurrentTheme();
+
+  final PageController pageController;
+  final GlobalKey<CurvedNavigationBarState> curvedKey;
+
+  _SettingsState(this.pageController, this.curvedKey);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +49,7 @@ class _SettingsState extends State<Settings> {
             height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
             child: Center(
               child: Text(
-                "Einstellungen",
+                allTranslations.text('SETTINGS.TITLE'),
                 style: TextStyle(
                     fontFamily: 'NunitoSansBold',
                     fontSize: 40,
@@ -56,8 +69,8 @@ class _SettingsState extends State<Settings> {
                     scrollDirection: Axis.vertical,
                     children: <Widget>[
                       new OptionSwitch(
-                        title: "Datensparmodus",
-                        subtitle: "Es werden dann nur noch wenige Vorschläge, Suchergebnisse und Verspätungsmeldungen geladen um den Datenverbrauch zu reduzieren.",
+                        title: allTranslations.text('SETTINGS.DATA_SAVE.TITLE'),
+                        subtitle: allTranslations.text('SETTINGS.DATA_SAVE.DESCRIPTION'),
                         icon: Icons.data_usage,
                         id: "datasave_mode",
                         default_bool: true,
@@ -72,8 +85,8 @@ class _SettingsState extends State<Settings> {
                         height: 20.5,
                       ),
                       new OptionSwitch(
-                        title: "Dunkles Design",
-                        subtitle: "Spart besonders Energie bei OLED Displays und sieht für diverse User ästhetisch aus. Um die Änderungen wirksam zu machen, starten sie die App neu.",
+                        title: allTranslations.text('SETTINGS.DARK_THEME.TITLE'),
+                        subtitle: allTranslations.text('SETTINGS.DARK_THEME.DESCRIPTION'),
                         icon: Icons.settings_brightness,
                         id: "theme_mode",
                         default_bool: false,
@@ -88,8 +101,8 @@ class _SettingsState extends State<Settings> {
                         height: 20.5,
                       ),
                       new OptionSwitch(
-                        title: "Firebase Analytics",
-                        subtitle: "Sammelt Anonyme Daten über Nutzerverhalten an uns, die uns dabei helfen unsere App zu verbessern. Firebase Analytics ist ein Service von Google LLC.",
+                        title: allTranslations.text('SETTINGS.ANALYTICS.TITLE'),
+                        subtitle: allTranslations.text('SETTINGS.ANALYTICS.DESCRIPTION'),
                         icon: MaterialCommunityIcons.google_analytics,
                         id: "analytics_mode",
                         default_bool: false,
@@ -104,8 +117,8 @@ class _SettingsState extends State<Settings> {
                         height: 20.5,
                       ),
                       new OptionSwitch(
-                        title: "Firebase Crashlytics",
-                        subtitle: "Sammelt Abstürze der App und gibt sie an uns weiter, damit wir die App verbessern können. Firebase Crashlytics ist ein Service von Fabric.io (Alphabet Inc.).",
+                        title: allTranslations.text('SETTINGS.CRASHLYTICS.TITLE'),
+                        subtitle: allTranslations.text('SETTINGS.CRASHLYTICS.DESCRIPTION'),
                         icon: MaterialCommunityIcons.home_analytics,
                         id: "crashlytics_mode",
                         default_bool: false,
@@ -120,8 +133,8 @@ class _SettingsState extends State<Settings> {
                         height: 20.5,
                       ),
                       new OptionSwitch(
-                        title: "E-Scooter und Bikes anzeigen",
-                        subtitle: "Zeigt auf der Startseite E-Scooter (TIER, Circ, Voi), und Leihräder (Nextbike) auf der Startseite an.",
+                        title: allTranslations.text('SETTINGS.SCOOTER.TITLE'),
+                        subtitle: allTranslations.text('SETTINGS.SCOOTER.DESCRIPTION'),
                         icon: MaterialCommunityIcons.bike,
                         id: "scooter_mode",
                         default_bool: false,
@@ -136,16 +149,47 @@ class _SettingsState extends State<Settings> {
                         height: 20.5,
                       ),
                       ListTile(
-                        leading: new Icon(Icons.directions_bus, color: theme.iconColor),
+                        leading: new Icon(Icons.language, color: theme.iconColor),
                         title: new Text(
-                          "Datenbestand wechseln",
+                          allTranslations.text('SETTINGS.LANGUAGE.TITLE'),
                           style: TextStyle(
                               color: theme.titleColor,
                               fontFamily: "NunitoSansBold"
                           ),
                         ),
                         subtitle: Text(
-                          "Hier können sie auswählen von welchem Verkehrsbund die Daten kommen sollen. Beim Wechseln des Verkehrsbundes werden diverse Features deaktiviert.",
+                          allTranslations.text('SETTINGS.LANGUAGE.DESCRIPTION'),
+                          style: TextStyle(
+                              color: theme.subtitleColor
+                          ),
+                        ),
+                        onTap: () async {
+                          await showLanguageDialog();
+                          curvedKey.currentState.setPage(0);
+                          pageController.animateToPage(0,
+                              duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                        },
+                      ),
+                      SizedBox(
+                        height: 20.5,
+                      ),
+                      Divider(
+                        height: 2.0,
+                      ),
+                      SizedBox(
+                        height: 20.5,
+                      ),
+                      ListTile(
+                        leading: new Icon(Icons.directions_bus, color: theme.iconColor),
+                        title: new Text(
+                          allTranslations.text('SETTINGS.DATA_CHANGE.TITLE'),
+                          style: TextStyle(
+                              color: theme.titleColor,
+                              fontFamily: "NunitoSansBold"
+                          ),
+                        ),
+                        subtitle: Text(
+                          allTranslations.text('SETTINGS.DATA_CHANGE.DESCRIPTION'),
                           style: TextStyle(
                               color: theme.subtitleColor
                           ),
@@ -166,14 +210,14 @@ class _SettingsState extends State<Settings> {
                       ListTile(
                         leading: new Icon(Icons.view_carousel, color: theme.iconColor),
                         title: new Text(
-                          "Vorschau nochmals anschauen",
+                          allTranslations.text('SETTINGS.PREVIEW.TITLE'),
                           style: TextStyle(
                               color: theme.titleColor,
                               fontFamily: "NunitoSansBold"
                           ),
                         ),
                         subtitle: Text(
-                            "Sehen sie sich nochmal die Vorschau an, die am Anfang präsentiert wurde.",
+                          allTranslations.text('SETTINGS.PREVIEW.DESCRIPTION'),
                             style: TextStyle(
                                 color: theme.subtitleColor
                             ),
@@ -194,14 +238,14 @@ class _SettingsState extends State<Settings> {
                       ListTile(
                         leading: new Icon(Icons.info, color: theme.iconColor),
                         title: new Text(
-                          "Über diese App",
+                          allTranslations.text('SETTINGS.ABOUT.TITLE'),
                           style: TextStyle(
                               color: theme.titleColor,
                               fontFamily: "NunitoSansBold"
                           ),
                         ),
                         subtitle: Text(
-                            "Lernen sie die Personen kennen, die ihr bestes gegeben haben diese App zu präsentieren.",
+                            allTranslations.text('SETTINGS.ABOUT.DESCRIPTION'),
                             style: TextStyle(
                               color: theme.subtitleColor
                             ),
@@ -248,7 +292,7 @@ class _SettingsState extends State<Settings> {
                     height: 5,
                   ),
                   Text(
-                    "Deutschland",
+                    allTranslations.text('SETTINGS.COUNTRY.GERMANY'),
                     style: TextStyle(
                       fontFamily: 'NunitoSansBold',
                       color: Colors.grey
@@ -258,8 +302,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   generateListTile(
-                      "Deutsche Bahn",
-                      "Beinhaltet Daten des Deutschen Nah- und Fernverkehrs, inklusive Internationale Daten und von vielen Verkehrsbünden",
+                      "Deutsche Bahn / DB Navigator",
                       'https://upload.wikimedia.org/wikipedia/commons/d/d5/Deutsche_Bahn_AG-Logo.svg',
                       'DB',
                       context
@@ -275,7 +318,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Rhein-Main Verkehrsbund",
-                      "Beinhaltet Daten des RMV Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/0/0d/Rhein-Main-Verkehrsverbund_logo.svg',
                       'NVV_RMV',
                       context
@@ -291,7 +333,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Berliner Verkehrsbetriebe",
-                      "Beinhaltet Daten des BVG Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/d/d4/Bvg-logo.svg',
                       'BVG',
                       context
@@ -307,7 +348,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Aachener Verkehrsverbund",
-                      "Beinhaltet Daten des AVV Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/c/cf/AVV_Logo_neu.svg',
                       'AVVAachen',
                       context
@@ -323,7 +363,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTilePNG(
                       "INSA (Sachsen / Sachsen-Anhalt)",
-                      "Beinhaltet Daten des INSA Nahverkehrs",
                       'https://www.starker-nahverkehr.de/fileadmin/templates/img/insa/insa-logo.png',
                       'NASA',
                       context
@@ -339,7 +378,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Verkehrsverbund Bremen/Niedersachsen",
-                      "Beinhaltet Daten des VBN Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/b/b9/Logo_Verkehrsverbund_Bremen_Niedersachsen.svg',
                       'VBN',
                       context
@@ -355,7 +393,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Verkehrsmanagement-Gesellschaft Saar",
-                      "Beinhaltet Daten des VGS Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/4/4e/VerkehrsmanagementGesellschaft_Saar_logo.svg',
                       'VGS',
                       context
@@ -371,7 +408,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Verkehrsverbund Mittelthüringen",
-                      "Beinhaltet Daten des VMT Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/5/56/Verkehrsverbund_Mittelth%C3%BCringen_logo.svg',
                       'VMT',
                       context
@@ -387,7 +423,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Ingolstädter Verkehrsgesellschaft",
-                      "Beinhaltet Daten des INVG Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/de/0/09/Ingolst%C3%A4dter_Verkehrsgesellschaft_Logo.svg',
                       'INVG',
                       context
@@ -396,7 +431,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   Text(
-                    "Schweiz",
+                    allTranslations.text('SETTINGS.COUNTRY.SWITZERLAND'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         color: Colors.grey
@@ -407,7 +442,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Zürcher Verkehrsverbund",
-                      "Beinhaltet Daten des ZVV Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/2/2b/Logo_ZVV.svg',
                       'ZVV',
                       context
@@ -416,7 +450,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   Text(
-                    "Luxemburg",
+                    allTranslations.text('SETTINGS.COUNTRY.LUXEMBOURG'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         color: Colors.grey
@@ -427,7 +461,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Verkéiersverbond Luxembourg",
-                      "Beinhaltet Daten des Luxemburger Nahverkehrs",
                       'https://www.mobiliteit.lu/wp-content/themes/mobiliteit/assets/img/mobiliteit-logo.svg',
                       'LU',
                       context
@@ -436,7 +469,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   Text(
-                    "Belgien",
+                    allTranslations.text('SETTINGS.COUNTRY.BELGIUM'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         color: Colors.grey
@@ -447,7 +480,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Nationale Gesellschaft der Belgischen Eisenbahnen",
-                      "Beinhaltet Daten der Belgischen Bahn",
                       'https://upload.wikimedia.org/wikipedia/commons/9/9d/LogoBR.svg',
                       'SNCB',
                       context
@@ -456,7 +488,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   Text(
-                    "Dänemark",
+                    allTranslations.text('SETTINGS.COUNTRY.DENMARK'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         color: Colors.grey
@@ -467,7 +499,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTilePNG(
                       "Danske Statsbaner",
-                      "Beinhaltet Daten des Dänischen Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/a/a3/Danske_Statsbaner_logo2014.png',
                       'DSB',
                       context
@@ -476,7 +507,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   Text(
-                    "Österreich",
+                    allTranslations.text('SETTINGS.COUNTRY.AUSTRIA'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         color: Colors.grey
@@ -486,8 +517,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   generateListTilePNG(
-                      "VOR AnachB (Österreich)",
-                      "Beinhaltet Daten des VOR AnachB Netzwerkes",
+                      "VOR AnachB",
                       'https://anachb.vor.at/hafas-res/img/vs_voranachb/logo_voranachb_small_new.png',
                       'AnachB',
                       context
@@ -496,7 +526,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   Text(
-                    "Großbritannien",
+                    allTranslations.text('SETTINGS.COUNTRY.GRAT_BRITAIN'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         color: Colors.grey
@@ -507,7 +537,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTilePNG(
                       "Arriva UK",
-                      "Beinhaltet Daten des Arriva UK Netzwerkes",
                       'https://upload.wikimedia.org/wikipedia/commons/3/3f/New_Logo_Arriva.png',
                       'ArrivaUK',
                       context
@@ -516,7 +545,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   Text(
-                    "USA / Kalifornien",
+                    allTranslations.text('SETTINGS.COUNTRY.USA_CALIFORNIA'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         color: Colors.grey
@@ -526,8 +555,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   generateListTile(
-                      "Bay Area Rapid Transit (San Francisco)",
-                      "Beinhaltet Daten des BART Netzwerkes",
+                      "Bay Area Rapid Transit",
                       'https://upload.wikimedia.org/wikipedia/commons/2/26/Bart-logo.svg',
                       'BART',
                       context
@@ -536,7 +564,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   Text(
-                    "Irrland",
+                    allTranslations.text('SETTINGS.COUNTRY.IRELAND'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         color: Colors.grey
@@ -546,8 +574,7 @@ class _SettingsState extends State<Settings> {
                     height: 10,
                   ),
                   generateListTilePNG(
-                      "Iarnród Éireann (Irrland)",
-                      "Beinhaltet Daten der Staatsbahn von Irrland",
+                      "Iarnród Éireann",
                       'https://upload.wikimedia.org/wikipedia/commons/2/2e/Iarnrod_Eireann_simple_logo_2013.png',
                       'Irishrail',
                       context
@@ -567,7 +594,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Österreichische Bundesbahnen (Teils Stabil)",
-                      "Beinhaltet Daten der österreichischen Bundesbahn",
                       'https://upload.wikimedia.org/wikipedia/commons/5/5e/Logo_%C3%96BB.svg',
                       'OEBB',
                       context
@@ -583,7 +609,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Karlsruher Verkehrsbund (Experimentell)",
-                      "Beinhaltet Daten des KVV Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/e/e3/KVV_2010.svg',
                       'KVV',
                       context
@@ -599,7 +624,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Verkehrsbund Rhein-Ruhr (Experimentell)",
-                      "Beinhaltet Daten des VRR Nahverkehrs",
                       'https://upload.wikimedia.org/wikipedia/commons/9/9d/Verkehrsverbund_Rhein-Ruhr_2010_logo.svg',
                       'VRR',
                       context
@@ -615,7 +639,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Wiener Linien (Experimentell)",
-                      "(Experimentell) Beinhaltet Daten der österreichischen Wiener Linien",
                       'https://upload.wikimedia.org/wikipedia/commons/5/59/Wiener_Linien_logo.svg',
                       'Wien',
                       context
@@ -631,7 +654,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   generateListTile(
                       "Schweizerische Bundesbahnen (Experimentell) ",
-                      "Beinhaltet Daten der schweizerischen Bundesbahn",
                       'https://upload.wikimedia.org/wikipedia/commons/0/00/Sbb-logo.svg',
                       'SBB',
                       context
@@ -641,7 +663,7 @@ class _SettingsState extends State<Settings> {
             ),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Schließen", style: TextStyle(color: theme.textColor)),
+                child: new Text(allTranslations.text('GENERAL.CLOSE'), style: TextStyle(color: theme.textColor)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -652,7 +674,71 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  ListTile generateListTile(String title, String subtitle, String imageURL, String ID, BuildContext context) {
+  void showLanguageDialog() async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.0)
+            ),
+            content: SizedBox(
+              width: MediaQuery.of(this.context).size.width * 0.98,
+              child: ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                children: <Widget>[
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    allTranslations.text('SETTINGS.LANGUAGE.TITLE'),
+                    style: TextStyle(
+                        fontFamily: 'NunitoSansBold',
+                        color: Colors.grey
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  generateLanguageTile(
+                      "English",
+                      'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg',
+                      'en',
+                      context
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateLanguageTilePNG(
+                      "Deutsch",
+                      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/800px-Flag_of_Germany.svg.png',
+                      'de',
+                      context
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text(allTranslations.text('GENERAL.CLOSE'), style: TextStyle(color: theme.textColor)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+    );
+  }
+
+  ListTile generateLanguageTile(String title, String imageURL, String ID, BuildContext context) {
     return ListTile(
       title: Text(
         title,
@@ -661,7 +747,56 @@ class _SettingsState extends State<Settings> {
             fontFamily: "NunitoSansBold"
         ),
       ),
-      subtitle: Text(subtitle),
+      leading: SizedBox(
+        height: 50,
+        width: 50,
+        child: Center(child: SvgPicture.network(imageURL)),
+      ),
+      trailing: Icon(
+          PrefService.getString('language') == ID ? Icons.radio_button_checked : Icons.radio_button_unchecked
+      ),
+      onTap: () async {
+        PrefService.setString('language', ID);
+        await allTranslations.setNewLanguage(ID);
+        await Navigator.of(context).pop();
+      },
+    );
+  }
+
+  ListTile generateLanguageTilePNG(String title, String imageURL, String ID, BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: TextStyle(
+            color: theme.titleColor,
+            fontFamily: "NunitoSansBold"
+        ),
+      ),
+      leading: SizedBox(
+        height: 50,
+        width: 50,
+        child: Center(child: Image.network(imageURL)),
+      ),
+      trailing: Icon(
+          PrefService.getString('language') == ID ? Icons.radio_button_checked : Icons.radio_button_unchecked
+      ),
+      onTap: () async {
+        PrefService.setString('language', ID);
+        await allTranslations.setNewLanguage(ID);
+        await Navigator.of(context).pop();
+      },
+    );
+  }
+
+  ListTile generateListTile(String title, String imageURL, String ID, BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: TextStyle(
+            color: theme.titleColor,
+            fontFamily: "NunitoSansBold"
+        ),
+      ),
       leading: SizedBox(
         height: 50,
         width: 50,
@@ -677,7 +812,7 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  ListTile generateListTilePNG(String title, String subtitle, String imageURL, String ID, BuildContext context) {
+  ListTile generateListTilePNG(String title, String imageURL, String ID, BuildContext context) {
     return ListTile(
       title: Text(
         title,
@@ -686,7 +821,6 @@ class _SettingsState extends State<Settings> {
             fontFamily: "NunitoSansBold"
         ),
       ),
-      subtitle: Text(subtitle),
       leading: SizedBox(
         height: 50,
         width: 50,

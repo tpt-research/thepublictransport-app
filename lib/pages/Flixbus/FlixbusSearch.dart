@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/flixbus/QueryResult.dart';
 import 'package:thepublictransport_app/backend/service/flixbus/FlixbusService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/ui/animations/ShowUp.dart';
 
@@ -105,7 +106,7 @@ class _FlixbusSearchState extends State<FlixbusSearch> {
                                     color: theme.textColor
                                 ),
                                 decoration: InputDecoration(
-                                  hintText: 'Start',
+                                  hintText: allTranslations.text('FLIXBUS.START'),
                                   hintStyle: TextStyle(
                                       color: theme.textColor
                                   ),
@@ -166,7 +167,7 @@ class _FlixbusSearchState extends State<FlixbusSearch> {
                                     color: theme.textColor
                                 ),
                                 decoration: InputDecoration(
-                                  hintText: 'Ziel',
+                                  hintText: allTranslations.text('FLIXBUS.END'),
                                   hintStyle: TextStyle(
                                       color: theme.textColor
                                   ),

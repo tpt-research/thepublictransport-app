@@ -11,6 +11,7 @@ import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dar
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
 import 'package:thepublictransport_app/backend/service/shortener/ShortenerService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
@@ -75,7 +76,7 @@ class _ResultState extends State<Result> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FloatingActionButton(
-              heroTag: "HEROOOO2",
+              heroTag: "HEROOOO",
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -126,7 +127,7 @@ class _ResultState extends State<Result> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Suche",
+                    allTranslations.text('RESULT.TITLE'),
                     style: TextStyle(
                       fontFamily: 'NunitoSansBold',
                       fontSize: 40,
@@ -218,7 +219,7 @@ class _ResultState extends State<Result> {
                             child: Container(
                               color: theme.backgroundColor,
                               child: Center(
-                                child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
+                                child: Text(allTranslations.text('RESULT.FAILED'), style: TextStyle(color: theme.subtitleColor)),
                               ),
                             ),
                           );

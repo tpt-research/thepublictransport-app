@@ -1,8 +1,7 @@
-import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sprung/next.dart';
 import 'package:thepublictransport_app/backend/models/main/Leg.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 import 'package:thepublictransport_app/pages/Alternative/AlternativeFlixbus.dart';
@@ -51,7 +50,7 @@ class _AlternativeState extends State<Alternative> {
       extendBody: true,
       backgroundColor: Colors.blueAccent,
       floatingActionButton: FloatingActionButton(
-        heroTag: "HEROOOO2",
+        heroTag: "HEROOOO",
         onPressed: () {
           Navigator.of(context).pop();
         },
@@ -112,7 +111,7 @@ class _AlternativeState extends State<Alternative> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Günstige Alternative",
+                    allTranslations.text('ALTERNATIVE.TITLE'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         fontSize: 40,

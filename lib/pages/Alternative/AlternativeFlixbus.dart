@@ -4,6 +4,7 @@ import 'package:morpheus/morpheus.dart';
 import 'package:thepublictransport_app/backend/models/core/FlixbusJourneyModel.dart';
 import 'package:thepublictransport_app/backend/models/flixbus/Message.dart';
 import 'package:thepublictransport_app/backend/service/flixbus/FlixbusService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
@@ -58,11 +59,11 @@ class _AlternativeFlixbusState extends State<AlternativeFlixbus> {
                   return Center(
                     child: Column(
                       children: <Widget>[
-                        Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
+                        Text(allTranslations.text('ALTERNATIVE.FLIXBUS.FAILED'), style: TextStyle(color: theme.subtitleColor)),
                         SizedBox(
                           height: 10,
                         ),
-                        Text("Beachten sie, dass die Suche am besten mit Bahnhöfen funktioniert, und nicht mit Bushaltestellen, weil es für diese keinen Sparpreis gibt.")
+                        Text(allTranslations.text('ALTERNATIVE.FLIXBUS.FAILED_MESSAGE'))
                       ],
                     ),
                   );
@@ -163,7 +164,7 @@ class _AlternativeFlixbusState extends State<AlternativeFlixbus> {
               Row(
                 children: <Widget>[
                   Text(
-                    "Start: ",
+                    allTranslations.text('ALTERNATIVE.FLIXBUS.START'),
                     style: TextStyle(
                         fontSize: 15,
                         color: theme.textColor
@@ -182,7 +183,7 @@ class _AlternativeFlixbusState extends State<AlternativeFlixbus> {
               Row(
                 children: <Widget>[
                   Text(
-                    "Ziel: ",
+                    allTranslations.text('ALTERNATIVE.FLIXBUS.END'),
                     style: TextStyle(
                         fontSize: 15,
                         color: theme.textColor

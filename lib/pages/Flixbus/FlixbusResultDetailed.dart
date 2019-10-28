@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/backend/models/flixbus/Leg.dart';
 import 'package:thepublictransport_app/backend/models/flixbus/Message.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/ui/animations/Marquee.dart';
 
@@ -65,7 +66,7 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Flixbus",
+                    allTranslations.text('FLIXBUS.TITLE'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         fontSize: 40,
@@ -157,7 +158,7 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                difference.inMinutes.remainder(60).toString() + " Minuten " + "Umstiegszeit",
+                difference.inMinutes.toString() + " " + allTranslations.text('FLIXBUS.RESULT_DETAILED.CHANGE_TIME'),
                 style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'NunitoSansBold',
@@ -233,7 +234,7 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("Flixbus", style: TextStyle(color: theme.textColor)),
+                            Text(allTranslations.text('FLIXBUS.TITLE'), style: TextStyle(color: theme.textColor)),
                             Text(leg.destination.name, style: TextStyle(color: theme.textColor))
                           ],
                         )
@@ -333,12 +334,12 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
               borderRadius: BorderRadius.circular(24.0)
           ),
           backgroundColor: theme.backgroundColor,
-          title: new Text("Meldungen", style: TextStyle(color: theme.textColor)),
-          content: new Text(message != null ? message : "Keine Meldungen", style: TextStyle(color: theme.textColor)),
+          title: new Text(allTranslations.text('FLIXBUS.RESULT_DETAILED.ALERT'), style: TextStyle(color: theme.textColor)),
+          content: new Text(message != null ? message : allTranslations.text('FLIXBUS.RESULT_DETAILED.NO_ALERT'), style: TextStyle(color: theme.textColor)),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text("Schließen", style: TextStyle(color: theme.textColor)),
+              child: new Text(allTranslations.text('GENERAL.CLOSE'), style: TextStyle(color: theme.textColor)),
               onPressed: () {
                 Navigator.of(context).pop();
               },

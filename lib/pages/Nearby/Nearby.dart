@@ -5,18 +5,19 @@ import 'package:preferences/preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
-import 'package:thepublictransport_app/pages/Home/HomeCollapsed.dart';
-import 'package:thepublictransport_app/pages/Home/HomeSlider.dart';
+import 'package:thepublictransport_app/pages/Nearby/NearbyCollapsed.dart';
+import 'package:thepublictransport_app/pages/Nearby/NearbySlider.dart';
 import 'package:thepublictransport_app/pages/Station/Station.dart';
 import 'package:thepublictransport_app/ui/components/Maps/MapsStops.dart';
 
-class HomeNearby extends StatefulWidget {
+class Nearby extends StatefulWidget {
   @override
-  _HomeNearbyState createState() => _HomeNearbyState();
+  _NearbyState createState() => _NearbyState();
 }
 
-class _HomeNearbyState extends State<HomeNearby> {
+class _NearbyState extends State<Nearby> {
   BorderRadiusGeometry radius = BorderRadius.only(
     topLeft: Radius.circular(36.0),
     topRight: Radius.circular(36.0),
@@ -41,14 +42,14 @@ class _HomeNearbyState extends State<HomeNearby> {
                     color: theme.backgroundColor,
                     borderRadius: radius
                 ),
-                child: HomeSlider()
+                child: NearbySlider()
             ),
             collapsed: Container(
               decoration: BoxDecoration(
                   color: theme.backgroundColor,
                   borderRadius: radius
               ),
-              child: HomeCollapsed()
+              child: NearbyCollapsed()
             ),
             body: Stack(
               children: <Widget>[
@@ -75,7 +76,7 @@ class _HomeNearbyState extends State<HomeNearby> {
                               color: theme.textColor
                           ),
                           decoration: InputDecoration(
-                            hintText: 'Suche nach Haltestelle...',
+                            hintText: allTranslations.text('NEARBY.SEARCH'),
                             hintStyle: TextStyle(
                               color: theme.textColor
                             ),

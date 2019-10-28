@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/backend/models/core/SparpreisFinderModel.dart';
 import 'package:thepublictransport_app/backend/models/sparpreis/Message.dart';
 import 'package:thepublictransport_app/backend/service/sparpreis/SparpreisService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
@@ -57,11 +58,11 @@ class _AlternativeSparpreisState extends State<AlternativeSparpreis> {
                   return Center(
                     child: Column(
                       children: <Widget>[
-                        Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
+                        Text(allTranslations.text('ALTERNATIVE.SPARPREIS.FAILED'), style: TextStyle(color: theme.subtitleColor)),
                         SizedBox(
                           height: 10,
                         ),
-                        Text("Beachten sie, dass die Suche am besten mit Bahnhöfen funktioniert, und nicht mit Bushaltestellen, weil es für diese keinen Sparpreis gibt.")
+                        Text(allTranslations.text('ALTERNATIVE.SPARPREIS.FAILED_MESSAGE'))
                       ],
                     ),
                   );

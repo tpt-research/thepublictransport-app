@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:thepublictransport_app/backend/models/core/ICEPortalModel.dart';
 import 'package:thepublictransport_app/backend/service/iceportal/ICEPortalService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 
@@ -86,13 +87,13 @@ class _ICEPortalState extends State<ICEPortal> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Text("Keine Verbindung zum ICEPortal", style: TextStyle(color: theme.subtitleColor)),
+                            Text(allTranslations.text('ICEPORTAL.FAILED'), style: TextStyle(color: theme.subtitleColor)),
                             SizedBox(
                               height: 10,
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.80,
-                              child: Text("Stellen sie sicher, dass sie im WifionICE WLAN sind und das sie dessen DNS Server benutzen.",
+                              child: Text(allTranslations.text('ICEPORTAL.FAILED_MESSAGE'),
                                   style: TextStyle(color: theme.textColor),
                                   textAlign: TextAlign.center
                               ),
@@ -119,7 +120,7 @@ class _ICEPortalState extends State<ICEPortal> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "ICEPortal",
+                              allTranslations.text('ICEPORTAL.TITLE'),
                               style: TextStyle(
                                   fontFamily: 'NunitoSansBold',
                                   fontSize: 40,
@@ -196,7 +197,7 @@ class _ICEPortalState extends State<ICEPortal> {
                                     ),
                                   ),
                                   subtitle: Text(
-                                    snapshot.data.trip.stops[index].info.distance.toString() + "km",
+                                      (snapshot.data.trip.stops[index].info.distance / 1000).toString() + "km",
                                     style: TextStyle(
                                         color: theme.subtitleColor
                                     ),

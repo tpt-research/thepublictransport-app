@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -19,8 +18,8 @@ import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
 import 'package:thepublictransport_app/backend/service/nextbike/NextbikeService.dart';
 import 'package:thepublictransport_app/backend/service/tier/TierService.dart';
 import 'package:thepublictransport_app/backend/service/voi/VoiService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
-import 'package:thepublictransport_app/ui/components/OptionSwitch.dart';
 import 'package:thepublictransport_app/ui/components/OptionSwitchImage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -100,7 +99,7 @@ class _VehicleMapState extends State<VehicleMap> {
               padding: const EdgeInsets.all(16.0),
               color: theme.backgroundColor,
               child: Text(
-                'Optionen',
+                allTranslations.text('VEHICLEMAP.OPTIONS'),
                 style: TextStyle(
                     color: theme.titleColor,
                     fontFamily: "NunitoSansBold",
@@ -153,7 +152,7 @@ class _VehicleMapState extends State<VehicleMap> {
                             color: theme.textColor
                         ),
                         decoration: InputDecoration(
-                          hintText: 'Suche nach Ort...',
+                          hintText: allTranslations.text('VEHICLEMAP.SEARCH'),
                           hintStyle: TextStyle(
                               color: theme.textColor
                           ),
@@ -370,7 +369,7 @@ class _VehicleMapState extends State<VehicleMap> {
               i.lon
           ),
           infoWindow: InfoWindow(
-            title: "Nextbike Fahrrad",
+            title: "Nextbike" + allTranslations.text('VEHICLEMAP.BIKE'),
             onTap: () {
               launchApp('de.nextbike');
             },
@@ -502,7 +501,7 @@ class _VehicleMapState extends State<VehicleMap> {
             height: 5,
           ),
           new OptionSwitchImage(
-            title: "Nextbike Fahrräder",
+            title: "Nextbike" + allTranslations.text('VEHICLEMAP.BIKES'),
             icon: 'icons/marker_nextbike.png',
             id: "nextbike_mode",
             default_bool: true,

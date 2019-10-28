@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:thepublictransport_app/backend/service/geocode/Geocode.dart';
 import 'package:thepublictransport_app/backend/service/nominatim/NominatimRequest.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
-import 'package:thepublictransport_app/pages/Delay/Delay.dart';
 import 'package:thepublictransport_app/pages/Flixbus/FlixbusSearch.dart';
-import 'package:thepublictransport_app/pages/ICEPortal/ICEPortal.dart';
 import 'package:thepublictransport_app/pages/SavedTrips/SavedTrips.dart';
 import 'package:thepublictransport_app/pages/Sparpreis/SparpreisSearch.dart';
-import 'package:thepublictransport_app/pages/VehicleMap/VehicleMap.dart';
 import 'package:thepublictransport_app/ui/components/SelectionButtons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomeSlider extends StatefulWidget {
+class NearbyCollapsed extends StatefulWidget {
   @override
-  _HomeSliderState createState() => _HomeSliderState();
+  _NearbyCollapsedState createState() => _NearbyCollapsedState();
 }
 
-class _HomeSliderState extends State<HomeSlider> {
+class _NearbyCollapsedState extends State<NearbyCollapsed> {
   var theme = ThemeEngine.getCurrentTheme();
 
   @override
@@ -42,10 +39,10 @@ class _HomeSliderState extends State<HomeSlider> {
               height: 20,
             ),
             Text(
-              "Erkunden Sie die Welt!",
+              allTranslations.text('NEARBY.EXPLORE_WORLD'),
               style: TextStyle(
-                  fontSize: 20,
-                  color: theme.textColor
+                fontSize: 20,
+                color: theme.textColor
               ),
             ),
             SizedBox(
@@ -58,7 +55,7 @@ class _HomeSliderState extends State<HomeSlider> {
                 SelectionButtons(
                   color: Color(0xfff64f59),
                   description: Text(
-                    "Gespeichert",
+                    allTranslations.text('NEARBY.SAVED'),
                     style: TextStyle(
                         fontSize: 12,
                         color: theme.textColor
@@ -85,7 +82,7 @@ class _HomeSliderState extends State<HomeSlider> {
                 SelectionButtons(
                   color: Colors.lightGreen,
                   description: Text(
-                    "Flixbus",
+                    allTranslations.text('NEARBY.FLIXBUS'),
                     style: TextStyle(
                         fontSize: 12,
                         color: theme.textColor
@@ -111,7 +108,7 @@ class _HomeSliderState extends State<HomeSlider> {
                 SelectionButtons(
                   color: Colors.red,
                   description: Text(
-                    "Sparpreise",
+                    allTranslations.text('NEARBY.SPARPREIS'),
                     style: TextStyle(
                         fontSize: 12,
                         color: theme.textColor
@@ -136,69 +133,6 @@ class _HomeSliderState extends State<HomeSlider> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SelectionButtons(
-                  color: theme.textColor,
-                  description: Text(
-                    "ICEPortal",
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: theme.textColor
-                    ),
-                  ),
-                  icon: Icon(
-                    Icons.train,
-                    color: theme.titleColorInverted,
-                    size: 30,
-                  ),
-                  callback: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ICEPortal()));
-                  },
-                ),
-                SelectionButtons(
-                  color: Colors.deepOrange,
-                  description: Text(
-                    "Sightseeing",
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: theme.textColor
-                    ),
-                  ),
-                  icon: Icon(
-                    MaterialCommunityIcons.city,
-                    color: theme.titleColorInverted,
-                    size: 30,
-                  ),
-                  callback: () async {
-                    await sightseeingGMaps();
-                  },
-                ),
-                SelectionButtons(
-                  color: Colors.blue,
-                  description: Text(
-                    "Scooter/Bikes",
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: theme.textColor
-                    ),
-                  ),
-                  icon: Icon(
-                    MaterialCommunityIcons.bike,
-                    color: theme.titleColorInverted,
-                    size: 30,
-                  ),
-                  callback: () async {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => VehicleMap()));
-                  },
-                ),
-              ],
-            )
           ]
       ),
     );

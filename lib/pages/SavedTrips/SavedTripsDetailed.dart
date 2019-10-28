@@ -4,6 +4,7 @@ import 'package:thepublictransport_app/backend/models/main/From.dart';
 import 'package:thepublictransport_app/backend/models/main/Leg.dart';
 import 'package:thepublictransport_app/backend/models/main/Stop.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 import 'package:thepublictransport_app/pages/Alternative/Alternative.dart';
@@ -47,7 +48,7 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
     begin = UnixTimeParser.parse(trip.firstDepartureTime);
     end = UnixTimeParser.parse(trip.lastArrivalTime);
     diff = difference(begin, end);
-    diffString ="${diff.inHours}:${diff.inMinutes.remainder(60)}";
+    diffString ="${diff.inHours}:${diff.inMinutes.remainder(60).toString().padLeft(2, '0')}";
   }
 
 
@@ -78,7 +79,7 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Gespeicherte Fahrten",
+                    allTranslations.text('SAVED_TRIPS.TITLE'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         fontSize: 40,
@@ -154,13 +155,13 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
                               child: SizedBox(width: 40, height: 40, child: Icon(Icons.delete_forever, color: Colors.black)),
                               onTap: () async {
                                 await _databaseHelper.delete(trip).then((res) {
-                                  Toast.show("Speichern abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                                  Toast.show(allTranslations.text('SAVED_TRIPS.DETAILED.REMOVE_FINISHED'), context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
                                   Navigator.of(context).pop();
                                   setState(() {
 
                                   });
                                 }).catchError((err) {
-                                  Toast.show("Speichern fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                                  Toast.show(allTranslations.text('SAVED_TRIPS.DETAILED.REMOVE_FAILED'), context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
                                 });
                               },
                             ),
@@ -222,7 +223,7 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                difference.inMinutes.remainder(60).toString() + " Minuten " + "Umstiegszeit",
+                difference.inMinutes.toString() + " " + allTranslations.text('SAVED_TRIPS.DETAILED.CHANGE_TIME'),
                 style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'NunitoSansBold',
@@ -276,7 +277,7 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
                         ],
                       ),
                       Text(
-                        leg.departurePosition != null ? "Gl. " + leg.departurePosition.name : "",
+                        leg.departurePosition != null ? allTranslations.text('SAVED_TRIPS.DETAILED.LANE') + " " + leg.departurePosition.name : "",
                         style: TextStyle(
                             fontSize: 15,
                             fontFamily: 'NunitoSansBold',
@@ -387,7 +388,7 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
                         ],
                       ),
                       Text(
-                        leg.arrivalPosition != null ? "Gl. " + leg.arrivalPosition.name : "",
+                        leg.arrivalPosition != null ? allTranslations.text('SAVED_TRIPS.DETAILED.LANE') + " " + leg.arrivalPosition.name : "",
                         style: TextStyle(
                             fontSize: 15,
                             fontFamily: 'NunitoSansBold',
@@ -483,7 +484,7 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              difference.inMinutes.toString() + " Minuten " + "Umstiegszeit",
+              difference.inMinutes.toString() + " " + allTranslations.text('SAVED_TRIPS.DETAILED.CHANGE_TIME'),
               style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'NunitoSansBold',
@@ -504,12 +505,12 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
         // return object of type Dialog
         return AlertDialog(
           backgroundColor: theme.backgroundColor,
-          title: new Text("Meldungen", style: TextStyle(color: theme.textColor)),
-          content: new Text(message != null ? message : "Keine Meldungen", style: TextStyle(color: theme.textColor)),
+          title: new Text(allTranslations.text('SAVED_TRIPS.DETAILED.ALERT'), style: TextStyle(color: theme.textColor)),
+          content: new Text(message != null ? message : allTranslations.text('SAVED_TRIPS.DETAILED.NO_ALERT'), style: TextStyle(color: theme.textColor)),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text("Schließen", style: TextStyle(color: theme.textColor)),
+              child: new Text(allTranslations.text('GENERAL.CLOSE'), style: TextStyle(color: theme.textColor)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -528,7 +529,7 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
         // return object of type Dialog
         return AlertDialog(
           backgroundColor: theme.backgroundColor,
-          title: new Text("Zwischenhalte", style: TextStyle(color: theme.textColor)),
+          title: new Text(allTranslations.text('SAVED_TRIPS.DETAILED.STOPS'), style: TextStyle(color: theme.textColor)),
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.90,
             width: MediaQuery.of(context).size.width * 0.90,
@@ -569,7 +570,7 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text("Schließen", style: TextStyle(color: theme.textColor)),
+              child: new Text(allTranslations.text('GENERAL.CLOSE'), style: TextStyle(color: theme.textColor)),
               onPressed: () {
                 Navigator.of(context).pop();
               },

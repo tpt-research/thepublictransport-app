@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:thepublictransport_app/backend/models/main/Location.dart';
 import 'package:thepublictransport_app/backend/service/geocode/Geocode.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/ui/components/Maps/MapsShow.dart';
 
@@ -32,7 +33,7 @@ class _StationInfoState extends State<StationInfo> {
         children: <Widget>[
           ListTile(
             title: Text(
-              "Haltestelle",
+              allTranslations.text('STATION.STOP'),
               style: TextStyle(
                   fontFamily: 'NunitoSansBold',
                   color: theme.titleColor
@@ -47,7 +48,7 @@ class _StationInfoState extends State<StationInfo> {
           ),
           ListTile(
             title: Text(
-              "Verkehrsmittel",
+              allTranslations.text('STATION.VEHICLES'),
               style: TextStyle(
                   fontFamily: 'NunitoSansBold',
                   color: theme.titleColor
@@ -62,7 +63,7 @@ class _StationInfoState extends State<StationInfo> {
           ),
           ListTile(
             title: Text(
-              "Koordinaten",
+              allTranslations.text('STATION.COORDINATES'),
               style: TextStyle(
                   fontFamily: 'NunitoSansBold',
                   color: theme.titleColor
@@ -130,7 +131,6 @@ class _StationInfoState extends State<StationInfo> {
   }
 
   String getString(String vehicle) {
-    print(vehicle);
     switch (vehicle) {
       case "HIGH_SPEED_TRAIN":
         return "ICE/IC/EC";

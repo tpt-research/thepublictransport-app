@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/database/TripDatabaseHelper.dart';
 import 'package:thepublictransport_app/backend/models/main/From.dart';
 import 'package:thepublictransport_app/backend/models/main/Leg.dart';
 import 'package:thepublictransport_app/backend/models/main/Stop.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
 import 'package:thepublictransport_app/pages/Alternative/Alternative.dart';
@@ -50,7 +49,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
     begin = UnixTimeParser.parse(trip.firstDepartureTime);
     end = UnixTimeParser.parse(trip.lastArrivalTime);
     diff = difference(begin, end);
-    diffString ="${diff.inHours}:${diff.inMinutes.remainder(60)}";
+    diffString ="${diff.inHours}:${diff.inMinutes.remainder(60).toString().padLeft(2, '0')}";
   }
 
   @override
@@ -58,7 +57,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
     return Scaffold(
       backgroundColor: theme.status == "light" ? Colors.black : theme.cardColor,
       floatingActionButton: FloatingActionButton(
-        heroTag: "HEROOOO2",
+        heroTag: "HEROOOO",
         onPressed: () {
           Navigator.of(context).pop();
         },
@@ -81,7 +80,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Suche",
+                    allTranslations.text('RESULT.TITLE'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         fontSize: 40,
@@ -157,9 +156,9 @@ class _ResultDetailedState extends State<ResultDetailed> {
                               child: SizedBox(width: 40, height: 40, child: Icon(Icons.save, color: Colors.black)),
                               onTap: () async {
                                 await _databaseHelper.insert(trip).then((res) {
-                                  Toast.show("Speichern abgeschlossen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                                  Toast.show(allTranslations.text('RESULT.DETAILED.SAVE_FINISHED'), context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
                                 }).catchError((err) {
-                                  Toast.show("Speichern fehlgeschlagen", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                                  Toast.show(allTranslations.text('RESULT.DETAILED.SAVE_FAILED'), context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
                                 });
                               },
                             ),
@@ -228,7 +227,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                difference.inMinutes.remainder(60).toString() + " Minuten " + "Umstiegszeit",
+                difference.inMinutes.remainder(60).toString() + " " + allTranslations.text('RESULT.DETAILED.CHANGE_TIME'),
                 style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'NunitoSansBold',
@@ -282,7 +281,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
                         ],
                       ),
                       Text(
-                        leg.departurePosition != null ? "Gl. " + leg.departurePosition.name : "",
+                        leg.departurePosition != null ? allTranslations.text('RESULT.DETAILED.LANE') + " " + leg.departurePosition.name : "",
                         style: TextStyle(
                             fontSize: 15,
                             fontFamily: 'NunitoSansBold',
@@ -400,7 +399,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
                         ],
                       ),
                       Text(
-                        leg.arrivalPosition != null ? "Gl. " + leg.arrivalPosition.name : "",
+                        leg.arrivalPosition != null ? allTranslations.text('RESULT.DETAILED.LANE') + " " + leg.arrivalPosition.name : "",
                         style: TextStyle(
                             fontSize: 15,
                             fontFamily: 'NunitoSansBold',
@@ -495,7 +494,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              difference.inMinutes.toString() + " Minuten " + "Umstiegszeit",
+              difference.inMinutes.toString() + " " + allTranslations.text('RESULT.DETAILED.CHANGE_TIME'),
               style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'NunitoSansBold',
@@ -519,12 +518,12 @@ class _ResultDetailedState extends State<ResultDetailed> {
               borderRadius: BorderRadius.circular(24.0)
           ),
           backgroundColor: theme.backgroundColor,
-          title: new Text("Meldungen", style: TextStyle(color: theme.textColor)),
-          content: new Text(message != null ? message : "Keine Meldungen", style: TextStyle(color: theme.textColor)),
+          title: new Text(allTranslations.text('RESULT.DETAILED.ALERT'), style: TextStyle(color: theme.textColor)),
+          content: new Text(message != null ? message : allTranslations.text('RESULT.DETAILED.NO_ALERT'), style: TextStyle(color: theme.textColor)),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text("Schließen", style: TextStyle(color: theme.textColor)),
+              child: new Text(allTranslations.text('GENERAL.CLOSE'), style: TextStyle(color: theme.textColor)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -546,7 +545,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
               borderRadius: BorderRadius.circular(24.0)
           ),
           backgroundColor: theme.backgroundColor,
-          title: new Text("Zwischenhalte", style: TextStyle(color: theme.textColor)),
+          title: new Text(allTranslations.text('RESULT.DETAILED.STOPS'), style: TextStyle(color: theme.textColor)),
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.90,
             width: MediaQuery.of(context).size.width * 0.90,
@@ -587,7 +586,7 @@ class _ResultDetailedState extends State<ResultDetailed> {
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text("Schließen", style: TextStyle(color: theme.textColor)),
+              child: new Text(allTranslations.text('GENERAL.CLOSE'), style: TextStyle(color: theme.textColor)),
               onPressed: () {
                 Navigator.of(context).pop();
               },

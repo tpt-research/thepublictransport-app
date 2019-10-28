@@ -10,6 +10,7 @@ import 'package:preferences/preferences.dart';
 import 'package:sliding_panel/sliding_panel.dart';
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/Result/Result.dart';
 import 'package:thepublictransport_app/ui/animations/ShowUp.dart';
@@ -81,7 +82,7 @@ class _SearchTripState extends State<SearchTrip> {
               padding: const EdgeInsets.all(16.0),
               color: theme.backgroundColor,
               child: Text(
-                'Optionen',
+                allTranslations.text('SEARCH.OPTIONS'),
                 style: TextStyle(
                   color: theme.titleColor,
                   fontFamily: "NunitoSansBold",
@@ -129,7 +130,7 @@ class _SearchTripState extends State<SearchTrip> {
                                       color: theme.textColor
                                   ),
                                   decoration: InputDecoration(
-                                    hintText: 'Start',
+                                    hintText: allTranslations.text('SEARCH.START'),
                                     hintStyle: TextStyle(
                                         color: theme.textColor
                                     ),
@@ -228,7 +229,7 @@ class _SearchTripState extends State<SearchTrip> {
                                       color: theme.textColor
                                   ),
                                   decoration: InputDecoration(
-                                    hintText: 'Ziel',
+                                    hintText: allTranslations.text('SEARCH.END'),
                                     hintStyle: TextStyle(
                                         color: theme.textColor
                                     ),
@@ -373,7 +374,7 @@ class _SearchTripState extends State<SearchTrip> {
                                 ),
                                 color: Colors.transparent,
                                 child: Text(
-                                  "Optionen",
+                                  allTranslations.text('SEARCH.OPTIONS'),
                                   style: TextStyle(
                                       color: Colors.white
                                   ),
@@ -430,7 +431,7 @@ class _SearchTripState extends State<SearchTrip> {
                       statusBarIconBrightness: Brightness.light,
                     ));
                   },
-                  heroTag: "HEROOOO2",
+                  heroTag: "HEROOOO",
                   backgroundColor: theme.foregroundColor,
                   child: Icon(Icons.search, color: theme.iconColor),
                 ),
@@ -528,19 +529,19 @@ class _SearchTripState extends State<SearchTrip> {
         scrollDirection: Axis.vertical,
         children: <Widget>[
           new OptionSwitch(
-            title: "Barrierefreiheit",
+            title: allTranslations.text('SEARCH.SETTINGS.ACCESSIBILITY'),
             icon: Icons.accessible,
             id: "wheelchair_mode",
             default_bool: false,
           ),
           new OptionSwitch(
-            title: "Schnellste Route",
+            title: allTranslations.text('SEARCH.SETTINGS.FAST_TRAVEL'),
             icon: Icons.fast_forward,
             id: "fast_mode",
             default_bool: true,
           ),
           new OptionSwitch(
-            title: "Längere Laufzeit",
+            title: allTranslations.text('SEARCH.SETTINGS.LONG_WALK'),
             icon: Icons.directions_walk,
             id: "walk_mode",
             default_bool: false,
@@ -551,7 +552,7 @@ class _SearchTripState extends State<SearchTrip> {
           Container(
             padding: EdgeInsets.only(left: 15),
             child: Text(
-              "Verkehrsmittel",
+              allTranslations.text('SEARCH.SETTINGS.VEHICLES.TITLE'),
               style: TextStyle(
                   fontFamily: 'NunitoSansBold',
                   color: Colors.grey
@@ -562,49 +563,49 @@ class _SearchTripState extends State<SearchTrip> {
             height: 10,
           ),
           new OptionSwitch(
-            title: "Schnellzug",
+            title: allTranslations.text('SEARCH.SETTINGS.VEHICLES.HIGH_SPEED_TRAIN'),
             icon: MaterialCommunityIcons.train,
             id: "high_speed_train_mode",
             default_bool: true,
           ),
           new OptionSwitch(
-            title: "Regionalbahn",
+            title: allTranslations.text('SEARCH.SETTINGS.VEHICLES.REGIONAL_TRAIN'),
             icon: MaterialCommunityIcons.train_variant,
             id: "regional_train_mode",
             default_bool: true,
           ),
           new OptionSwitch(
-            title: "S-Bahn",
+            title: allTranslations.text('SEARCH.SETTINGS.VEHICLES.SUBURBAN_TRAIN'),
             icon: MaterialCommunityIcons.subway_variant,
             id: "suburban_train_mode",
             default_bool: true,
           ),
           new OptionSwitch(
-            title: "U-Bahn",
+            title: allTranslations.text('SEARCH.SETTINGS.VEHICLES.SUBWAY'),
             icon: MaterialCommunityIcons.subway,
             id: "subway_mode",
             default_bool: true,
           ),
           new OptionSwitch(
-            title: "Bus",
+            title: allTranslations.text('SEARCH.SETTINGS.VEHICLES.BUS'),
             icon: MaterialCommunityIcons.bus,
             id: "bus_mode",
             default_bool: true,
           ),
           new OptionSwitch(
-            title: "Straßenbahn",
+            title: allTranslations.text('SEARCH.SETTINGS.VEHICLES.TRAM'),
             icon: MaterialCommunityIcons.tram,
             id: "tram_mode",
             default_bool: true,
           ),
           new OptionSwitch(
-            title: "Fähre",
+            title: allTranslations.text('SEARCH.SETTINGS.VEHICLES.FERRY'),
             icon: MaterialCommunityIcons.ferry,
             id: "ferry_mode",
             default_bool: true,
           ),
           new OptionSwitch(
-            title: "Sammeltaxi / AST",
+            title: allTranslations.text('SEARCH.SETTINGS.VEHICLES.ONDEMAND'),
             icon: MaterialCommunityIcons.train_car,
             id: "ondemand_mode",
             default_bool: true,

@@ -9,9 +9,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:preferences/preferences.dart';
 import 'package:thepublictransport_app/backend/models/main/SuggestedLocation.dart';
 import 'package:thepublictransport_app/backend/service/core/CoreService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/ui/animations/ShowUp.dart';
-import 'package:thepublictransport_app/ui/components/OptionSwitch.dart';
 
 import 'SparpreisResult.dart';
 
@@ -109,7 +109,7 @@ class _SparpreisSearchState extends State<SparpreisSearch> {
                                     color: theme.textColor
                                 ),
                                 decoration: InputDecoration(
-                                  hintText: 'Start',
+                                  hintText: allTranslations.text('SPARPREIS.START'),
                                   hintStyle: TextStyle(
                                       color: theme.textColor
                                   ),
@@ -208,7 +208,7 @@ class _SparpreisSearchState extends State<SparpreisSearch> {
                                     color: theme.textColor
                                 ),
                                 decoration: InputDecoration(
-                                  hintText: 'Ziel',
+                                  hintText: allTranslations.text('SPARPREIS.END'),
                                   hintStyle: TextStyle(
                                       color: theme.textColor
                                   ),
@@ -457,40 +457,5 @@ class _SparpreisSearchState extends State<SparpreisSearch> {
       setState(() {
         setup_date = picked;
       });
-  }
-
-  showOptionsModal() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Scaffold(
-          backgroundColor: theme.backgroundColor,
-          body: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              new OptionSwitch(
-                title: "Barrierefreiheit",
-                icon: Icons.accessible,
-                id: "wheelchair_mode",
-                default_bool: false,
-              ),
-              new OptionSwitch(
-                title: "Schnellste Route",
-                icon: Icons.fast_forward,
-                id: "fast_mode",
-                default_bool: true,
-              ),
-              new OptionSwitch(
-                title: "Längere Laufzeit",
-                icon: Icons.directions_walk,
-                id: "walk_mode",
-                default_bool: false,
-              ),
-            ],
-          ),
-        );
-      },
-    );
   }
 }

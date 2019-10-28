@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:morpheus/morpheus.dart';
 import 'package:thepublictransport_app/backend/database/TripDatabaseHelper.dart';
 import 'package:thepublictransport_app/backend/models/main/Trip.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
 import 'package:thepublictransport_app/framework/time/UnixTimeParser.dart';
@@ -63,7 +64,7 @@ class _SavedTripsState extends State<SavedTrips> {
             height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
             child: Center(
               child: Text(
-                "Gespeicherte Fahrten",
+                allTranslations.text('SAVED_TRIPS.TITLE'),
                 style: TextStyle(
                     fontFamily: 'NunitoSansBold',
                     fontSize: 40,
@@ -124,7 +125,7 @@ class _SavedTripsState extends State<SavedTrips> {
                               height: double.infinity,
                               color: theme.backgroundColor,
                               child: Center(
-                                child: Text("Keine Trips gespeichert", style: TextStyle(color: theme.subtitleColor)),
+                                child: Text(allTranslations.text('SAVED_TRIPS.NO_TRIPS'), style: TextStyle(color: theme.subtitleColor)),
                               ),
                             ),
                           );
@@ -136,7 +137,7 @@ class _SavedTripsState extends State<SavedTrips> {
                               height: double.infinity,
                               color: theme.backgroundColor,
                               child: Center(
-                                child: Text("Keine Trips gespeichert", style: TextStyle(color: theme.subtitleColor)),
+                                child: Text(allTranslations.text('SAVED_TRIPS.NO_TRIPS'), style: TextStyle(color: theme.subtitleColor)),
                               ),
                             ),
                           );
@@ -162,7 +163,7 @@ class _SavedTripsState extends State<SavedTrips> {
                       height: double.infinity,
                       color: theme.backgroundColor,
                       child: Center(
-                        child: Text("Keine Trips gespeichert", style: TextStyle(color: theme.subtitleColor)),
+                        child: Text(allTranslations.text('SAVED_TRIPS.NO_TRIPS'), style: TextStyle(color: theme.subtitleColor)),
                       ),
                     ),
                   );
@@ -223,8 +224,8 @@ class _SavedTripsState extends State<SavedTrips> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Von:", style: TextStyle(color: theme.textColor)),
-                          Text("Nach:", style: TextStyle(color: theme.textColor)),
+                          Text(allTranslations.text('SAVED_TRIPS.FROM'), style: TextStyle(color: theme.textColor)),
+                          Text(allTranslations.text('SAVED_TRIPS.TO'), style: TextStyle(color: theme.textColor)),
                         ],
                       ),
                       SizedBox(width: 10),

@@ -7,6 +7,7 @@ import 'package:thepublictransport_app/backend/models/core/FlixbusJourneyModel.d
 import 'package:thepublictransport_app/backend/models/flixbus/Message.dart';
 import 'package:thepublictransport_app/backend/models/flixbus/QueryResult.dart';
 import 'package:thepublictransport_app/backend/service/flixbus/FlixbusService.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/framework/time/DateParser.dart';
 import 'package:thepublictransport_app/framework/time/DurationParser.dart';
@@ -69,7 +70,7 @@ class _FlixbusResultState extends State<FlixbusResult> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Flixbus",
+                    allTranslations.text('FLIXBUS.TITLE'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         fontSize: 40,
@@ -161,7 +162,7 @@ class _FlixbusResultState extends State<FlixbusResult> {
                             child: Container(
                               color: theme.backgroundColor,
                               child: Center(
-                                child: Text("Diese Suche ergab leider keinen Treffer", style: TextStyle(color: theme.subtitleColor)),
+                                child: Text(allTranslations.text('FLIXBUS.RESULT.FAILED'), style: TextStyle(color: theme.subtitleColor)),
                               ),
                             ),
                           );
@@ -275,7 +276,7 @@ class _FlixbusResultState extends State<FlixbusResult> {
               Row(
                 children: <Widget>[
                   Text(
-                    "Start: ",
+                    allTranslations.text('FLIXBUS.RESULT.START'),
                     style: TextStyle(
                         fontSize: 15,
                         color: theme.textColor
@@ -294,7 +295,7 @@ class _FlixbusResultState extends State<FlixbusResult> {
               Row(
                 children: <Widget>[
                   Text(
-                    "Ziel: ",
+                    allTranslations.text('FLIXBUS.RESULT.END'),
                     style: TextStyle(
                         fontSize: 15,
                         color: theme.textColor

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -53,7 +54,7 @@ class _AboutState extends State<About> {
             height: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.height * 0.34,
             child: Center(
               child: Text(
-                "Über diese App",
+                allTranslations.text('ABOUT.TITLE'),
                 style: TextStyle(
                     fontFamily: 'NunitoSansBold',
                     fontSize: 40,
@@ -129,7 +130,7 @@ class _AboutState extends State<About> {
                     ),
                     Center(
                       child: Text(
-                        "Unsere Entwickler:",
+                        allTranslations.text('ABOUT.DEVS'),
                         style: TextStyle(
                             color: theme.titleColor,
                             fontFamily: "NunitoSansBold",
@@ -161,7 +162,7 @@ class _AboutState extends State<About> {
                         ),
                       ),
                       subtitle: Text(
-                        "Initiator & Hauptentwickler",
+                        allTranslations.text('ABOUT.INITIATOR'),
                         style: TextStyle(
                           color: theme.subtitleColor
                         ),
@@ -220,7 +221,7 @@ class _AboutState extends State<About> {
                         ),
                       ),
                       subtitle: Text(
-                          "Designberatung",
+                        allTranslations.text('ABOUT.DESIGN_HELP'),
                         style: TextStyle(
                             color: theme.subtitleColor
                         ),
@@ -270,7 +271,7 @@ class _AboutState extends State<About> {
                         ),
                       ),
                       subtitle: Text(
-                        "DevOps",
+                        allTranslations.text('ABOUT.DEVOPS'),
                         style: TextStyle(
                             color: theme.subtitleColor
                         ),
@@ -291,54 +292,12 @@ class _AboutState extends State<About> {
                         ],
                       ),
                     ),
-                    ListTile(
-                      leading: new Container(
-                          width: 50.0,
-                          height: 50.0,
-                          decoration: new BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: new DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: new NetworkImage(
-                                      "https://avatars1.githubusercontent.com/u/30511480")
-                              )
-                          )
-                      ),
-                      title: Text(
-                        "Seira Ren",
-                        style: TextStyle(
-                            color: theme.titleColor,
-                            fontFamily: "NunitoSansBold"
-                        ),
-                      ),
-                      subtitle: Text(
-                          "Designberatung & Design",
-                        style: TextStyle(
-                            color: theme.subtitleColor
-                        ),
-                      ),
-                      trailing: new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          IconButton(
-                              icon: Icon(
-                                MaterialCommunityIcons.github_circle,
-                                color: theme.iconColor,
-                              ),
-                              onPressed: () {
-                                openURL('https://github.com/toptsundere');
-                              }),
-                        ],
-                      ),
-                    ),
                     SizedBox(
                       height: 40,
                     ),
                     Center(
                       child: Text(
-                        "Herzliches Dankeschön an:",
+                        allTranslations.text('ABOUT.THANKS_TO'),
                         style: TextStyle(
                             color: theme.titleColor,
                             fontFamily: "NunitoSansBold",

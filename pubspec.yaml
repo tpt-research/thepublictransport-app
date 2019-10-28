@@ -44,6 +44,9 @@ dependencies:
   dio_http2_adapter: 1.0.0
   dio_http_cache: ^0.2.0
   device_apps: 1.0.8
+  intl: ^0.15.8
+  rxdart: ^0.22.4
+  flutter_bloc: 1.0.0
 
   # Database
   sembast: 2.0.1+2
@@ -94,6 +97,8 @@ flutter:
     - anim/light_background.flr
     - anim/hey_minion.flr
     - anim/route.flr
+    - locale/i18n_de.json
+    - locale/i18n_en.json
 
   fonts:
     - family: Nunito
