@@ -56,10 +56,19 @@
             <meta-data
                 android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
                 android:value="true" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <provider android:name=".SliceProvider.TPTSlice"
+                  android:authorities="de.pdesire.thepublictransportapp"
+                  android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.app.slice.category.SLICE" />
+            </intent-filter>
+        </provider>
     </application>
 </manifest>

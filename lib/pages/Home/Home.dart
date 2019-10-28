@@ -2,14 +2,17 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:preferences/preference_service.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:thepublictransport_app/backend/models/core/AlertModel.dart';
 import 'package:thepublictransport_app/backend/service/alert/AlertService.dart';
 import 'package:thepublictransport_app/backend/service/shortener/ShortenerService.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/Home/HomeNearby.dart';
 import 'package:thepublictransport_app/pages/Result/ResultDeeplink.dart';
+import 'package:thepublictransport_app/pages/SavedTrips/SavedTrips.dart';
 import 'package:thepublictransport_app/pages/Search/SearchTrip.dart';
 import 'package:thepublictransport_app/pages/Settings/Settings.dart';
+import 'package:thepublictransport_app/pages/VehicleMap/VehicleMap.dart';
 import 'package:toast/toast.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,6 +38,53 @@ class _HomeState extends State<Home> {
     initUniLinks();
     fetchAlert();
     super.initState();
+
+    final QuickActions quickActions = QuickActions();
+    quickActions.initialize((String shortcutType) async {
+      switch(shortcutType) {
+        case 'search':
+          setState(() {
+            currentPage = 1;
+            _pageController.animateToPage(currentPage,
+                duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+          });
+          break;
+        case 'save':
+          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => SavedTrips()));
+          setState(() {
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              systemNavigationBarColor: Colors.blueAccent,
+              statusBarColor: Colors.transparent, // status bar color
+              statusBarBrightness: Brightness.light,
+              statusBarIconBrightness: Brightness.light,
+            ));
+          });
+          break;
+        case 'scooter':
+          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => VehicleMap()));
+          setState(() {
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              systemNavigationBarColor: Colors.blueAccent,
+              statusBarColor: Colors.transparent, // status bar color
+              statusBarBrightness: Brightness.light,
+              statusBarIconBrightness: Brightness.light,
+            ));
+          });
+          break;
+        default:
+          print("No action selected");
+          break;
+      }
+    });
+
+    quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(
+          type: 'search', localizedTitle: 'Suche', icon: 'quick_search'),
+      const ShortcutItem(
+          type: 'save', localizedTitle: 'Gespeichert', icon: 'quick_save'),
+      const ShortcutItem(
+          type: 'scooter', localizedTitle: 'Scooter / Bikes', icon: 'quick_scooter')
+    ]);
   }
 
   @override
@@ -46,13 +96,13 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.transparent,
         buttonBackgroundColor: Colors.blueAccent,
         color: Colors.blueAccent,
+        index: currentPage,
         items: <Widget>[
           Icon(Icons.home, size: 30, color: Colors.white),
           Icon(Icons.search, size: 30, color: Colors.white),
           Icon(Icons.settings, size: 30, color: Colors.white),
         ],
         onTap: (index) {
-          currentPage = index;
           _pageController.animateToPage(index,
               duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
         },
@@ -61,11 +111,6 @@ class _HomeState extends State<Home> {
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         scrollDirection: Axis.horizontal,
-        onPageChanged: (index) {
-          setState(() {
-            currentPage = index;
-          });
-        },
         children: <Widget>[
           HomeNearby(),
           SearchTrip(),
@@ -82,29 +127,28 @@ class _HomeState extends State<Home> {
         Uri initialLink = await ShortenerService.getLink(await getInitialLink());
         Map<String, String> parsed = initialLink.queryParameters;
 
-        if (initialLink.path != "/share")
-          return;
+        if (initialLink.path == "/share") {
+          await Navigator.push(context, MaterialPageRoute(builder: (context) => ResultDeeplink(
+            fromName: parsed['fromName'],
+            fromID: parsed['fromID'],
+            toName: parsed['toName'],
+            toID: parsed['toID'],
+            date: parsed['date'],
+            time: parsed['time'],
+            barrier: parsed['barrier'],
+            slowwalk: parsed['slowwalk'],
+            fastroute: parsed['fastroute'],
+            source: parsed['source'],
+            products: parsed['products'] != null ? parsed['products'] : generateAllVehicleString(),
+          )));
 
-        await Navigator.push(context, MaterialPageRoute(builder: (context) => ResultDeeplink(
-          fromName: parsed['fromName'],
-          fromID: parsed['fromID'],
-          toName: parsed['toName'],
-          toID: parsed['toID'],
-          date: parsed['date'],
-          time: parsed['time'],
-          barrier: parsed['barrier'],
-          slowwalk: parsed['slowwalk'],
-          fastroute: parsed['fastroute'],
-          source: parsed['source'],
-          products: parsed['products'] != null ? parsed['products'] : generateAllVehicleString(),
-        )));
-
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          systemNavigationBarColor: Colors.blueAccent,
-          statusBarColor: Colors.transparent, // status bar color
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
-        ));
+          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            systemNavigationBarColor: Colors.blueAccent,
+            statusBarColor: Colors.transparent, // status bar color
+            statusBarBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.light,
+          ));
+        }
       } else {
         // Do nothing
       }
