@@ -1,6 +1,6 @@
 
 class TrainAPIConstants {
-  static String API_URL = "https://thepublictransport.de"; // Let's Encrypted signed
+  static String API_URL = "https://api.thepublictransport.de"; // Let's Encrypted signed
   static String API_ENDPOINT_TRIP = "/trips";
   static String API_ENDPOINT_TRIP_SEARCH_NAME = "/name";
   static String API_ENDPOINT_TRIP_SEARCH_ID = "/id";

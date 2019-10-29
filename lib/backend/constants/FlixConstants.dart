@@ -1,5 +1,5 @@
 class FlixConstants {
-  static String API_URL = "https://thepublictransport.de"; // Let's Encrypted signed
+  static String API_URL = "https://api.thepublictransport.de"; // Let's Encrypted signed
   static String API_ENDPOINT_FLIX = "/flix";
   static String API_ENDPOINT_CONVERT= "/convert";
   static String API_ENDPOINT_DBTOFLIX = "/dbtoflix";
