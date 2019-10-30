@@ -8,7 +8,7 @@ class Searchbar extends StatelessWidget {
   final Function onTap;
   final Function onButtonPressed;
 
-  var theme = ThemeEngine.getCurrentTheme();
+  final theme = ThemeEngine.getCurrentTheme();
 
   Widget build(BuildContext context) {
     return new Card(

@@ -49,6 +49,7 @@ class _SavedTripsDetailedState extends State<SavedTripsDetailed> {
     end = UnixTimeParser.parse(trip.lastArrivalTime);
     diff = difference(begin, end);
     diffString ="${diff.inHours}:${diff.inMinutes.remainder(60).toString().padLeft(2, '0')}";
+    super.initState();
   }
 
 

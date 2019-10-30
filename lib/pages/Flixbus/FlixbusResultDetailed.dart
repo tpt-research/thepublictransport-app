@@ -38,6 +38,7 @@ class _FlixbusResultDetailedState extends State<FlixbusResultDetailed> {
     end = trip.legs.last.arrival;
     diff = difference(begin, end);
     diffString ="${diff.inHours}:${diff.inMinutes.remainder(60)}";
+    super.initState();
   }
 
   @override

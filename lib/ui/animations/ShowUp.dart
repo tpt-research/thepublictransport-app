@@ -8,7 +8,7 @@ class ShowUp extends StatefulWidget {
   final int delay;
   final Duration duration;
 
-  ShowUp({@required this.child, @required this.duration, this.delay});
+  ShowUp({@required this.child, this.duration, this.delay});
 
   @override
   _ShowUpState createState() => _ShowUpState();
