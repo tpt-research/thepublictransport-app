@@ -99,6 +99,7 @@ flutter:
     - anim/route.flr
     - locale/i18n_de.json
     - locale/i18n_en.json
+    - locale/i18n_es.json
 
   fonts:
     - family: Nunito

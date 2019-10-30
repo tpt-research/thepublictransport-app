@@ -1,7 +1,7 @@
 # The Public Transport
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
-Modern public transport for Germany - Written in Flutter
+Modern public transport for everyone - Written in Flutter
 
 [<img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="194" height="75"/>](https://play.google.com/store/apps/details?id=de.pdesire.thepublictransportapp&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 

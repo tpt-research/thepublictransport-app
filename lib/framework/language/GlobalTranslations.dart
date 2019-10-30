@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'LanguagePreferences.dart';
 
-const List<String> _kSupportedLanguages = ["de", "en"];
+const List<String> _kSupportedLanguages = ["de", "en", "es"];
 const String _kDefaultLanguage = "en";
 
 class GlobalTranslations {

@@ -722,6 +722,21 @@ class _SettingsState extends State<Settings> {
                       'de',
                       context
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateLanguageTile(
+                      "Español",
+                      'https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg',
+                      'es',
+                      context
+                  ),
                 ],
               ),
             ),
