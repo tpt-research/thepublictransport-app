@@ -1,0 +1,197 @@
+{
+  "GENERAL" : {
+    "OK": "OK",
+    "CANCEL": "Cancelar",
+    "OPEN": "Abrir",
+    "CLOSE": "Cerrar",
+    "CONTINUE": "Continuar",
+    "MORE_INFO": "Más información"
+  },
+  "ABOUT": {
+    "TITLE": "Acerca de",
+    "DEVS": "Nuestros desarrolladores:",
+    "INITIATOR": "Iniciador y desarrollador principal",
+    "DESIGN_HELP": "Concejos de diseño",
+    "DEVOPS": "DevOps",
+    "THANKS_TO": "Gracias a:"
+  },
+  "ALTERNATIVE": {
+    "TITLE": "Alternativa económica",
+    "SPARPREIS": {
+      "FAILED": "Lo sentimos, no hay resultados para esta búsqueda",
+      "FAILED_MESSAGE": "Ten en cuenta que la búsqueda funciona mejor con estaciones, no con paradas de autobus, porque no hay un precio económico para ellos."
+    },
+    "FLIXBUS": {
+      "FAILED": "Lo sentimos, no hay resultados para esta búsqueda",
+      "FAILED_MESSAGE": "Es posible que no haya una línea de Flixbus para tu viaje.",
+      "START": "Inicio: ",
+      "END": "Fin: "
+    }
+  },
+  "FLIXBUS": {
+    "TITLE": "Flixbus",
+    "START": "Inicio",
+    "END": "Fin",
+    "RESULT": {
+      "FAILED": "Lo sentimos, no hay resultados para esta búsqueda",
+      "START": "Inicio: ",
+      "END": "Fin: "
+    },
+    "RESULT_DETAILED": {
+      "CHANGE_TIME": "minutos de transferencia",
+      "ALERT": "Notificaciones",
+      "NO_ALERT": "Sin mensajes"
+    }
+  },
+  "ICEPORTAL": {
+    "TITLE": "ICEPortal",
+    "FAILED": "No hay conección al ICEPortal",
+    "FAILED_MESSAGE": "Asegúrate que estás conectado con la LAN de WifionICE y que estás usando su servidor DNS."
+  },
+  "NEARBY": {
+    "SEARCH": "Buscar por parada...",
+    "EXPLORE_WORLD": "¡Explora el mundo!",
+    "SAVED": "Viajes guardados",
+    "FLIXBUS": "Flixbus",
+    "SPARPREIS": "Sparpreis (DB)",
+    "ICEPORTAL": "ICEPortal",
+    "SIGHTSEEING": "Turismo",
+    "SCOOTER": "Scooters/Bicicletas"
+  },
+  "RESULT": {
+    "TITLE": "Búsqueda",
+    "FAILED": "Lo sentimos, no hay resultados para esta búsqueda",
+    "DETAILED": {
+      "SAVE_FINISHED": "Guardado completado",
+      "SAVE_FAILED": "Guardado fallido",
+      "CHANGE_TIME": "minutos de transferencia",
+      "LANE": "Tr.",
+      "ALERT": "Notificaciones",
+      "NO_ALERT": "Sin mensajes",
+      "STOPS": "Paradas intermedias"
+    }
+  },
+  "SAVED_TRIPS": {
+    "TITLE": "Viajes guardados",
+    "NO_TRIPS": "No hay viajes guardados",
+    "FROM": "Desde:",
+    "TO": "Hasta:",
+    "DETAILED": {
+      "REMOVE_FINISHED": "Eliminación completada",
+      "REMOVE_FAILED": "Eliminación fallida",
+      "CHANGE_TIME": "minutos de transferencia",
+      "LANE": "Tr.",
+      "ALERT": "Notificaciones",
+      "NO_ALERT": "Sin mensajes",
+      "STOPS": "Paradas intermedias"
+    }
+  },
+  "SEARCH": {
+    "START": "Inicio",
+    "END": "Fin",
+    "OPTIONS": "Opciones",
+    "SETTINGS": {
+      "ACCESSIBILITY": "Accesibilidad",
+      "FAST_TRAVEL": "Ruta más rápida",
+      "LONG_WALK": "Caminata más larga",
+      "VEHICLES": {
+        "TITLE": "Vehículos",
+        "HIGH_SPEED_TRAIN": "Tren de alta velocidad",
+        "REGIONAL_TRAIN": "Tren regional",
+        "SUBURBAN_TRAIN": "Tren suburbano",
+        "SUBWAY": "Metro",
+        "BUS": "Autobus",
+        "TRAM": "Tranvía",
+        "FERRY": "Ferry",
+        "ONDEMAND": "Bajo demanda"
+      }
+    }
+  },
+  "SETTINGS": {
+    "TITLE": "Configuración",
+    "EXPERIMENTAL": "Experimental",
+    "COUNTRY": {
+      "GERMANY": "Alemania",
+      "AUSTRIA": "Austria",
+      "BELGIUM": "Bélgica",
+      "SWITZERLAND": "Suiza",
+      "LUXEMBOURG": "Luxemburgo",
+      "DENMARK": "Dinamarca",
+      "GREAT_BRITAIN": "Gran Bretaña",
+      "USA_CALIFORNIA": "EEUU/ California",
+      "IRELAND": "Irlanda"
+    },
+    "DATA_SAVE": {
+      "TITLE": "Modo de guarado de datos",
+      "DESCRIPTION": "Sólo algunas sugreencias, resultados de búsqueda y mensajes de retrasos son cargados para reducir el consumo de datos."
+    },
+    "DARK_THEME": {
+      "TITLE": "Tema oscuro",
+      "DESCRIPTION": "Ahorra energía, especialmente con pantallas OLED y le gusta a mucho usuarios. Para hacer efectivo el cambio reinicia la apliación."
+    },
+    "ANALYTICS": {
+      "TITLE": "Firebase Analytics",
+      "DESCRIPTION": "Recolecta información anónima acerca del comportamiento de los usuarios que nos ayuda a mejorar nuestra app. Firebase Analytics es un servicio proporcionado por Google LLC."
+    },
+    "CRASHLYTICS": {
+      "TITLE": "Firebase Crashlytics",
+      "DESCRIPTION": "Recolecta fallos de la aplicación y nos los transmite para que podamos mejorar la app. Firebase Crashlytics es un servicio de Fabric.io (Alphabet Inc.)."
+    },
+    "SCOOTER": {
+      "TITLE": "Mostrar E-Scooters y bicicletas",
+      "DESCRIPTION": "Muestra e-scooters (TIER, Circ, Voi) en la página de inicio, y bicicletas de renta (Nextbike) en la página de inicio."
+    },
+    "LANGUAGE": {
+      "TITLE": "Cambiar idioma",
+      "DESCRIPTION": "Elige tu idioma preferido aquí."
+    },
+    "DATA_CHANGE": {
+      "TITLE": "Cambiar fuente de datos",
+      "DESCRIPTION": "Acá puedes seleccionar de qué asociación de tráfico vendrán los datos. Cuando se cambia la asociación de tránsito, varias características son desactivadas."
+    },
+    "PREVIEW": {
+      "TITLE": "Ver presentaión de nuevo",
+      "DESCRIPTION": "Mira la presentación mostrada al principio de nuevo."
+    },
+    "ABOUT": {
+      "TITLE": "Acerca de",
+      "DESCRIPTION": "Conoce a las personas que han dado lo mejor de sí para crear esta apliacación."
+    }
+  },
+  "SPARPREIS": {
+    "TITLE": "Precios económicos",
+    "START": "Inicio",
+    "END": "Fin",
+    "RESULT": {
+      "FAILED": "Lo sentimos, no hay resultados para esta búsqueda",
+      "FAILED_MESSAGE": "Ten en cuenta que la búsqueda funciona mejor con estaciones, no con paradas de autobus, porque no hay un precio económico para ellos."
+    }
+  },
+  "START": {
+    "TITLE_1": "Hola",
+    "TITLE_2": "¿Quiénes somos?",
+    "TITLE_3": "Nuestra declaración",
+    "TITLE_4": "Todo en una app",
+    "TITLE_5": "Diviértete",
+    "MESSAGE_1": "Bienvenido a The Public Transport. Para continuar, por favor desliza a la izquierda.",
+    "MESSAGE_2": "Somos The Public Transport. La plimera app de transporte público en Flutter. Pero no somos sólo una app.",
+    "MESSAGE_3": "Queremos cambiar el transporte público. ¡La era de los retrasos y la falta de fiabilidad debe terminar! Es por eso que estamos desarrollando esta aplicación, ¡y lo que tienes en tus manos es sólo el principo!",
+    "MESSAGE_4": "Nos gustaría integrar todos los medios de transporte en esta app, ¡Y lo haremos en tantos países como sea posible!",
+    "MESSAGE_5": "¡Por el transporte público unificado! Somos The Public Transport",
+    "POPUP_1": "Esta app ha sido publicada hace poco y probablemente tendrá algunos errores.",
+    "POPUP_2": "Te pedimos que nos reportes los errores para que podamos arreglarlos.",
+    "POPUP_3": "Nos gustaría agradecer a todos los testers y contribuyentes a The Public Transport. ¡Sin ustedes no estaríamos donde estamos hoy!"
+  },
+  "STATION": {
+    "TITLE": "Estación",
+    "STOP": "Parada",
+    "VEHICLES": "Vehículos",
+    "COORDINATES": "Coordenadas"
+  } ,
+  "VEHICLEMAP": {
+    "SEARCH": "Buscar por lugar...",
+    "OPTIONS": "Opciones",
+    "BIKE": "Bicicleta",
+    "BIKES": "Bicicletas"
+  }
+}
