@@ -525,8 +525,17 @@ class _SettingsState extends State<Settings> {
                   SizedBox(
                     height: 10,
                   ),
+                  generateListTile(
+                      "Oberösterreichischer Verkehrsverbund",
+                      'https://upload.wikimedia.org/wikipedia/commons/4/48/Ober%C3%B6sterreichischer_Verkehrsverbund_logo.svg',
+                      'OOEVV',
+                      context
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Text(
-                    allTranslations.text('SETTINGS.COUNTRY.GRAT_BRITAIN'),
+                    allTranslations.text('SETTINGS.COUNTRY.GREAT_BRITAIN'),
                     style: TextStyle(
                         fontFamily: 'NunitoSansBold',
                         color: Colors.grey
