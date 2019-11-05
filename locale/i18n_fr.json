@@ -1,0 +1,197 @@
+{
+  "GENERAL" : {
+    "OK": "Ok",
+    "CANCEL": "Annuler",
+    "OPEN": "Ouvrir",
+    "CLOSE": "Fermer",
+    "CONTINUE": "Continuer",
+    "MORE_INFO": "Plus d'informations"
+  },
+  "ABOUT": {
+    "TITLE": "A propos de",
+    "DEVS": "Nos développeurs :",
+    "INITIATOR": "Initiateur et développeur principal",
+    "DESIGN_HELP": "Conseils de conception",
+    "DEVOPS": "DevOps",
+    "THANKS_TO": "Grâce à :"
+  },
+  "ALTERNATIVE": {
+    "TITLE": "Alternative bon marché",
+    "SPARPREIS": {
+      "FAILED": "Désolé, cette recherche n'a donné aucun résultat",
+      "FAILED_MESSAGE": "Notez que la recherche fonctionne mieux avec les gares, pas avec les arrêts d'autobus, car il n'y a pas de prix économique pour eux."
+    },
+    "FLIXBUS": {
+      "FAILED": "Désolé, cette recherche n'a donné aucun résultat",
+      "FAILED_MESSAGE": "Il est possible qu'il n'y ait pas de ligne Flixbus pour votre voyage.",
+      "START": "Commencez: ",
+      "END": "Arrêtez: "
+    }
+  },
+  "FLIXBUS": {
+    "TITLE": "Flixbus",
+    "START": "Commencez",
+    "END": "Arrêtez",
+    "RESULT": {
+      "FAILED": "Désolé, cette recherche n'a donné aucun résultat",
+      "START": "Commencez: ",
+      "END": "Arrêtez: "
+    },
+    "RESULT_DETAILED": {
+      "CHANGE_TIME": "minutes de transfert",
+      "ALERT": "Notifications",
+      "NO_ALERT": "Aucun message"
+    }
+  },
+  "ICEPORTAL": {
+    "TITLE": "ICEPortal",
+    "FAILED": "Pas de connexion au portail ICEPortal",
+    "FAILED_MESSAGE": "Assurez-vous que vous êtes connecté au WLAN WifionICE et que vous utilisez son serveur DNS."
+  },
+  "NEARBY": {
+    "SEARCH": "Recherche par arrêt....",
+    "EXPLORE_WORLD": "Explorez le monde !",
+    "SAVED": "Voyages sauvegardés",
+    "FLIXBUS": "Flixbus",
+    "SPARPREIS": "Sparpreis (DB)",
+    "ICEPORTAL": "ICEPortal",
+    "SIGHTSEEING": "Visites touristiques",
+    "SCOOTER": "Scooter/Vélos"
+  },
+  "RESULT": {
+    "TITLE": "Rechercher",
+    "FAILED": "Désolé, cette recherche n'a donné aucun résultat",
+    "DETAILED": {
+      "SAVE_FINISHED": "Enregistrer terminé",
+      "SAVE_FAILED": "Enregistrer échec",
+      "CHANGE_TIME": "minutes de transfert",
+      "LANE": "Pi.",
+      "ALERT": "Notifications",
+      "NO_ALERT": "Aucun message",
+      "STOPS": "Arrêts intermédiaires"
+    }
+  },
+  "SAVED_TRIPS": {
+    "TITLE": "Voyages sauvegardés",
+    "NO_TRIPS": "Aucun voyage sauvegardé",
+    "FROM": "De:",
+    "TO": "Pour:",
+    "DETAILED": {
+      "REMOVE_FINISHED": "Supprimer terminé",
+      "REMOVE_FAILED": "Supprimer l'échec",
+      "CHANGE_TIME": "minutes de transfert",
+      "LANE": "Pi.",
+      "ALERT": "Notifications",
+      "NO_ALERT": "Aucun message",
+      "STOPS": "Arrêts intermédiaires"
+    }
+  },
+  "SEARCH": {
+    "START": "Début",
+    "END": "Fin",
+    "OPTIONS": "Possibilités",
+    "SETTINGS": {
+      "ACCESSIBILITY": "Accessibilité",
+      "FAST_TRAVEL": "Itinéraire le plus rapide",
+      "LONG_WALK": "Temps de marche plus long",
+      "VEHICLES": {
+        "TITLE": "Véhicules",
+        "HIGH_SPEED_TRAIN": "Train à grande vitesse",
+        "REGIONAL_TRAIN": "Train régional",
+        "SUBURBAN_TRAIN": "Train de banlieue",
+        "SUBWAY": "Métro",
+        "BUS": "Bus",
+        "TRAM": "Tramway",
+        "FERRY": "Ferry",
+        "ONDEMAND": "Sur demande"
+      }
+    }
+  },
+  "SETTINGS": {
+    "TITLE": "Réglages",
+    "EXPERIMENTAL": "Expérimental",
+    "COUNTRY": {
+      "GERMANY": "Allemagne",
+      "AUSTRIA": "Autriche",
+      "BELGIUM": "Belgique",
+      "SWITZERLAND": "Suisse",
+      "LUXEMBOURG": "Luxembourgeois",
+      "DENMARK": "Danemark",
+      "GREAT_BRITAIN": "Grande-Bretagne",
+      "USA_CALIFORNIA": "USA / Californie",
+      "IRELAND": "Irlande"
+    },
+    "DATA_SAVE": {
+      "TITLE": "Mode de sauvegarde des données",
+      "DESCRIPTION": "Seuls quelques suggestions, résultats de recherche et messages de retard sont chargés pour réduire la consommation de données."
+    },
+    "DARK_THEME": {
+      "TITLE": "Mode sombre",
+      "DESCRIPTION": "Économise de l'énergie, en particulier avec les écrans OLED et est esthétique pour les différents utilisateurs. Pour rendre les modifications effectives, redémarrez l'application."
+    },
+    "ANALYTICS": {
+      "TITLE": "Firebase Analytics",
+      "DESCRIPTION": "Recueille des informations anonymes sur le comportement des utilisateurs qui nous aident à améliorer notre application. Firebase Analytics est un service fourni par Google LLC."
+    },
+    "CRASHLYTICS": {
+      "TITLE": "Firebase Crashlytics",
+      "DESCRIPTION": "Collecte les plantages de l'application et nous les transmet pour que nous puissions améliorer l'application. Firebase Crashlytics est un service de Fabric.io (Alphabet Inc.)."
+    },
+    "SCOOTER": {
+      "TITLE": "Show E-Scooters et vélos",
+      "DESCRIPTION": "Affiche les e-scooters (TIER, Circ, Voi) sur la page d'accueil, et les vélos de location (Nextbike) sur la page d'accueil."
+    },
+    "LANGUAGE": {
+      "TITLE": "Changer la langue",
+      "DESCRIPTION": "Sélectionnez votre langue préférée ici."
+    },
+    "DATA_CHANGE": {
+      "TITLE": "Modifier la source des données",
+      "DESCRIPTION": "Ici, vous pouvez sélectionner de quelle association de trafic les données doivent provenir. Lors de la modification de l'association de trafic, diverses fonctions sont désactivées."
+    },
+    "PREVIEW": {
+      "TITLE": "Voir à nouveau l'aperçu",
+      "DESCRIPTION": "Jetez un autre coup d'œil à l'aperçu présenté au début."
+    },
+    "ABOUT": {
+      "TITLE": "A propos de",
+      "DESCRIPTION": "Apprenez à connaître les personnes qui ont donné le meilleur d'elles-mêmes pour créer cette application."
+    }
+  },
+  "SPARPREIS": {
+    "TITLE": "Sparpreis",
+    "START": "De",
+    "END": "Fin",
+    "RESULT": {
+      "FAILED": "Désolé, cette recherche n'a donné aucun résultat",
+      "FAILED_MESSAGE": "Notez que la recherche fonctionne mieux avec les gares, pas avec les arrêts d'autobus, car il n'y a pas de prix économique pour eux."
+    }
+  },
+  "START": {
+    "TITLE_1": "Bonjour",
+    "TITLE_2": "Qui sommes-nous ?",
+    "TITLE_3": "Notre revendication",
+    "TITLE_4": "Tout en une seule application",
+    "TITLE_5": "Amusez-vous bien",
+    "MESSAGE_1": "Bienvenue chez The Public Transport. Pour continuer, veuillez glisser vers la gauche.",
+    "MESSAGE_2": "Nous sommes The Public Transport. La première application pour les transports publics à Flutter. Mais nous ne sommes pas seulement une application.",
+    "MESSAGE_3": "Nous voulons changer les transports publics. L'ère des retards et du manque de fiabilité devrait enfin prendre fin ! C'est pourquoi nous construisons cette application, et ce que vous tenez dans vos mains n'est que le début !",
+    "MESSAGE_4": "Nous aimerions intégrer tous les moyens de transport dans cette application, et nous le ferons ! Dans le plus grand nombre de pays possible !",
+    "MESSAGE_5": "Pour des transports publics unis ! Nous sommes The Public Transport",
+    "POPUP_1": "Cette application vient juste de sortir, et contiendra probablement quelques bugs.",
+    "POPUP_2": "Nous vous demandons de nous signaler ces bogues pour que nous puissions les corriger.",
+    "POPUP_3": "Nous tenons à remercier tous les testeurs et contributeurs de The Public Transport. Sans vous, nous ne serions pas où nous en sommes aujourd'hui !"
+  },
+  "STATION": {
+    "TITLE": "Gare",
+    "STOP": "Fin",
+    "VEHICLES": "Véhicules",
+    "COORDINATES": "Coordonnées"
+  } ,
+  "VEHICLEMAP": {
+    "SEARCH": "Recherche par lieu.....",
+    "OPTIONS": "Possibilités",
+    "BIKE": "Vélo",
+    "BIKES": "Vélos"
+  }
+}

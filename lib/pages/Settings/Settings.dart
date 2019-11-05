@@ -746,6 +746,21 @@ class _SettingsState extends State<Settings> {
                       'es',
                       context
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    height: 2.0,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  generateLanguageTile(
+                      "Français (DeepL translated)",
+                      'https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg',
+                      'fr',
+                      context
+                  ),
                 ],
               ),
             ),
