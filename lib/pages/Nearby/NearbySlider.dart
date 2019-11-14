@@ -6,6 +6,7 @@ import 'package:thepublictransport_app/backend/service/nominatim/NominatimReques
 import 'package:thepublictransport_app/framework/language/GlobalTranslations.dart';
 import 'package:thepublictransport_app/framework/theme/ThemeEngine.dart';
 import 'package:thepublictransport_app/pages/Flixbus/FlixbusSearch.dart';
+import 'package:thepublictransport_app/pages/FridaysForFuture/FFFMap.dart';
 import 'package:thepublictransport_app/pages/ICEPortal/ICEPortal.dart';
 import 'package:thepublictransport_app/pages/SavedTrips/SavedTrips.dart';
 import 'package:thepublictransport_app/pages/Sparpreis/SparpreisSearch.dart';
@@ -195,6 +196,33 @@ class _NearbySliderState extends State<NearbySlider> {
                   ),
                   callback: () async {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => VehicleMap()));
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SelectionButtons(
+                  color: Colors.green,
+                  description: Text(
+                    "FFF-Demos",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: theme.textColor
+                    ),
+                  ),
+                  icon: Icon(
+                    MaterialCommunityIcons.tree,
+                    color: theme.titleColorInverted,
+                    size: 30,
+                  ),
+                  callback: () async {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => FFFMap()));
                   },
                 ),
               ],

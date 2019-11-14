@@ -35,7 +35,7 @@ class _NearbyState extends State<Nearby> {
             parallaxEnabled: true,
             parallaxOffset: 0.5,
             minHeight: MediaQuery.of(context).size.height * 0.34,
-            maxHeight: MediaQuery.of(context).size.height * 0.50,
+            maxHeight: MediaQuery.of(context).size.height * 0.60,
             borderRadius: radius,
             panel: Container(
                 decoration: BoxDecoration(
