@@ -31,7 +31,7 @@ class _FFFMapState extends State<FFFMap> {
   @override
   void initState() {
     super.initState();
-    _showMessage();
+    //_showMessage();
   }
 
   var theme = ThemeEngine.getCurrentTheme();
