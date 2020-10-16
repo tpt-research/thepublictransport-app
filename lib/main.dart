@@ -23,7 +23,7 @@ void main() async {
     FlutterError.onError = Crashlytics.instance.recordFlutterError;
   }
 
-  if (PrefService.getString('language') == null) {
+  if (!PrefService.getString('language')) {
     PrefService.setString('language', allTranslations.currentLanguage);
   }
 
@@ -93,7 +93,7 @@ class _BootState extends State<Boot> {
   }
 
   Widget getSplashRun() {
-    if (PrefService.getBool("firstrun") == null ? true : false || PrefService.getBool("firstrun") == false) {
+    if (!PrefService.getBool("firstrun")) {
       return Start();
     } else {
       return Home();
