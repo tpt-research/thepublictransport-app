@@ -1,3 +1,6 @@
+# Everything will be redone, for more information, follow issue: https://github.com/TrainieMobility/thepublictransport-app/issues/26
+
+
 # The Public Transport
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
