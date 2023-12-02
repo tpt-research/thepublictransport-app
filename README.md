@@ -1,4 +1,4 @@
-# Everything will be redone, for more information, follow issue: https://github.com/TrainieMobility/thepublictransport-app/issues/26
+# Discontinued project. If you wanna fork it and have some questions about, feel free to contact @PDesire
 
 
 # The Public Transport
